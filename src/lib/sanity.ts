@@ -84,30 +84,61 @@ export interface Business {
   featured?: boolean;
 }
 
-export async function getAllBusinesses(): Promise<Business[]> {
-  const query = `
-    *[_type == "business"] | order(name asc) {
-      _id,
-      name,
-      slug,
-      address,
-      phone,
-      website,
-      email,
-      description,
-      category,
-      logo,
-      hours,
-      featured
-    }
-  `;
+// Add these functions to your existing lib/sanity.ts file
 
-  return await client.fetch(query);
+export async function getAllBusinesses(options?: {
+  orderBy?: "nameAsc" | "featuredFirst";
+  category?: string;
+  limit?: number;
+}) {
+  const { orderBy = "nameAsc", category, limit } = options || {};
+
+  let query = `*[_type == "business"`;
+
+  // Add category filter if provided
+  if (category) {
+    query += ` && category == "${category}"`;
+  }
+
+  query += `] {
+    _id,
+    name,
+    slug,
+    address,
+    phone,
+    website,
+    email,
+    description,
+    category,
+    logo {
+      asset->{
+        _id,
+        url
+      },
+      alt
+    },
+    hours,
+    featured
+  }`;
+
+  // Add ordering
+  if (orderBy === "featuredFirst") {
+    query += ` | order(featured desc, name asc)`;
+  } else {
+    query += ` | order(name asc)`;
+  }
+
+  // Add limit if provided
+  if (limit) {
+    query += `[0...${limit}]`;
+  }
+
+  return client.fetch(query);
 }
 
-export async function getFeaturedBusinesses(): Promise<Business[]> {
-  const query = `
-    *[_type == "business" && featured == true] | order(name asc) {
+export async function getBusinessBySlug(slug: string) {
+  return client.fetch(
+    `*[_type == "business" && slug.current == $slug][0] {
       _id,
       name,
       slug,
@@ -117,57 +148,77 @@ export async function getFeaturedBusinesses(): Promise<Business[]> {
       email,
       description,
       category,
-      logo,
+      logo {
+        asset->{
+          _id,
+          url
+        },
+        alt
+      },
       hours,
       featured
-    }
-  `;
+    }`,
+    { slug }
+  );
+}
 
-  return await client.fetch(query);
+export async function getFeaturedBusinesses(limit?: number) {
+  let query = `*[_type == "business" && featured == true] {
+    _id,
+    name,
+    slug,
+    address,
+    phone,
+    website,
+    email,
+    description,
+    category,
+    logo {
+      asset->{
+        _id,
+        url
+      },
+      alt
+    },
+    hours,
+    featured
+  } | order(name asc)`;
+
+  if (limit) {
+    query += `[0...${limit}]`;
+  }
+
+  return client.fetch(query);
 }
 
 export async function getBusinessesByCategory(
-  category: string
-): Promise<Business[]> {
-  const query = `
-    *[_type == "business" && category == $category] | order(name asc) {
-      _id,
-      name,
-      slug,
-      address,
-      phone,
-      website,
-      email,
-      description,
-      category,
-      logo,
-      hours,
-      featured
-    }
-  `;
+  category: string,
+  limit?: number
+) {
+  let query = `*[_type == "business" && category == $category] {
+    _id,
+    name,
+    slug,
+    address,
+    phone,
+    website,
+    email,
+    description,
+    category,
+    logo {
+      asset->{
+        _id,
+        url
+      },
+      alt
+    },
+    hours,
+    featured
+  } | order(featured desc, name asc)`;
 
-  return await client.fetch(query, { category });
-}
+  if (limit) {
+    query += `[0...${limit}]`;
+  }
 
-export async function getBusinessBySlug(
-  slug: string
-): Promise<Business | null> {
-  const query = `
-    *[_type == "business" && slug.current == $slug][0] {
-      _id,
-      name,
-      slug,
-      address,
-      phone,
-      website,
-      email,
-      description,
-      category,
-      logo,
-      hours,
-      featured
-    }
-  `;
-
-  return await client.fetch(query, { slug });
+  return client.fetch(query, { category });
 }
