@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/Button";
 import { Phone, Mail, MapPin, Building2 } from "lucide-react";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -16,7 +16,9 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -24,9 +26,8 @@ export default function ContactPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission here
     console.log("Form submitted:", formData);
   };
 
@@ -118,7 +119,7 @@ export default function ContactPage() {
               Fill up the form below to send us a message.
             </p>
 
-            <div className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label
@@ -233,10 +234,10 @@ export default function ContactPage() {
                 />
               </div>
 
-              <Button type="button" onClick={handleSubmit} className="w-full">
+              <Button type="submit" className="w-full">
                 Send Message
               </Button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
