@@ -38,7 +38,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold">
             <Image
-              src="/Argyle.png"
+              src="/argyle.png"
               alt="Argyle Home"
               width={100}
               height={100}
