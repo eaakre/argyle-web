@@ -11,11 +11,11 @@
   --text-hover: #1c1c1c;
 
   /* Accent */
-  --accent: #661b1b;
+  --accent: #6b1f2d;
 
-  --bg-footer: #000;
-  --footer-text: #d1d1d1;
-  --footer-text-secondary: #ffffff;
+  --bg-footer: #daa520;
+  --footer-text: #171717;
+  --footer-text-secondary: #1d1d1d;
 }
 
 @theme inline {

@@ -17,6 +17,7 @@ type HeroProps = {
   fullWidth?: boolean;
   ctas?: CTA[];
   align?: "left" | "center" | "right";
+  isHomepage?: boolean;
 };
 
 export function Hero({
@@ -28,6 +29,7 @@ export function Hero({
   backgroundColor = "#111827", // default bg-gray-900
   ctas = [],
   align = "center",
+  isHomepage = false,
 }: HeroProps) {
   const alignClass = {
     left: "items-start text-left",
@@ -37,6 +39,84 @@ export function Hero({
 
   return (
     <section className="relative w-full h-[60vh] flex items-center justify-center overflow-hidden">
+      {/* Homepage Decorative Border */}
+      {isHomepage && (
+        <>
+          {/* Top Left Corner */}
+          <div
+            className="absolute top-0 left-0 w-32 h-32 z-30"
+            style={{
+              background: "#6B1F2D",
+              clipPath: "polygon(0 0, 100% 0, 0 100%)",
+            }}
+          />
+
+          {/* Top Right Corner */}
+          <div
+            className="absolute top-0 right-0 w-32 h-32 z-30"
+            style={{
+              background: "#DAA520",
+              clipPath: "polygon(0 0, 100% 0, 100% 100%)",
+            }}
+          />
+
+          {/* Bottom Left Corner */}
+          <div
+            className="absolute bottom-0 left-0 w-32 h-32 z-30"
+            style={{
+              background: "#DAA520",
+              clipPath: "polygon(0 0, 100% 100%, 0 100%)",
+            }}
+          />
+
+          {/* Bottom Right Corner */}
+          <div
+            className="absolute bottom-0 right-0 w-32 h-32 z-30"
+            style={{
+              background: "#6B1F2D",
+              clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
+            }}
+          />
+
+          {/* Optional: Add smaller inner triangles for layered effect */}
+          <div
+            className="absolute top-0 left-0 w-24 h-24 z-40"
+            style={{
+              background: "#DAA520",
+              clipPath: "polygon(0 0, 100% 0, 0 100%)",
+              transform: "translate(8px, 8px)",
+            }}
+          />
+
+          <div
+            className="absolute top-0 right-0 w-24 h-24 z-40"
+            style={{
+              background: "#6B1F2D",
+              clipPath: "polygon(0 0, 100% 0, 100% 100%)",
+              transform: "translate(-8px, 8px)",
+            }}
+          />
+
+          <div
+            className="absolute bottom-0 left-0 w-24 h-24 z-40"
+            style={{
+              background: "#6B1F2D",
+              clipPath: "polygon(0 0, 100% 100%, 0 100%)",
+              transform: "translate(8px, -8px)",
+            }}
+          />
+
+          <div
+            className="absolute bottom-0 right-0 w-24 h-24 z-40"
+            style={{
+              background: "#DAA520",
+              clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
+              transform: "translate(-8px, -8px)",
+            }}
+          />
+        </>
+      )}
+
       {/* Backgrounds */}
       {backgroundType === "image" && backgroundImage && (
         <Image

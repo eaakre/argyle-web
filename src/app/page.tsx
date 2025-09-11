@@ -32,7 +32,7 @@ export default async function HomePage() {
       {homepage.contentSlots?.map((slot: PageContentSlot, index: number) => {
         switch (slot._type) {
           case "hero":
-            return <Hero key={index} {...slot} />;
+            return <Hero key={index} {...slot} isHomepage={true} />;
           case "gallery":
             return <Gallery key={index} {...slot} />;
           case "googleMap":

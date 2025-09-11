@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, ChevronRight, ChevronDown } from "lucide-react";
 import Drawer from "./ui/Drawer";
 import { navLinks, NavLink } from "../types/navLink";
+import Image from "next/image";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,14 +30,20 @@ export function Header() {
   return (
     <>
       <nav
-        className={`bg-bg-primary sticky top-0 z-50 md:px-20 transition-transform duration-500 ${
+        className={`bg-bg-primary sticky top-0 z-50 transition-transform duration-500 ${
           hidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 flex items-center justify-between relative">
+        <div className="max-w-6xl md:px-20 mx-auto px-4 flex items-center justify-between relative">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold py-8">
-            City of Argyle, MN
+          <Link href="/" className="text-2xl font-bold">
+            <Image
+              src="/Argyle.png"
+              alt="Argyle Home"
+              width={100}
+              height={100}
+              className="w-[100px] md:w-[100px] object-contain"
+            />
           </Link>
 
           {/* Desktop Links */}
@@ -50,11 +57,13 @@ export function Header() {
             aria-label="Open Navigation Menu"
             onClick={() => setIsOpen(true)}
           >
-            <Menu />
+            <Menu width={40} height={40} className="text-accent" />
           </button>
         </div>
+        <div className="bg-accent w-full h-10"></div>
       </nav>
-      <div className="h-px bg-gradient-to-r from-transparent via-secondary-foreground/20 to-transparent"></div>
+
+      <div className="h-0 bg-gradient-to-r from-transparent via-secondary-foreground/20 to-transparent"></div>
 
       {/* Mobile Drawer */}
       <Drawer

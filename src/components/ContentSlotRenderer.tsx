@@ -10,7 +10,7 @@ type ContentSlotsRendererProps = {
 
 export function ContentSlotsRenderer({
   contentSlots,
-  className = "space-y-8 pb-10",
+  className = "pb-10",
 }: ContentSlotsRendererProps) {
   if (!contentSlots?.length) return null;
 

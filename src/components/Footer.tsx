@@ -48,8 +48,22 @@ export function Footer() {
   ];
 
   return (
-    <footer className="">
-      <div className="max-w-6xl mx-auto px-4 py-12 md:px-20">
+    <footer className="relative overflow-hidden">
+      {/* Argyle Pattern Background */}
+      <div
+        className="absolute inset-0 opacity-2"
+        style={{
+          backgroundImage: `
+            conic-gradient(from 90deg at 50% 50%, transparent 45deg, #FFFFFF 45deg, #FFFFFF 135deg, #DAA520 135deg, #DAA520 225deg, #6B1F2D 225deg, #6B1F2D 315deg, transparent 315deg),
+            linear-gradient(45deg, transparent 48%, rgba(139, 69, 19, 0.3) 49%, rgba(139, 69, 19, 0.3) 51%, transparent 52%),
+            linear-gradient(-45deg, transparent 48%, rgba(139, 69, 19, 0.3) 49%, rgba(139, 69, 19, 0.3) 51%, transparent 52%)
+          `,
+          backgroundSize: "80px 80px, 80px 80px, 80px 80px",
+          backgroundPosition: "0 0, 0 0, 0 0",
+        }}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 py-12 md:px-20">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* City Information */}
