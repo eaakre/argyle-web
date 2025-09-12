@@ -35,7 +35,7 @@ export function Footer() {
       label: "Community Foundation",
       href: "/organizations/community-foundation",
     },
-    { label: "Fire Department", href: "/organizations/fire-department" },
+    { label: "Fire Department", href: "/organizations/argyle-fire-department" },
     { label: "Historical Society", href: "/organizations/historical-society" },
     { label: "H.O.P.E. Program", href: "/organizations/hope-program" },
     { label: "Argyle Lions", href: "/organizations/lions" },
