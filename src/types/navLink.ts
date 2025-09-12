@@ -40,14 +40,17 @@ export const navLinks: NavLink[] = [
   {
     label: "Organizations",
     children: [
-      {
+      /*
+{
         label: "Argyle Area Community Foundation",
         href: "/organizations/community-foundation",
       },
+*/
       {
         label: "Argyle Fire Department",
         href: "/organizations/argyle-fire-department",
       },
+/*
       {
         label: "Argyle Historical Society",
         href: "/organizations/historical-society",
@@ -57,6 +60,7 @@ export const navLinks: NavLink[] = [
         href: "/organizations/hope-program",
       },
       { label: "Argyle Lions", href: "/organizations/lions" },
+*/
     ],
   },
   {
