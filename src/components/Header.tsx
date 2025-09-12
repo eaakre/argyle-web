@@ -38,11 +38,11 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold">
             <Image
-              src="/argyle.png"
+              src="/logo.png"
               alt="Argyle Home"
               width={100}
               height={100}
-              className="w-[100px] md:w-[100px] object-contain"
+              className="w-[100px] md:w-[100px] object-contain logo-image"
             />
           </Link>
 
@@ -57,10 +57,12 @@ export function Header() {
             aria-label="Open Navigation Menu"
             onClick={() => setIsOpen(true)}
           >
-            <Menu width={40} height={40} className="text-accent" />
+            <Menu width={40} height={40} className="cursor-pointer" />
           </button>
         </div>
-        <div className="bg-accent w-full h-10"></div>
+        <div className="bg-secondary w-full h-2"></div>
+
+        <div className="bg-primary w-full h-4"></div>
       </nav>
 
       <div className="h-0 bg-gradient-to-r from-transparent via-secondary-foreground/20 to-transparent"></div>
@@ -155,7 +157,7 @@ function NavLinks({
               {/* Desktop Dropdown */}
               {desktop && openDropdown === link.label && (
                 <div
-                  className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-xl rounded-lg border border-gray-200 z-50 min-w-[200px] w-max"
+                  className="absolute text-black top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-xl rounded-lg border border-gray-200 z-50 min-w-[200px] w-max"
                   onMouseEnter={handleDropdownMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >

@@ -59,8 +59,8 @@ export const navLinks: NavLink[] = [
     label: "Contact Us",
     href: "/contact",
   },
-  {
-    label: "Photo Galleries",
-    href: "/photos",
-  },
+  // {
+  //   label: "Photo Galleries",
+  //   href: "/photos",
+  // },
 ];

@@ -24,7 +24,7 @@ export async function BusinessesSection({
 
   if (!businesses || businesses.length === 0) {
     return (
-      <section className={`py-12 ${className}`}>
+      <section className={className}>
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8 text-center">{title}</h2>
           <p className="text-center">No businesses found at the moment.</p>

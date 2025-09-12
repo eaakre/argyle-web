@@ -42,76 +42,18 @@ export function Hero({
       {/* Homepage Decorative Border */}
       {isHomepage && (
         <>
-          {/* Top Left Corner */}
           <div
-            className="absolute top-0 left-0 w-32 h-32 z-30"
+            className="absolute top-0 left-0 w-16 md:w-32 h-16 md:h-32 z-30"
             style={{
-              background: "#6B1F2D",
-              clipPath: "polygon(0 0, 100% 0, 0 100%)",
+              background: "#6B1F2Dab",
+              clipPath: "polygon(0 0, 100% 0, 100% 0, 0 100%)",
             }}
           />
-
-          {/* Top Right Corner */}
           <div
-            className="absolute top-0 right-0 w-32 h-32 z-30"
+            className="absolute bottom-0 right-0 w-16 md:w-32 h-16 md:h-32 z-30"
             style={{
-              background: "#DAA520",
-              clipPath: "polygon(0 0, 100% 0, 100% 100%)",
-            }}
-          />
-
-          {/* Bottom Left Corner */}
-          <div
-            className="absolute bottom-0 left-0 w-32 h-32 z-30"
-            style={{
-              background: "#DAA520",
-              clipPath: "polygon(0 0, 100% 100%, 0 100%)",
-            }}
-          />
-
-          {/* Bottom Right Corner */}
-          <div
-            className="absolute bottom-0 right-0 w-32 h-32 z-30"
-            style={{
-              background: "#6B1F2D",
-              clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
-            }}
-          />
-
-          {/* Optional: Add smaller inner triangles for layered effect */}
-          <div
-            className="absolute top-0 left-0 w-24 h-24 z-40"
-            style={{
-              background: "#DAA520",
-              clipPath: "polygon(0 0, 100% 0, 0 100%)",
-              transform: "translate(8px, 8px)",
-            }}
-          />
-
-          <div
-            className="absolute top-0 right-0 w-24 h-24 z-40"
-            style={{
-              background: "#6B1F2D",
-              clipPath: "polygon(0 0, 100% 0, 100% 100%)",
-              transform: "translate(-8px, 8px)",
-            }}
-          />
-
-          <div
-            className="absolute bottom-0 left-0 w-24 h-24 z-40"
-            style={{
-              background: "#6B1F2D",
-              clipPath: "polygon(0 0, 100% 100%, 0 100%)",
-              transform: "translate(8px, -8px)",
-            }}
-          />
-
-          <div
-            className="absolute bottom-0 right-0 w-24 h-24 z-40"
-            style={{
-              background: "#DAA520",
-              clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
-              transform: "translate(-8px, -8px)",
+              background: "#daa520ab",
+              clipPath: "polygon(0 100%, 100% 0, 100% 100%, 0 100%)",
             }}
           />
         </>

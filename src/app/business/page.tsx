@@ -31,7 +31,7 @@ export default async function Page() {
       <BusinessesSection
         title="Local Businesses"
         showFeaturedFirst={true}
-        className="bg-bg-secondary"
+        className="bg-bg-secondary mt-0"
       />
     </>
   );

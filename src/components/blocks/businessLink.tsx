@@ -13,7 +13,7 @@ export function BusinessLink({ business, className = "" }: BusinessLinkProps) {
   return (
     <Link
       href={`/business/${business.slug?.current}`}
-      className={`group block bg-bg-primary rounded-lg shadow-sm border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-200 overflow-hidden ${className}`}
+      className={`group block bg-bg-primary rounded-sm shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${className}`}
     >
       <div className="p-6">
         {/* Logo Section */}
@@ -31,7 +31,7 @@ export function BusinessLink({ business, className = "" }: BusinessLinkProps) {
         )}
 
         {/* Business Name */}
-        <h3 className="text-lg font-semibold group-hover:text-blue-600 transition-colors mb-2">
+        <h3 className="text-lg font-semibold group-hover:text-text-secondary transition-colors mb-2">
           {business.name}
         </h3>
 
@@ -65,7 +65,7 @@ export function BusinessLink({ business, className = "" }: BusinessLinkProps) {
         {/* Featured Badge */}
         {business.featured && (
           <div className="mt-3">
-            <span className="inline-block px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
+            <span className="inline-block px-2 py-1 text-xs font-medium bg-secondary text-black rounded-full">
               Featured
             </span>
           </div>

@@ -49,6 +49,9 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden">
+      <div className="bg-secondary w-full h-2"></div>
+      <div className="bg-primary w-full h-4"></div>
+
       {/* Argyle Pattern Background */}
       <div
         className="absolute inset-0 opacity-2"
