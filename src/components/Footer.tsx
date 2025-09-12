@@ -45,8 +45,8 @@ export function Footer() {
 /*
     { label: "Fire Emergency", phone: "911" },
     { label: "Non-Emergency", phone: "(218) 437-6621" },
-    { label: "City Hall", phone: "(218) 437-6621" },
 */
+    { label: "City Hall", phone: "(218) 437-6621" },
   ];
 
   return (
