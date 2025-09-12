@@ -12,14 +12,18 @@ export const navLinks: NavLink[] = [
   {
     label: "City Services",
     children: [
-      { label: "City Office", href: "/city-services/city-office" },
+      /*
+{ label: "City Office", href: "/city-services/city-office" },
       { label: "City Council", href: "/city-services/city-council" },
+*/
       { label: "History of Argyle", href: "/city-services/history" },
+/*
       {
         label: "Cable TV / Telephone Service",
         href: "/city-services/cable-telephone",
       },
       { label: "Internet Service", href: "/city-services/internet" },
+*/
     ],
   },
   {
