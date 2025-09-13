@@ -42,7 +42,7 @@ export const navLinks: NavLink[] = [
     children: [
 {
         label: "Argyle Area Community Foundation",
-        href: "/organizations/community-foundation",
+        href: "/organizations/argyle-area-community-foundation",
       },
       {
         label: "Argyle Fire Department",
