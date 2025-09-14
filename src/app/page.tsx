@@ -27,7 +27,10 @@ export default async function HomePage() {
   return (
     <>
       {homepage.heading && <h1 className="sr-only">{homepage.heading}</h1>}
-      <ContentSlotsRenderer contentSlots={homepage.contentSlots} />
+      <ContentSlotsRenderer
+        contentSlots={homepage.contentSlots}
+        isHomepage={true}
+      />
     </>
   );
 }

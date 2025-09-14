@@ -6,8 +6,13 @@ import { Menu, ChevronRight, ChevronDown } from "lucide-react";
 import Drawer from "./ui/Drawer";
 import { navLinks, NavLink } from "../types/navLink";
 import Image from "next/image";
+import AnnouncementBar, { Announcement } from "./ui/AnnouncementBar";
 
-export function Header() {
+type Props = {
+  announcements?: Announcement[];
+};
+
+export function Header({ announcements = [] }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -60,7 +65,14 @@ export function Header() {
             <Menu width={40} height={40} className="cursor-pointer" />
           </button>
         </div>
-        <div className="bg-secondary w-full h-2"></div>
+
+        {announcements && announcements.length ? (
+          <div className="bg-secondary w-full h-10">
+            <AnnouncementBar announcements={announcements} />
+          </div>
+        ) : (
+          <div className="bg-secondary w-full h-2"></div>
+        )}
 
         <div className="bg-primary w-full h-4"></div>
       </nav>

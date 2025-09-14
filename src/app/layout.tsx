@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getAnnouncements } from "@/lib/sanity";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,17 +20,19 @@ export const metadata: Metadata = {
   description: "The Home in Hometown",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const announcements = await getAnnouncements(true);
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
+        <Header announcements={announcements} />
         <div className="min-h-[100vh]">{children}</div>
         <Footer />
       </body>

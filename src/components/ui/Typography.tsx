@@ -100,7 +100,7 @@ export function Typography({
     variantStyles[variant],
     shouldApplyColorStyles && colorStyles[color],
     center && "text-center",
-    noMargin && "mb-0",
+    noMargin && "!mb-0",
     className,
   ]
     .filter(Boolean)

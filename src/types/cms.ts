@@ -62,6 +62,21 @@ export interface EmblaGalleryProps {
   images?: GalleryItem[];
 }
 
+export type Announcement = {
+  title: string;
+  isActive?: boolean;
+  startDate?: string;
+  endDate?: string;
+  link?: string;
+  linkText?: string;
+  slug?: string;
+  icon?: "info" | "alert" | "calendar" | "construction" | "emergency";
+};
+
+export type AnnouncementBarProps = {
+  announcements?: Announcement[];
+};
+
 export type PageContentSlot =
   | {
       _type: "hero";

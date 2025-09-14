@@ -7,21 +7,22 @@ import { GoogleMap } from "./blocks/google-map";
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
   className?: string;
+  isHomepage?: boolean;
 };
 
 export function ContentSlotsRenderer({
   contentSlots,
   className = "",
+  isHomepage = false,
 }: ContentSlotsRendererProps) {
   if (!contentSlots?.length) return null;
 
   return (
     <section className={className}>
       {contentSlots.map((slot: PageContentSlot, index: number) => {
-        console.log({ slot });
         switch (slot._type) {
           case "hero":
-            return <Hero key={index} {...slot} />;
+            return <Hero key={index} {...slot} isHomepage={isHomepage} />;
           case "gallery":
             return <EmblaGallery key={index} {...slot} />;
           case "textBlock":

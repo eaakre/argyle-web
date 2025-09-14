@@ -222,3 +222,23 @@ export async function getBusinessesByCategory(
 
   return client.fetch(query, { category });
 }
+
+export async function getAnnouncements(isActive: boolean, limit?: number) {
+  let query = `*[_type == "announcement" && isActive == $isActive] {
+    _id,
+    title,
+    isActive,
+    startDate,
+    endDate,
+    link,
+    linkText,
+    icon,
+    slug,
+  }`;
+
+  if (limit) {
+    query += `[0...${limit}]`;
+  }
+
+  return client.fetch(query, { isActive });
+}
