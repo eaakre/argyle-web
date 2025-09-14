@@ -46,11 +46,11 @@ const portableTextComponents: Partial<PortableTextReactComponents> = {
       return (
         <div className="my-8">
           <Image
-            src={urlForImage(value).width(800).height(600).url()}
+            src={urlForImage(value).url()}
             alt={value?.alt || ""}
             width={800}
             height={600}
-            className="rounded-lg shadow-lg mx-auto"
+            className="rounded-lg shadow-lg mx-auto w-full object-contain"
           />
           {value?.caption && (
             <p className="text-sm text-gray-600 text-center mt-2 italic">
@@ -130,7 +130,7 @@ export function TextBlock({
   layout = "single",
   align = "left",
   maxWidth = "max-w-4xl",
-  padding = "py-",
+  padding = "py-4",
   ctas = [],
 }: TextBlockProps) {
   const alignClass = {
@@ -204,7 +204,7 @@ export function TextBlock({
               <div className="sticky top-8">
                 {/* Sidebar content could go here */}
                 <div className="text-sm text-gray-600">
-                  <p>Related information or navigation could go here</p>
+                  {/* <p>Related information or navigation could go here</p> */}
                 </div>
               </div>
             </div>

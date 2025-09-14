@@ -1,7 +1,7 @@
 import { Hero } from "@/components/blocks/hero";
-import { Gallery } from "@/components/blocks/gallery";
 import { TextBlock } from "@/components/blocks/textBlock";
 import { PageContentSlot } from "@/types/cms";
+import EmblaGallery from "./blocks/emblaGallery";
 
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
@@ -17,11 +17,12 @@ export function ContentSlotsRenderer({
   return (
     <section className={className}>
       {contentSlots.map((slot: PageContentSlot, index: number) => {
+        console.log({ slot });
         switch (slot._type) {
           case "hero":
             return <Hero key={index} {...slot} />;
           case "gallery":
-            return <Gallery key={index} {...slot} />;
+            return <EmblaGallery key={index} {...slot} />;
           case "textBlock":
             return <TextBlock key={index} {...slot} />;
           default:

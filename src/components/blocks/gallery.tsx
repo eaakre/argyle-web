@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { urlForImage } from "@/lib/sanity";
-import { ImageSlider } from "../ui/image-slider";
+import { ImageSlider } from "@/components/ui/image-slider";
 
 type GalleryProps = {
   title?: string;

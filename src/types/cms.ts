@@ -29,6 +29,7 @@ export type SanityImage = {
   _key?: string;
   alt?: string;
   url?: string;
+  caption?: string;
 };
 
 export type InfoItemProps = {
@@ -38,6 +39,28 @@ export type InfoItemProps = {
   ctas?: CTA[];
   index?: number;
 };
+
+export interface GalleryItem {
+  _type: "galleryImage" | "galleryVideo";
+  image?: {
+    asset: {
+      _ref?: string;
+      _type?: string;
+    };
+    caption?: string;
+    _key?: string;
+    alt?: string;
+  };
+  caption?: string;
+  _key?: string;
+  alt?: string;
+  url?: string;
+}
+
+export interface EmblaGalleryProps {
+  title?: string;
+  images?: GalleryItem[];
+}
 
 export type PageContentSlot =
   | {
@@ -57,14 +80,7 @@ export type PageContentSlot =
       _type: "gallery";
       _key: string;
       title?: string;
-      images?: Array<{
-        _key: string;
-        asset: {
-          _ref?: string;
-          _type?: string;
-        };
-        alt?: string;
-      }>;
+      images?: GalleryItem[];
     }
   | {
       _type: "textBlock";

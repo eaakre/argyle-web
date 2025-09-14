@@ -10,7 +10,7 @@ export function GoogleMap({ address, height = 600 }: GoogleMapProps) {
   const src = `https://www.google.com/maps?q=${encoded}&output=embed`;
 
   return (
-    <div className="flex w-full justify-center py-4">
+    <div className="flex w-full justify-center px-6 py-4">
       <div
         className="w-full overflow-hidden rounded-md shadow max-w-screen-xl"
         style={{ height }}

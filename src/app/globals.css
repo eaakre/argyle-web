@@ -19,6 +19,10 @@
   --bg-footer: #daa520;
   --footer-text: #2c020b;
   --footer-text-secondary: #38040f;
+  --button-primary: #6b1f2d;
+  --button-secondary: #daa520;
+  --button-text: #f1f1f1;
+  --button-text-secondary: #6b1f2d;
 }
 
 @theme inline {
@@ -36,6 +40,11 @@
   --color-bg-footer: var(--bg-footer);
   --color-footer-text: var(--footer-text);
   --color-footer-text-secondary: var(--footer-text-secondary);
+
+  --color-button-primary: var(--button-primary);
+  --color-button-secondary: var(--button-secondary);
+  --color-button-text: var(--button-text);
+  --color-button-text-secondary: var(--button-text-secondary);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -60,6 +69,10 @@
     --bg-footer: #2c020b;
     --footer-text: #ffc532;
     --footer-text-secondary: #daa520;
+    --button-primary: #daa520;
+    --button-secondary: #f1f1f1;
+    --button-text: #6b1f2d;
+    --button-text-secondary: #6b1f2d;
   }
   .logo-image {
     content: url("/dark-logo.png");

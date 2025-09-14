@@ -3,8 +3,10 @@
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/Button";
+import { Typography } from "@/components/ui/Typography";
 import { Phone, Mail, MapPin, Building2 } from "lucide-react";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { Dropdown } from "@/components/ui/Dropdown";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -35,32 +37,44 @@ export default function ContactPage() {
     <div className="flex p-6 md:p-10 justify-center min-h-screen bg-muted px-4">
       <div className="w-full max-w-6xl">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold">Contact Us</h1>
-          <p className="text-muted-foreground mt-2 text-lg">
+          <Typography variant="h1" center>
+            Contact Us
+          </Typography>
+          <Typography variant="lead" color="muted" center noMargin>
             Get in touch with the City of Argyle
-          </p>
+          </Typography>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Contact Information */}
           <div className="bg-bg-secondary rounded-md shadow-md p-6 md:p-8">
-            <h2 className="text-2xl font-semibold mb-6">Contact Information</h2>
+            <Typography variant="h2">Contact Information</Typography>
 
             <div className="space-y-6">
               {/* City Hall */}
               <div className="flex items-start space-x-3">
                 <Building2 className="w-5 h-5 mt-1 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-medium text-lg">City Hall</h3>
+                  <Typography variant="h5" noMargin>
+                    City Hall
+                  </Typography>
                   <div className="text-muted-foreground mt-1">
                     <div className="flex items-center space-x-2 mb-1">
                       <MapPin className="w-4 h-4" />
-                      <span>Box 288, 701 Pacific Avenue</span>
+                      <Typography variant="small" color="muted" noMargin>
+                        Box 288, 701 Pacific Avenue
+                      </Typography>
                     </div>
-                    <div className="ml-6">Argyle, MN 56713</div>
+                    <div className="ml-6">
+                      <Typography variant="small" color="muted" noMargin>
+                        Argyle, MN 56713
+                      </Typography>
+                    </div>
                     <div className="flex items-center space-x-2 mt-2">
                       <Phone className="w-4 h-4" />
-                      <span>218-437-6621 (Phone/Fax)</span>
+                      <Typography variant="small" color="muted" noMargin>
+                        218-437-6621 (Phone/Fax)
+                      </Typography>
                     </div>
                     <div className="flex items-center space-x-2 mt-1">
                       <Mail className="w-4 h-4" />
@@ -68,7 +82,9 @@ export default function ContactPage() {
                         href="mailto:argyle@wiktel.com"
                         className="text-primary hover:underline"
                       >
-                        argyle@wiktel.com
+                        <Typography variant="small" color="muted" noMargin>
+                          argyle@wiktel.com
+                        </Typography>
                       </a>
                     </div>
                   </div>
@@ -79,15 +95,21 @@ export default function ContactPage() {
               <div className="flex items-start space-x-3">
                 <Building2 className="w-5 h-5 mt-1 text-primary flex-shrink-0" />
                 <div>
-                  <h3 className="font-medium text-lg">City Shop</h3>
+                  <Typography variant="h5" noMargin>
+                    City Shop
+                  </Typography>
                   <div className="text-muted-foreground mt-1">
                     <div className="flex items-center space-x-2 mb-1">
                       <MapPin className="w-4 h-4" />
-                      <span>106 East 2nd Street</span>
+                      <Typography variant="small" color="muted" noMargin>
+                        106 East 2nd Street
+                      </Typography>
                     </div>
                     <div className="flex items-center space-x-2 mt-2">
                       <Phone className="w-4 h-4" />
-                      <span>218-437-6689</span>
+                      <Typography variant="small" color="muted" noMargin>
+                        218-437-6689
+                      </Typography>
                     </div>
                     <div className="flex items-center space-x-2 mt-1">
                       <Mail className="w-4 h-4" />
@@ -95,7 +117,9 @@ export default function ContactPage() {
                         href="mailto:argyleshop@wiktel.com"
                         className="text-primary hover:underline"
                       >
-                        argyleshop@wiktel.com
+                        <Typography variant="small" color="muted" noMargin>
+                          argyleshop@wiktel.com
+                        </Typography>
                       </a>
                     </div>
                   </div>
@@ -104,20 +128,22 @@ export default function ContactPage() {
             </div>
 
             <div className="mt-8 p-4 bg-muted rounded-lg">
-              <h3 className="font-medium mb-2">Office Hours</h3>
-              <p className="text-sm text-muted-foreground">
+              <Typography variant="h6" noMargin className="mb-2">
+                Office Hours
+              </Typography>
+              <Typography variant="small" color="muted" noMargin>
                 Please call ahead to confirm availability or to schedule an
                 appointment.
-              </p>
+              </Typography>
             </div>
           </div>
 
           {/* Contact Form */}
           <div className="bg-bg-secondary rounded-md shadow-md p-6 md:p-8">
-            <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
-            <p className="text-muted-foreground mb-6">
+            <Typography variant="h2">Send us a Message</Typography>
+            <Typography variant="p" color="muted">
               Fill up the form below to send us a message.
-            </p>
+            </Typography>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
@@ -198,12 +224,11 @@ export default function ContactPage() {
                 >
                   Subject
                 </label>
-                <select
+                <Dropdown
                   id="subject"
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-input bg-background rounded-md text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                   required
                 >
                   <option value="">Select a topic</option>
@@ -213,7 +238,7 @@ export default function ContactPage() {
                   <option value="public-works">Public Works</option>
                   <option value="city-services">City Services</option>
                   <option value="other">Other</option>
-                </select>
+                </Dropdown>
               </div>
 
               <div>
@@ -234,7 +259,7 @@ export default function ContactPage() {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" variant="default" className="w-full">
                 Send Message
               </Button>
             </form>
