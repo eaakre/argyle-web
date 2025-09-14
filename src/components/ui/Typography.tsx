@@ -42,16 +42,16 @@ const variantStyles: Record<TypographyVariant, string> = {
   h4: "text-xl md:text-2xl font-semibold leading-snug mb-2",
   h5: "text-lg md:text-xl font-medium leading-normal mb-2",
   h6: "text-base md:text-lg font-medium leading-normal mb-2",
-  p: "text-base leading-relaxed mb-4",
-  lead: "text-lg md:text-xl leading-relaxed mb-4",
-  large: "text-lg font-medium",
-  small: "text-sm",
-  muted: "text-sm",
-  blockquote: "text-lg italic border-l-4 border-primary pl-4 my-4",
+  p: "text-base leading-relaxed mb-4 font-lato",
+  lead: "text-lg md:text-xl leading-relaxed mb-4 font-lato",
+  large: "text-lg font-medium font-lato",
+  small: "text-xs md:text-sm font-lato",
+  muted: "text-sm font-lato",
+  blockquote: "text-lg italic border-l-4 border-primary pl-4 my-4 font-lato",
   code: "bg-secondary text-secondary-foreground px-1 py-0.5 rounded text-sm font-mono",
   "footer-header":
     "text-lg font-semibold leading-normal text-footer-text-secondary",
-  "footer-text": "text-sm leading-relaxed text-footer-text",
+  "footer-text": "text-sm leading-relaxed text-footer-text font-lato",
 };
 
 const colorStyles: Record<ColorVariant, string> = {

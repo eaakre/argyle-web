@@ -92,95 +92,97 @@ const AnnouncementBar = ({
   if (!activeAnnouncements.length || !currentAnnouncement) return null;
 
   return (
-    <div className="h-10 flex items-center justify-between px-4 text-sm">
-      {/* Left controls */}
-      <div className="flex items-center gap-1">
+    <div className="h-10 flex items-center px-2 text-sm">
+      {/* Left controls - Fixed width */}
+      <div className="flex items-center flex-shrink-0">
         {showControls && (
           <button
             onClick={goToPrevious}
-            className="p-2 rounded transition-colors text-primary"
+            className="p-1 rounded transition-colors text-primary"
             aria-label="Previous announcement"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={20} />
           </button>
         )}
       </div>
 
-      {/* Center content */}
-      <div className="flex-1 flex items-center justify-center px-4">
-        <div className="flex items-center gap-2 max-w-4xl">
+      {/* Center content - Takes remaining space */}
+      <div className="flex-1 flex items-center justify-center px-1 min-w-0">
+        <div className="flex items-center gap-2 max-w-full min-w-0">
           {currentAnnouncement.icon && (
             <span className="flex-shrink-0">
               {getIconComponent(currentAnnouncement.icon)}
             </span>
           )}
-          <Typography
-            variant="p"
-            color="default"
-            noMargin
-            className="truncate text-sm font-semibold !text-primary uppercase"
-          >
-            {currentAnnouncement.title}
-          </Typography>
-          {currentAnnouncement.link && (
-            <a
-              href={currentAnnouncement.link}
-              className="flex-shrink-0 ml-2"
-              target="_blank"
-              rel="noopener noreferrer"
+          <div className="flex items-center gap-2 min-w-0">
+            <Typography
+              variant="small"
+              color="default"
+              noMargin
+              className="truncate text-sm font-semibold !text-primary uppercase min-w-0"
             >
-              <Typography
-                variant="p"
-                noMargin
-                color="default"
-                className="underline text-sm transition-colors !text-primary"
+              {currentAnnouncement.title}
+            </Typography>
+            {currentAnnouncement.link && (
+              <a
+                href={currentAnnouncement.link}
+                className="flex-shrink-0 whitespace-nowrap"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {currentAnnouncement.linkText || "Learn more"}
-              </Typography>
-            </a>
-          )}
+                <Typography
+                  variant="small"
+                  noMargin
+                  color="default"
+                  className="underline text-xs md:text-sm transition-colors !text-primary"
+                >
+                  {currentAnnouncement.linkText || "Learn more"}
+                </Typography>
+              </a>
+            )}
+          </div>
         </div>
       </div>
-      <div className="flex items-center gap-1">
+
+      {/* Right controls - Fixed width */}
+      <div className="flex items-center flex-shrink-0">
         {showControls && (
           <>
             <button
               onClick={togglePlayPause}
-              className="p-2 text-primary rounded transition-colors"
+              className="p-1 text-primary rounded transition-colors"
               aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
             >
               {isPlaying ? (
-                <Pause size={20} fill="currentColor" className="text-primary" />
+                <Pause size={16} fill="currentColor" className="text-primary" />
               ) : (
-                <Play size={20} fill="currentColor" className="text-primary" />
+                <Play size={16} fill="currentColor" className="text-primary" />
               )}
             </button>
             <button
               onClick={goToNext}
-              className="p-2 rounded transition-colors text-primary"
+              className="p-1 rounded transition-colors text-primary"
               aria-label="Next announcement"
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={20} />
             </button>
           </>
         )}
-      </div>
-      {/* Right indicator */}
-      <div className="flex items-center gap-1">
+        {/* Indicator dots
         {showControls && (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 ml-1">
             {activeAnnouncements.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  index === currentIndex ? "active" : ""
+                className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                  index === currentIndex ? "bg-primary" : "bg-primary/30"
                 }`}
                 aria-label={`Go to announcement ${index + 1}`}
               />
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

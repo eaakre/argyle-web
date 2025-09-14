@@ -67,7 +67,7 @@ export function Header({ announcements = [] }: Props) {
         </div>
 
         {announcements && announcements.length ? (
-          <div className="bg-secondary w-full h-10">
+          <div className="bg-secondary w-full overflow-hidden h-10">
             <AnnouncementBar announcements={announcements} />
           </div>
         ) : (
