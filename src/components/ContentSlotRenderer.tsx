@@ -2,6 +2,7 @@ import { Hero } from "@/components/blocks/hero";
 import { TextBlock } from "@/components/blocks/textBlock";
 import { PageContentSlot } from "@/types/cms";
 import EmblaGallery from "./blocks/emblaGallery";
+import { GoogleMap } from "./blocks/google-map";
 
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
@@ -25,6 +26,9 @@ export function ContentSlotsRenderer({
             return <EmblaGallery key={index} {...slot} />;
           case "textBlock":
             return <TextBlock key={index} {...slot} />;
+          case "googleMap":
+            return <GoogleMap key={index} {...slot} />;
+
           default:
             return (
               <div key={index} className="border p-4 rounded">
