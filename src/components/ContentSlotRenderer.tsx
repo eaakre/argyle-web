@@ -3,6 +3,7 @@ import { TextBlock } from "@/components/blocks/textBlock";
 import { PageContentSlot } from "@/types/cms";
 import EmblaGallery from "./blocks/emblaGallery";
 import { GoogleMap } from "./blocks/google-map";
+import QuickLinksGrid from "./blocks/quickLinksGrid";
 
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
@@ -23,6 +24,8 @@ export function ContentSlotsRenderer({
         switch (slot._type) {
           case "hero":
             return <Hero key={index} {...slot} isHomepage={isHomepage} />;
+          case "quickLinksGrid":
+            return <QuickLinksGrid key={index} {...slot} />;
           case "gallery":
             return <EmblaGallery key={index} {...slot} />;
           case "textBlock":

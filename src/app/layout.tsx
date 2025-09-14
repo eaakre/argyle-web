@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Lato } from "next/font/google";
+import { Geist, Geist_Mono, Lato, Raleway } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getAnnouncements } from "@/lib/sanity";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 const lato = Lato({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
   variable: "--font-lato",
+  display: "swap",
+});
+
+const raleway = Raleway({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-raleway",
   display: "swap",
 });
 
@@ -36,9 +33,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} antialiased`}
-      >
+      <body className={`${raleway.variable} ${lato.variable} antialiased`}>
         <Header announcements={announcements} />
         <div className="min-h-[100vh]">{children}</div>
         <Footer />

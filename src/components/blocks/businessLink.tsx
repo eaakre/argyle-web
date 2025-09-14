@@ -55,7 +55,7 @@ export function BusinessLink({ business, className = "" }: BusinessLinkProps) {
 
         {/* Category */}
         {business.category && (
-          <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+          <span className="inline-block px-2 py-1 text-xs font-medium bg-neutral-100 text-black rounded-full">
             {business.category
               .replace("-", " ")
               .replace(/\b\w/g, (l) => l.toUpperCase())}

@@ -118,6 +118,20 @@ export type PageContentSlot =
       items?: InfoItemProps[];
     }
   | {
+      _type: "quickLinksGrid";
+      _key: string;
+      title?: string;
+      description?: string;
+      links?: Array<{
+        title: string;
+        description?: string;
+        icon?: string;
+        url: string;
+        isExternal?: boolean;
+      }>;
+      columns?: number;
+    }
+  | {
       _type: "googleMap";
       _key: string;
       address?: string;
