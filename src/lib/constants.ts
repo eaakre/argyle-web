@@ -1,1 +1,1 @@
-export const domainUrl = "http://localhost:3000";
+export const domainUrl = "https://argyle-web-alpha.vercel.app";

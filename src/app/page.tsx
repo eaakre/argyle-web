@@ -12,10 +12,10 @@ export async function generateMetadata() {
     description:
       page.description ||
       "Discover beautiful, customizable homes built with care and precision. Start your journey to a smarter, more efficient home today.",
-    canonicalUrl: `http://localhost:3000`,
+    canonicalUrl: `https://argyle-web-alpha.vercel.app`,
     ogImage: page.ogImage
       ? page.ogImageUrl
-      : "http://localhost:3000/default-og.jpg",
+      : "https://argyle-web-alpha.vercel.app/argyle-drone.jpg",
   });
 }
 
