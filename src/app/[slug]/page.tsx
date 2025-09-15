@@ -18,12 +18,12 @@ export async function generateMetadata({
   if (!page) return notFound();
 
   return generateSEOMetadata({
-    title: `${page.title}`,
+    title: page.title || "City of Argyle",
     description:
       page.description ||
-      "Argyle, Minnesota - putting the home in Hometown since 1879.",
+      "Welcome to Argyle, Minnesota - a charming small town in Marshall County. Discover local services, events, and businesses in 'The Home in Hometown.",
     canonicalUrl: `${domainUrl}/${slug}`,
-    ogImage: page.ogImage ? page.ogImageUrl : `${domainUrl}/default-og.jpg`,
+    ogImage: page.ogImage ? page.ogImageUrl : `${domainUrl}/argyle-drone.jpg`,
   });
 }
 

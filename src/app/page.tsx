@@ -2,6 +2,7 @@ import { getPageBySlug } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import { generateSEOMetadata } from "@/lib/seo";
 import { ContentSlotsRenderer } from "@/components/ContentSlotRenderer";
+import { domainUrl } from "@/lib/constants";
 
 export async function generateMetadata() {
   const page = await getPageBySlug("Homepage");
@@ -11,11 +12,9 @@ export async function generateMetadata() {
     title: page.title || "City of Argyle",
     description:
       page.description ||
-      "Discover beautiful, customizable homes built with care and precision. Start your journey to a smarter, more efficient home today.",
-    canonicalUrl: `https://argyle-web-alpha.vercel.app`,
-    ogImage: page.ogImage
-      ? page.ogImageUrl
-      : "https://argyle-web-alpha.vercel.app/argyle-drone.jpg",
+      "Welcome to Argyle, Minnesota - a charming small town in Marshall County. Discover local services, events, and businesses in 'The Home in Hometown.",
+    canonicalUrl: `${domainUrl}`,
+    ogImage: page.ogImage ? page.ogImageUrl : `${domainUrl}/argyle-drone.jpg`,
   });
 }
 
