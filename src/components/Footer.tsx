@@ -39,7 +39,7 @@ export function Footer() {
   const organizations = [
     {
       label: "Community Foundation",
-      href: "/organizations/community-foundation",
+      href: "/organizations/argyle-area-community-foundation",
     },
     { label: "Fire Department", href: "/organizations/argyle-fire-department" },
 /*
