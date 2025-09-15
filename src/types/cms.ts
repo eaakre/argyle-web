@@ -77,6 +77,79 @@ export type AnnouncementBarProps = {
   announcements?: Announcement[];
 };
 
+interface Member {
+  name: string;
+  role: string;
+  email?: string;
+  phone?: string;
+  extension?: string;
+  photo?: {
+    asset: {
+      url: string;
+    };
+    alt?: string;
+  };
+  bio?: string;
+  termStart?: string;
+  termEnd?: string;
+  displayOrder?: number;
+  isActive: boolean;
+}
+
+interface MeetingInfo {
+  hasMeetings: boolean;
+  schedule?: string;
+  time?: string;
+  location?: string;
+  additionalInfo?: string;
+}
+
+interface OfficeHours {
+  hasHours: boolean;
+  hoursText?: string;
+}
+
+interface ContactInfo {
+  address?: string;
+  mailingAddress?: string;
+  mainPhone?: string;
+  fax?: string;
+  email?: string;
+}
+
+interface ContentBlock {
+  title?: string;
+  content: string;
+  displayOrder?: number;
+}
+
+interface Notice {
+  title?: string;
+  message: string;
+  startDate?: string;
+  endDate?: string;
+  isActive: boolean;
+}
+
+interface DisplaySettings {
+  showPhotos: boolean;
+  showContactInfo: boolean;
+  columnsPerRow: number;
+}
+
+export interface MunicipalGroupData {
+  title: string;
+  groupType: "office" | "council" | "commission" | "committee" | "other";
+  description?: string;
+  members?: Member[];
+  meetingInfo?: MeetingInfo;
+  officeHours?: OfficeHours;
+  contactInfo?: ContactInfo;
+  additionalContent?: ContentBlock[];
+  specialNotices?: Notice[];
+  displaySettings?: DisplaySettings;
+}
+
 export type PageContentSlot =
   | {
       _type: "hero";
@@ -105,6 +178,20 @@ export type PageContentSlot =
       image?: SanityImage;
       imagePosition?: "left" | "right";
       ctas?: CTA[];
+    }
+  | {
+      _type: "municipalGroup";
+      _key: string;
+      title: string;
+      groupType: "office" | "council" | "commission" | "committee" | "other";
+      description?: string;
+      members?: Member[];
+      meetingInfo?: MeetingInfo;
+      officeHours?: OfficeHours;
+      contactInfo?: ContactInfo;
+      additionalContent?: ContentBlock[];
+      specialNotices?: Notice[];
+      displaySettings?: DisplaySettings;
     }
   | {
       _type: "twoColumn";

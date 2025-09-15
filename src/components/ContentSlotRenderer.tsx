@@ -4,13 +4,15 @@ import { PageContentSlot } from "@/types/cms";
 import EmblaGallery from "./blocks/emblaGallery";
 import { GoogleMap } from "./blocks/google-map";
 import QuickLinksGrid from "./blocks/quickLinksGrid";
+import { MunicipalGroup } from "./blocks/municipalGroup";
+import { MunicipalGroupData } from "@/types/cms";
 
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
   className?: string;
   isHomepage?: boolean;
 };
-
+// Option 2: Update ContentSlotsRenderer to strip CMS properties
 export function ContentSlotsRenderer({
   contentSlots,
   className = "",
@@ -30,9 +32,18 @@ export function ContentSlotsRenderer({
             return <EmblaGallery key={index} {...slot} />;
           case "textBlock":
             return <TextBlock key={index} {...slot} />;
+          case "municipalGroup": {
+            // TypeScript now knows slot is the municipalGroup type
+            const { _type, _key, ...municipalGroupData } = slot;
+            return (
+              <MunicipalGroup
+                key={index}
+                {...(municipalGroupData as MunicipalGroupData)}
+              />
+            );
+          }
           case "googleMap":
             return <GoogleMap key={index} {...slot} />;
-
           default:
             return (
               <div key={index} className="border p-4 rounded">

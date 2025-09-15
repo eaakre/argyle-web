@@ -12,12 +12,10 @@ export const navLinks: NavLink[] = [
   {
     label: "City Services",
     children: [
-      /*
-{ label: "City Office", href: "/city-services/city-office" },
+      { label: "City Office", href: "/city-services/city-office" },
       { label: "City Council", href: "/city-services/city-council" },
-*/
       { label: "History of Argyle", href: "/city-services/history" },
-/*
+      /*
       {
         label: "Cable TV / Telephone Service",
         href: "/city-services/cable-telephone",
@@ -40,7 +38,7 @@ export const navLinks: NavLink[] = [
   {
     label: "Organizations",
     children: [
-{
+      {
         label: "Argyle Area Community Foundation",
         href: "/organizations/argyle-area-community-foundation",
       },
@@ -48,7 +46,7 @@ export const navLinks: NavLink[] = [
         label: "Argyle Fire Department",
         href: "/organizations/argyle-fire-department",
       },
-/*
+      /*
       {
         label: "Argyle Historical Society",
         href: "/organizations/historical-society",
