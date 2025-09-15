@@ -31,7 +31,9 @@ export function Footer() {
     { label: "Internet Service", href: "/city-services/internet" },
 */
     { label: "Business Resources", href: "/business" },
+/*
     { label: "Schools", href: "/schools" },
+*/
   ];
 
   const organizations = [
