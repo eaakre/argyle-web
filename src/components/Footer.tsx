@@ -17,15 +17,19 @@ export function Footer() {
     { label: "City Council", href: "/city-services/city-council" },
     { label: "History of Argyle", href: "/city-services/history" },
     { label: "Contact Us", href: "/contact" },
+/*
     { label: "Photo Galleries", href: "/photos" },
+*/
   ];
 
   const services = [
+/*
     {
       label: "Cable TV / Telephone Service",
       href: "/city-services/cable-telephone",
     },
     { label: "Internet Service", href: "/city-services/internet" },
+*/
     { label: "Business Resources", href: "/business" },
     { label: "Schools", href: "/schools" },
   ];
@@ -36,9 +40,11 @@ export function Footer() {
       href: "/organizations/community-foundation",
     },
     { label: "Fire Department", href: "/organizations/argyle-fire-department" },
+/*
     { label: "Historical Society", href: "/organizations/historical-society" },
     { label: "H.O.P.E. Program", href: "/organizations/hope-program" },
     { label: "Argyle Lions", href: "/organizations/lions" },
+*/
   ];
 
   const emergencyContacts = [
