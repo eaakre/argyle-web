@@ -3,9 +3,20 @@ import { createClient, groq } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { SanityImage } from "@/types/cms";
 
+if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+  throw new Error(
+    "Missing NEXT_PUBLIC_SANITY_PROJECT_ID in environment variables"
+  );
+}
+if (!process.env.NEXT_PUBLIC_SANITY_DATASET) {
+  throw new Error(
+    "Missing NEXT_PUBLIC_SANITY_DATASET in environment variables"
+  );
+}
+
 // Constants for reuse
-export const projectId = "dtn82a1i";
-export const dataset = "production";
+export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 
 // Sanity client
 export const client = createClient({
