@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getAnnouncements } from "@/lib/sanity";
+import { Analytics } from "@vercel/analytics/next";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default async function RootLayout({
         <Header announcements={announcements} />
         <div className="min-h-[100vh]">{children}</div>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
