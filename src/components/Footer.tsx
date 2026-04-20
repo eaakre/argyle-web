@@ -17,13 +17,13 @@ export function Footer() {
     { label: "City Council", href: "/city-services/city-council" },
     { label: "History of Argyle", href: "/city-services/history" },
     { label: "Contact Us", href: "/contact" },
-/*
+    /*
     { label: "Photo Galleries", href: "/photos" },
 */
   ];
 
   const services = [
-/*
+    /*
     {
       label: "Cable TV / Telephone Service",
       href: "/city-services/cable-telephone",
@@ -31,7 +31,7 @@ export function Footer() {
     { label: "Internet Service", href: "/city-services/internet" },
 */
     { label: "Business Resources", href: "/business" },
-/*
+    /*
     { label: "Schools", href: "/schools" },
 */
   ];
@@ -42,7 +42,7 @@ export function Footer() {
       href: "/organizations/argyle-area-community-foundation",
     },
     { label: "Fire Department", href: "/organizations/argyle-fire-department" },
-/*
+    /*
     { label: "Historical Society", href: "/organizations/historical-society" },
     { label: "H.O.P.E. Program", href: "/organizations/hope-program" },
     { label: "Argyle Lions", href: "/organizations/lions" },
@@ -50,7 +50,7 @@ export function Footer() {
   ];
 
   const emergencyContacts = [
-/*
+    /*
     { label: "Fire Emergency", phone: "911" },
     { label: "Non-Emergency", phone: "(218) 437-6621" },
 */
@@ -58,21 +58,30 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative overflow-hidden">
-      <div className="bg-secondary w-full h-2"></div>
-      <div className="bg-primary w-full h-4"></div>
+    <footer
+      className="relative overflow-hidden bg-primary"
+      style={
+        {
+          "--bg-footer": "#540d0d",
+          "--footer-text": "#f8bd27",
+          "--footer-text-secondary": "#eba800",
+        } as React.CSSProperties
+      }
+    >
+      <div className="bg-primary w-full h-2"></div>
+      <div className="bg-secondary w-full h-4"></div>
 
       {/* Argyle Pattern Background */}
       <div
-        className="absolute inset-0 opacity-2"
+        className="absolute inset-0 opacity-2 pointer-events-none"
         style={{
           backgroundImage: `
-            conic-gradient(from 90deg at 50% 50%, transparent 45deg, #FFFFFF 45deg, #FFFFFF 135deg, #DAA520 135deg, #DAA520 225deg, #6B1F2D 225deg, #6B1F2D 315deg, transparent 315deg),
-            linear-gradient(45deg, transparent 48%, rgba(139, 69, 19, 0.3) 49%, rgba(139, 69, 19, 0.3) 51%, transparent 52%),
-            linear-gradient(-45deg, transparent 48%, rgba(139, 69, 19, 0.3) 49%, rgba(139, 69, 19, 0.3) 51%, transparent 52%)
+            conic-gradient(from 90deg at 50% 50%, transparent 45deg, #FFFFFF 45deg, #FFFFFF 135deg, #eba800 135deg, #eba800 225deg, #540d0d 225deg, #540d0d 315deg, transparent 315deg),
+            linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0.2) 51%, transparent 52%),
+            linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0.2) 51%, transparent 52%)
           `,
-          backgroundSize: "80px 80px, 80px 80px, 80px 80px",
-          backgroundPosition: "0 0, 0 0, 0 0",
+          backgroundSize: "120px 120px",
+          backgroundPosition: "0 0",
         }}
       />
 
