@@ -82,6 +82,19 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
 
   const businessHours = formatHours(business.hours);
 
+  const mapsUrl = business.address?.street
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        [
+          business.address.street,
+          business.address.city,
+          business.address.state,
+          business.address.zipCode,
+        ]
+          .filter(Boolean)
+          .join(", ")
+      )}`
+    : null;
+
   return (
     <div className="min-h-screen bg-bg-secondary">
       {/* Breadcrumb */}
@@ -138,7 +151,9 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
                 </div>
 
                 {business.description && (
-                  <p className="leading-relaxed">{business.description}</p>
+                  <p className="leading-relaxed whitespace-pre-line">
+                    {business.description}
+                  </p>
                 )}
               </div>
             </div>
@@ -155,15 +170,32 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
                 {business.address && (
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                    <div>
-                      {business.address.street && (
-                        <div>{business.address.street}</div>
-                      )}
+                    {mapsUrl ? (
+                      <a
+                        href={mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-text-hover"
+                      >
+                        {business.address.street && (
+                          <div>{business.address.street}</div>
+                        )}
+                        <div>
+                          {business.address.city}, {business.address.state}{" "}
+                          {business.address.zipCode}
+                        </div>
+                      </a>
+                    ) : (
                       <div>
-                        {business.address.city}, {business.address.state}{" "}
-                        {business.address.zipCode}
+                        {business.address.street && (
+                          <div>{business.address.street}</div>
+                        )}
+                        <div>
+                          {business.address.city}, {business.address.state}{" "}
+                          {business.address.zipCode}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 )}
 

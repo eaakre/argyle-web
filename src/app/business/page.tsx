@@ -1,9 +1,9 @@
-import { getPageBySlug } from "@/lib/sanity";
+import { getPageBySlug, getAllBusinesses } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import { generateSEOMetadata } from "@/lib/seo";
 import { ContentSlotsRenderer } from "@/components/ContentSlotRenderer";
 import { domainUrl } from "@/lib/constants";
-import { BusinessesSection } from "@/components/blocks/businessSection";
+import { BusinessDirectory } from "@/components/BusinessDirectory";
 
 export async function generateMetadata() {
   const page = await getPageBySlug("business");
@@ -20,7 +20,10 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const page = await getPageBySlug("business");
+  const [page, businesses] = await Promise.all([
+    getPageBySlug("business"),
+    getAllBusinesses({ orderBy: "featuredFirst" }),
+  ]);
 
   if (!page) return notFound();
 
@@ -28,11 +31,7 @@ export default async function Page() {
     <>
       {page.heading && <h1 className="sr-only">{page.heading}</h1>}
       <ContentSlotsRenderer contentSlots={page.contentSlots} />
-      <BusinessesSection
-        title="Local Businesses"
-        showFeaturedFirst={true}
-        className="bg-bg-secondary mt-0"
-      />
+      <BusinessDirectory businesses={businesses} />
     </>
   );
 }

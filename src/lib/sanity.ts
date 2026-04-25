@@ -234,6 +234,56 @@ export async function getBusinessesByCategory(
   return client.fetch(query, { category });
 }
 
+export interface SanityEvent {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  date: string;
+  endDate?: string;
+  allDay?: boolean;
+  location?: string;
+  address?: string;
+  description?: string;
+  image?: {
+    asset: { _id: string; url: string };
+    alt?: string;
+  };
+  category?: string;
+  featured?: boolean;
+  registrationUrl?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  organizer?: string;
+  isFree?: boolean;
+  cost?: string;
+}
+
+const EVENT_FIELDS = `
+  _id, title, slug, date, endDate, allDay, location, address, description,
+  image { asset->{ _id, url }, alt },
+  category, featured, registrationUrl, contactEmail, contactPhone, organizer, isFree, cost
+`;
+
+export async function getAllEvents(): Promise<SanityEvent[]> {
+  return client.fetch(
+    `*[_type == "event"] { ${EVENT_FIELDS} } | order(date asc)`
+  );
+}
+
+export async function getEventBySlug(slug: string): Promise<SanityEvent | null> {
+  return client.fetch(
+    `*[_type == "event" && slug.current == $slug][0] { ${EVENT_FIELDS} }`,
+    { slug }
+  );
+}
+
+export async function getUpcomingEvents(limit?: number): Promise<SanityEvent[]> {
+  const now = new Date().toISOString();
+  const base = `*[_type == "event" && date >= $now] { ${EVENT_FIELDS} } | order(date asc)`;
+  const query = limit ? `(${base})[0...${limit}]` : base;
+  return client.fetch(query, { now });
+}
+
 export async function getAnnouncements(isActive: boolean, limit?: number) {
   let query = `*[_type == "announcement" && isActive == $isActive] {
     _id,
