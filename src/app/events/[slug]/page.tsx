@@ -110,7 +110,7 @@ export default async function EventPage({ params }: EventPageProps) {
               Events
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-text-primary line-clamp-1">{event.title}</span>
+            <span className="text-text-primary">{event.title}</span>
           </nav>
         </div>
       </div>
@@ -200,7 +200,18 @@ export default async function EventPage({ params }: EventPageProps) {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {/* Description */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 space-y-4">
+              {event.image?.asset?.url && (
+                <div className="bg-bg-primary rounded-sm shadow-sm p-4">
+                  <Image
+                    src={event.image.asset.url}
+                    alt={event.image.alt || event.title}
+                    width={800}
+                    height={600}
+                    className="w-full h-auto max-h-[600px] object-contain rounded-sm"
+                  />
+                </div>
+              )}
               {event.description ? (
                 <div className="bg-bg-primary rounded-sm shadow-sm p-8">
                   <h2 className="text-xl font-bold mb-5 text-text-primary">
@@ -217,19 +228,17 @@ export default async function EventPage({ params }: EventPageProps) {
               )}
 
               {/* Google Calendar CTA */}
-              {!isPast && (
-                <div className="mt-4">
-                  <a
-                    href={gcalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-sm hover:bg-accent transition-colors shadow-sm"
-                  >
-                    <Calendar size={15} />
-                    Add to Google Calendar
-                  </a>
-                </div>
-              )}
+              <div>
+                <a
+                  href={gcalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-sm hover:bg-accent transition-colors shadow-sm"
+                >
+                  <Calendar size={15} />
+                  Add to Google Calendar
+                </a>
+              </div>
             </div>
 
             {/* Sidebar */}

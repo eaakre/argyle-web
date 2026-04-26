@@ -33,33 +33,33 @@ function EventCard({ event }: { event: SanityEvent }) {
   return (
     <Link
       href={`/events/${event.slug.current}`}
-      className="group block bg-bg-primary rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 overflow-visible"
+      className="group block bg-bg-primary rounded-sm shadow-sm hover:shadow-lg transition-all duration-300"
     >
-      {/* Image / color band */}
-      <div className="relative h-32 overflow-hidden rounded-t-sm bg-gradient-to-br from-primary to-accent">
-        {event.image?.asset?.url && (
-          <Image
-            src={event.image.asset.url}
-            alt={event.image.alt || event.title}
-            fill
-            className={`object-cover transition-transform duration-500 group-hover:scale-105 ${past ? "opacity-50" : ""}`}
-          />
-        )}
-        {past && (
-          <div className="absolute inset-0 bg-black/20" />
-        )}
-        {event.featured && (
-          <span className="absolute top-3 right-3 text-[11px] px-2.5 py-0.5 bg-secondary text-primary font-bold rounded-full shadow">
-            Featured
-          </span>
-        )}
-        {past && (
-          <span className="absolute top-3 left-3 text-[11px] px-2.5 py-0.5 bg-black/60 text-white/90 rounded-full font-medium">
-            Past
-          </span>
-        )}
+      {/* Image / color band — wrapper is relative so badge can escape overflow-hidden */}
+      <div className="relative">
+        <div className="relative h-44 overflow-hidden rounded-t-sm bg-gradient-to-br from-primary to-accent">
+          {event.image?.asset?.url && (
+            <Image
+              src={event.image.asset.url}
+              alt={event.image.alt || event.title}
+              fill
+              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${past ? "opacity-50" : ""}`}
+            />
+          )}
+          {past && <div className="absolute inset-0 bg-black/20" />}
+          {event.featured && (
+            <span className="absolute top-3 right-3 text-[11px] px-2.5 py-0.5 bg-secondary text-primary font-bold rounded-full shadow">
+              Featured
+            </span>
+          )}
+          {past && (
+            <span className="absolute top-3 left-3 text-[11px] px-2.5 py-0.5 bg-black/60 text-white/90 rounded-full font-medium">
+              Past
+            </span>
+          )}
+        </div>
 
-        {/* Date badge — hangs over the divider */}
+        {/* Date badge — outside overflow-hidden so it renders fully */}
         <div className="absolute bottom-0 left-4 translate-y-1/2 z-20 bg-secondary text-primary shadow-md text-center min-w-[52px] px-2.5 py-1.5">
           <div className="text-[9px] font-extrabold tracking-widest leading-none mb-0.5">
             {month}
@@ -127,7 +127,7 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
   const [search, setSearch] = useState("");
   const [tab, setTab] = useState<"upcoming" | "all" | "past">("upcoming");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [selectedMonth, setSelectedMonth] = useState("all");
 
   const categories = useMemo(() => {
     const cats = new Set<string>();
@@ -135,6 +135,15 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
       if (e.category) cats.add(e.category);
     });
     return Array.from(cats).sort();
+  }, [events]);
+
+  const months = useMemo(() => {
+    const seen = new Set<string>();
+    events.forEach((e) => {
+      const d = new Date(e.date);
+      seen.add(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`);
+    });
+    return Array.from(seen).sort();
   }, [events]);
 
   const tabCounts = useMemo(
@@ -155,6 +164,14 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
     if (selectedCategory !== "all")
       result = result.filter((e) => e.category === selectedCategory);
 
+    if (selectedMonth !== "all") {
+      result = result.filter((e) => {
+        const d = new Date(e.date);
+        const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+        return ym === selectedMonth;
+      });
+    }
+
     if (search.trim()) {
       const q = search.toLowerCase();
       result = result.filter(
@@ -165,12 +182,11 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
       );
     }
 
-    return [...result].sort((a, b) =>
-      sortOrder === "asc"
-        ? new Date(a.date).getTime() - new Date(b.date).getTime()
-        : new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
-  }, [events, tab, selectedCategory, search, sortOrder]);
+    return [...result].sort((a, b) => {
+      const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
+      return tab === "past" ? -diff : diff;
+    });
+  }, [events, tab, selectedCategory, selectedMonth, search]);
 
   return (
     <section className="py-12 bg-bg-secondary">
@@ -227,14 +243,27 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
             </select>
           )}
 
-          <select
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
-            className="px-4 py-2 border border-gray-300 rounded-sm bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            <option value="asc">Soonest First</option>
-            <option value="desc">Latest First</option>
-          </select>
+          {months.length > 1 && (
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-sm bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+            >
+              <option value="all">All Months</option>
+              {months.map((ym) => {
+                const [year, month] = ym.split("-");
+                const label = new Date(Number(year), Number(month) - 1).toLocaleString("en-US", {
+                  month: "long",
+                  year: "numeric",
+                });
+                return (
+                  <option key={ym} value={ym}>
+                    {label}
+                  </option>
+                );
+              })}
+            </select>
+          )}
         </div>
 
         {/* Grid */}
