@@ -97,10 +97,10 @@ export function Footer() {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <div className="space-y-0">
-                  <Typography variant="footer-text" noMargin>
+                  <Typography variant="footer-text">
                     428 3rd Avenue NW
                   </Typography>
-                  <Typography variant="footer-text" noMargin>
+                  <Typography variant="footer-text">
                     Argyle, MN 56713
                   </Typography>
                 </div>
@@ -111,9 +111,7 @@ export function Footer() {
                   href="tel:218-437-6621"
                   className="hover:text-primary-hover transition-colors"
                 >
-                  <Typography variant="footer-text" noMargin>
-                    (218) 437-6621
-                  </Typography>
+                  <Typography variant="footer-text">(218) 437-6621</Typography>
                 </a>
               </div>
               <div className="flex items-center space-x-3">
@@ -249,30 +247,6 @@ export function Footer() {
 
             {/* Links */}
             <div className="flex flex-wrap gap-6">
-              <Link
-                href="/accessibility"
-                className="hover:text-primary-hover transition-colors"
-              >
-                <Typography variant="footer-text" noMargin>
-                  Accessibility
-                </Typography>
-              </Link>
-              <Link
-                href="/privacy-policy"
-                className="hover:text-primary-hover transition-colors"
-              >
-                <Typography variant="footer-text" noMargin>
-                  Privacy Policy
-                </Typography>
-              </Link>
-              <Link
-                href="/terms-of-use"
-                className="hover:text-primary-hover transition-colors"
-              >
-                <Typography variant="footer-text" noMargin>
-                  Terms of Use
-                </Typography>
-              </Link>
               <a
                 href="https://www.mn.gov"
                 target="_blank"

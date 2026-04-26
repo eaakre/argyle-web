@@ -212,6 +212,7 @@ export type PageContentSlot =
       links?: Array<{
         title: string;
         description?: string;
+        image?: SanityImage;
         icon?: string;
         url: string;
         isExternal?: boolean;

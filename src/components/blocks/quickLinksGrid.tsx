@@ -1,9 +1,13 @@
+import Image from "next/image";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { Typography } from "../ui/Typography";
+import { urlForImage } from "@/lib/sanity";
+import { SanityImage } from "@/types/cms";
 
 interface QuickLink {
   title: string;
   description?: string;
+  image?: SanityImage;
   icon?: string;
   url: string;
   isExternal?: boolean;
@@ -64,12 +68,26 @@ const QuickLinksGrid = ({
               className="group block p-6 bg-bg-secondary shadow-sm rounded-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
             >
               <div className="flex flex-col items-center text-center space-y-4">
-                {/* Icon */}
-                {link.icon && (
-                  <div className="flex items-center justify-center w-16 h-16 bg-secondary/20 rounded-full group-hover:bg-secondary/40 transition-colors">
-                    <span className="text-2xl" role="img" aria-hidden="true">
-                      {link.icon}
-                    </span>
+                {/* Icon / Image */}
+                {(link.image || link.icon) && (
+                  <div className="flex items-center justify-center w-20 h-20 bg-secondary/20 rounded-full group-hover:bg-secondary/40 transition-colors overflow-hidden flex-shrink-0">
+                    {link.image ? (
+                      <div className="relative w-16 h-16">
+                        <Image
+                          src={urlForImage(link.image)
+                            .width(100)
+                            .height(100)
+                            .url()}
+                          alt={link.image.alt || link.title}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <span className="text-2xl" role="img" aria-hidden="true">
+                        {link.icon}
+                      </span>
+                    )}
                   </div>
                 )}
 
