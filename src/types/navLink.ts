@@ -35,29 +35,33 @@ export const navLinks: NavLink[] = [
       { label: "Stephen-Argyle Central", href: "http://www.sac.k12.mn.us/" },
     ],
   },
+  //   {
+  //     label: "Organizations",
+  //     children: [
+  //       {
+  //         label: "Argyle Area Community Foundation",
+  //         href: "/organizations/argyle-area-community-foundation",
+  //       },
+  //       {
+  //         label: "Argyle Fire Department",
+  //         href: "/organizations/argyle-fire-department",
+  //       },
+  //       /*
+  //       {
+  //         label: "Argyle Historical Society",
+  //         href: "/organizations/historical-society",
+  //       },
+  //       {
+  //         label: "Argyle’s H.O.P.E. Program",
+  //         href: "/organizations/hope-program",
+  //       },
+  //       { label: "Argyle Lions", href: "/organizations/lions" },
+  // */
+  //     ],
+  //   },
   {
-    label: "Organizations",
-    children: [
-      {
-        label: "Argyle Area Community Foundation",
-        href: "/organizations/argyle-area-community-foundation",
-      },
-      {
-        label: "Argyle Fire Department",
-        href: "/organizations/argyle-fire-department",
-      },
-      /*
-      {
-        label: "Argyle Historical Society",
-        href: "/organizations/historical-society",
-      },
-      {
-        label: "Argyle’s H.O.P.E. Program",
-        href: "/organizations/hope-program",
-      },
-      { label: "Argyle Lions", href: "/organizations/lions" },
-*/
-    ],
+    label: "Events",
+    href: "/events",
   },
   {
     label: "Contact Us",
