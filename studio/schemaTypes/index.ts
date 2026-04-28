@@ -9,11 +9,13 @@ import {announcement} from './announcement'
 import {quickLinksGrid} from './quickLinksGrid'
 import {municipalGroup} from './municipalGroup'
 import {event} from './event'
+import {newsArticle} from './news'
 
 export const schemaTypes = [
   page,
   business,
   event,
+  newsArticle,
   hero,
   quickLinksGrid,
   textBlock,

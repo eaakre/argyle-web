@@ -284,6 +284,41 @@ export async function getUpcomingEvents(limit?: number): Promise<SanityEvent[]> 
   return client.fetch(query, { now });
 }
 
+import type { PortableTextBlock } from "@portabletext/types";
+
+export interface SanityNewsArticle {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  date: string;
+  category?: string;
+  excerpt?: string;
+  body?: PortableTextBlock[];
+  pdfAttachment?: { asset: { url: string } };
+}
+
+const NEWS_FIELDS = `
+  _id, title, slug, date, category, excerpt,
+  pdfAttachment { asset->{ url } }
+`;
+
+export async function getAllNewsArticles(): Promise<SanityNewsArticle[]> {
+  return client.fetch(
+    `*[_type == "newsArticle"] { ${NEWS_FIELDS} } | order(date desc)`
+  );
+}
+
+export async function getNewsArticleBySlug(slug: string): Promise<SanityNewsArticle | null> {
+  return client.fetch(
+    `*[_type == "newsArticle" && slug.current == $slug][0] { ${NEWS_FIELDS}, body }`,
+    { slug }
+  );
+}
+
+export async function getAllNewsArticleSlugs(): Promise<{ slug: { current: string } }[]> {
+  return client.fetch(`*[_type == "newsArticle"]{ slug }`);
+}
+
 export async function getAnnouncements(isActive: boolean, limit?: number) {
   let query = `*[_type == "announcement" && isActive == $isActive] {
     _id,
