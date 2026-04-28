@@ -42,12 +42,15 @@ export async function generateMetadata({
   });
 }
 
+const TZ = "America/Chicago";
+
 function formatFullDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: TZ,
   });
 }
 
@@ -55,6 +58,7 @@ function formatTime(dateStr: string) {
   return new Date(dateStr).toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
+    timeZone: TZ,
   });
 }
 
@@ -67,8 +71,8 @@ function buildGoogleCalendarUrl(event: SanityEvent) {
   const toGCal = (iso: string) => {
     const d = new Date(iso);
     return (
-      `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}` +
-      `T${pad(d.getHours())}${pad(d.getMinutes())}00`
+      `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}` +
+      `T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`
     );
   };
   const start = toGCal(event.date);
@@ -90,9 +94,9 @@ export default async function EventPage({ params }: EventPageProps) {
   if (!event) return notFound();
 
   const date = new Date(event.date);
-  const month = date.toLocaleString("default", { month: "short" }).toUpperCase();
-  const day = date.getDate();
-  const dayOfWeek = date.toLocaleString("default", { weekday: "short" });
+  const month = date.toLocaleString("en-US", { month: "short", timeZone: TZ }).toUpperCase();
+  const day = Number(date.toLocaleString("en-US", { day: "numeric", timeZone: TZ }));
+  const dayOfWeek = date.toLocaleString("en-US", { weekday: "short", timeZone: TZ });
   const isPast = new Date(event.date) < new Date();
   const gcalUrl = buildGoogleCalendarUrl(event);
 

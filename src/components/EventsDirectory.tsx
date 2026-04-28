@@ -10,10 +10,13 @@ function formatCategory(cat: string) {
   return cat.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 }
 
+const TZ = "America/Chicago";
+
 function formatTime(dateStr: string) {
   return new Date(dateStr).toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
+    timeZone: TZ,
   });
 }
 
@@ -23,11 +26,9 @@ function isUpcoming(dateStr: string) {
 
 function EventCard({ event }: { event: SanityEvent }) {
   const date = new Date(event.date);
-  const month = date
-    .toLocaleString("default", { month: "short" })
-    .toUpperCase();
-  const day = date.getDate();
-  const dayOfWeek = date.toLocaleString("default", { weekday: "short" });
+  const month = date.toLocaleString("en-US", { month: "short", timeZone: TZ }).toUpperCase();
+  const day = Number(date.toLocaleString("en-US", { day: "numeric", timeZone: TZ }));
+  const dayOfWeek = date.toLocaleString("en-US", { weekday: "short", timeZone: TZ });
   const past = !isUpcoming(event.date);
 
   return (
