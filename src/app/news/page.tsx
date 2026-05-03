@@ -7,7 +7,8 @@ import { FileText, Calendar, Download } from "lucide-react";
 
 export const metadata = generateSEOMetadata({
   title: "News – Argyle, MN",
-  description: "City news, announcements, and council meeting minutes for Argyle, Minnesota.",
+  description:
+    "City news, announcements, and council meeting minutes for Argyle, Minnesota.",
   canonicalUrl: `${domainUrl}/news`,
 });
 
@@ -15,7 +16,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   "council-minutes": "City Council Minutes",
   "public-notice": "Public Notice",
   "general-news": "General News",
-  "announcement": "Announcement",
+  announcement: "Announcement",
 };
 
 function formatDate(dateStr: string) {
@@ -72,7 +73,7 @@ export default async function NewsPage() {
     <div className="min-h-screen bg-bg-secondary">
       {/* Header */}
       <div className="bg-gradient-to-br from-primary to-accent">
-        <div className="container mx-auto px-4 py-12">
+        <div className="container max-w-6xl mx-auto px-4 py-12">
           <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-md">
             News
           </h1>
