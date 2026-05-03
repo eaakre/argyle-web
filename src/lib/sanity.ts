@@ -1,6 +1,7 @@
 // lib/sanity.ts
 import { createClient, groq } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
+import type { PortableTextBlock } from "@portabletext/types";
 import { SanityImage } from "@/types/cms";
 
 if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
@@ -289,17 +290,21 @@ export async function getEventsHighlights(): Promise<{
   upcoming: SanityEvent[];
 }> {
   const now = new Date().toISOString();
-  const featured = await client.fetch<SanityEvent | null>(
-    `*[_type == "event" && featured == true] | order(date asc)[0] { ${EVENT_FIELDS} }`
+  const result = await client.fetch<{
+    featured: SanityEvent | null;
+    upcoming: SanityEvent[];
+  }>(
+    `{
+      "featured": *[_type == "event" && featured == true] | order(date asc)[0] { ${EVENT_FIELDS} },
+      "upcoming": *[_type == "event" && date >= $now && featured != true] | order(date asc)[0...3] { ${EVENT_FIELDS} }
+    }`,
+    { now }
   );
-  const upcoming = await client.fetch<SanityEvent[]>(
-    `*[_type == "event" && date >= $now && !(_id in $excludeIds)] | order(date asc)[0...3] { ${EVENT_FIELDS} }`,
-    { now, excludeIds: featured ? [featured._id] : [] }
-  );
-  return { featured: featured ?? null, upcoming };
+  return {
+    featured: result.featured ?? null,
+    upcoming: result.upcoming ?? [],
+  };
 }
-
-import type { PortableTextBlock } from "@portabletext/types";
 
 export interface SanityNewsArticle {
   _id: string;
