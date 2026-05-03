@@ -284,6 +284,21 @@ export async function getUpcomingEvents(limit?: number): Promise<SanityEvent[]> 
   return client.fetch(query, { now });
 }
 
+export async function getEventsHighlights(): Promise<{
+  featured: SanityEvent | null;
+  upcoming: SanityEvent[];
+}> {
+  const now = new Date().toISOString();
+  const featured = await client.fetch<SanityEvent | null>(
+    `*[_type == "event" && featured == true] | order(date asc)[0] { ${EVENT_FIELDS} }`
+  );
+  const upcoming = await client.fetch<SanityEvent[]>(
+    `*[_type == "event" && date >= $now && !(_id in $excludeIds)] | order(date asc)[0...3] { ${EVENT_FIELDS} }`,
+    { now, excludeIds: featured ? [featured._id] : [] }
+  );
+  return { featured: featured ?? null, upcoming };
+}
+
 import type { PortableTextBlock } from "@portabletext/types";
 
 export interface SanityNewsArticle {
@@ -293,6 +308,7 @@ export interface SanityNewsArticle {
   date: string;
   category?: string;
   excerpt?: string;
+  pinned?: boolean;
   body?: PortableTextBlock[];
   pdfAttachment?: { asset: { url: string } };
 }
@@ -305,6 +321,14 @@ const NEWS_FIELDS = `
 export async function getAllNewsArticles(): Promise<SanityNewsArticle[]> {
   return client.fetch(
     `*[_type == "newsArticle"] { ${NEWS_FIELDS} } | order(date desc)`
+  );
+}
+
+export async function getNewsHighlights(): Promise<SanityNewsArticle[]> {
+  return client.fetch(
+    `*[_type == "newsArticle"] | order(pinned desc, date desc)[0...3] {
+      _id, title, slug, date, category, excerpt, pinned
+    }`
   );
 }
 

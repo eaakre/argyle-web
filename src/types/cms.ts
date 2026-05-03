@@ -226,6 +226,14 @@ export type PageContentSlot =
       height?: number;
     }
   | {
+      _type: "newsHighlights";
+      _key: string;
+    }
+  | {
+      _type: "eventsHighlights";
+      _key: string;
+    }
+  | {
       _type: string;
       _key: string;
       [key: string]: unknown;
