@@ -32,6 +32,13 @@ export const newsArticle = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'pinned',
+      title: 'Pin to Homepage',
+      type: 'boolean',
+      description: 'Pinned articles appear first in the homepage News section',
+      initialValue: false,
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
