@@ -43,7 +43,7 @@ export async function getHomepageContent() {
 }
 
 export async function getAllPages() {
-  return await client.fetch(`*[_type == "page"]{ slug }`);
+  return await client.fetch(`*[_type == "page"]{ slug, pathPrefix }`);
 }
 
 // Get a flexible page by slug (preferred long-term)

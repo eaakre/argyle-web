@@ -26,9 +26,16 @@ function isUpcoming(dateStr: string) {
 
 function EventCard({ event }: { event: SanityEvent }) {
   const date = new Date(event.date);
-  const month = date.toLocaleString("en-US", { month: "short", timeZone: TZ }).toUpperCase();
-  const day = Number(date.toLocaleString("en-US", { day: "numeric", timeZone: TZ }));
-  const dayOfWeek = date.toLocaleString("en-US", { weekday: "short", timeZone: TZ });
+  const month = date
+    .toLocaleString("en-US", { month: "short", timeZone: TZ })
+    .toUpperCase();
+  const day = Number(
+    date.toLocaleString("en-US", { day: "numeric", timeZone: TZ }),
+  );
+  const dayOfWeek = date.toLocaleString("en-US", {
+    weekday: "short",
+    timeZone: TZ,
+  });
   const past = !isUpcoming(event.date);
 
   return (
@@ -142,7 +149,9 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
     const seen = new Set<string>();
     events.forEach((e) => {
       const d = new Date(e.date);
-      seen.add(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`);
+      seen.add(
+        `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`,
+      );
     });
     return Array.from(seen).sort();
   }, [events]);
@@ -153,7 +162,7 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
       all: events.length,
       past: events.filter((e) => !isUpcoming(e.date)).length,
     }),
-    [events]
+    [events],
   );
 
   const filtered = useMemo(() => {
@@ -179,7 +188,7 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
         (e) =>
           e.title.toLowerCase().includes(q) ||
           e.location?.toLowerCase().includes(q) ||
-          e.description?.toLowerCase().includes(q)
+          e.description?.toLowerCase().includes(q),
       );
     }
 
@@ -191,7 +200,7 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
 
   return (
     <section className="py-12 bg-bg-secondary">
-      <div className="container mx-auto px-4">
+      <div className="container max-w-6xl mx-auto px-4">
         {/* Tab row */}
         <div className="flex gap-1 mb-6 bg-bg-primary p-1 w-fit shadow-sm rounded-sm">
           {(["upcoming", "all", "past"] as const).map((t) => (
@@ -253,7 +262,10 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
               <option value="all">All Months</option>
               {months.map((ym) => {
                 const [year, month] = ym.split("-");
-                const label = new Date(Number(year), Number(month) - 1).toLocaleString("en-US", {
+                const label = new Date(
+                  Number(year),
+                  Number(month) - 1,
+                ).toLocaleString("en-US", {
                   month: "long",
                   year: "numeric",
                 });

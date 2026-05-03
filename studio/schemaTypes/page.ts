@@ -40,6 +40,20 @@ export const page = defineType({
       options: {hotspot: true},
     }),
     defineField({
+      name: 'pathPrefix',
+      type: 'string',
+      title: 'URL Section',
+      description: 'Which section of the site this page belongs to',
+      options: {
+        list: [
+          {title: 'General Page (e.g. /about)', value: ''},
+          {title: 'City Services (e.g. /city-services/water)', value: 'city-services'},
+          {title: 'Organizations (e.g. /organizations/chamber)', value: 'organizations'},
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       name: 'heading',
       type: 'string',
       title: 'Page H1 (for SEO and accessibility)',
