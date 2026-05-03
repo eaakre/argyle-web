@@ -70,6 +70,8 @@ export const page = defineType({
         {type: 'gallery'},
         {type: 'municipalGroup'},
         {type: 'googleMap'},
+        {type: 'newsHighlights'},
+        {type: 'eventsHighlights'},
       ],
     }),
   ],

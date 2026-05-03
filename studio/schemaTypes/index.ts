@@ -10,6 +10,8 @@ import {quickLinksGrid} from './quickLinksGrid'
 import {municipalGroup} from './municipalGroup'
 import {event} from './event'
 import {newsArticle} from './news'
+import {newsHighlights} from './newsHighlights'
+import {eventsHighlights} from './eventsHighlights'
 
 export const schemaTypes = [
   page,
@@ -24,4 +26,6 @@ export const schemaTypes = [
   cta,
   gallery,
   announcement,
+  newsHighlights,
+  eventsHighlights,
 ]
