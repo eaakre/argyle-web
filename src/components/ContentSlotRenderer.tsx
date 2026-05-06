@@ -7,6 +7,7 @@ import QuickLinksGrid from "./blocks/quickLinksGrid";
 import { MunicipalGroup } from "./blocks/municipalGroup";
 import { MunicipalGroupData } from "@/types/cms";
 import { NewsHighlights } from "./blocks/NewsHighlights";
+import { EventsHighlights } from "./blocks/EventsHighlights";
 
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
@@ -47,6 +48,8 @@ export function ContentSlotsRenderer({
             return <GoogleMap key={index} {...slot} />;
           case "newsHighlights":
             return <NewsHighlights key={index} />;
+          case "eventsHighlights":
+            return <EventsHighlights key={index} />;
           default:
             return (
               <div key={index} className="border p-4 rounded">
