@@ -6,6 +6,7 @@ function formatEventDate(dateString: string) {
     month: "long",
     day: "numeric",
     year: "numeric",
+    timeZone: "America/Chicago",
   });
 }
 
@@ -41,12 +42,12 @@ export async function EventsHighlights() {
               <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-700 leading-snug mb-3">
                 {featured.title}
               </h3>
-              <p className="text-sm text-gray-600 mb-1">
-                📅 {formatEventDate(featured.date)}
-              </p>
+              <time dateTime={featured.date} className="text-sm text-gray-600 mb-1 block">
+                <span aria-hidden="true">📅</span> {formatEventDate(featured.date)}
+              </time>
               {featured.location && (
                 <p className="text-sm text-gray-600 mb-3">
-                  📍 {featured.location}
+                  <span aria-hidden="true">📍</span> {featured.location}
                 </p>
               )}
               {featured.description && (
@@ -68,9 +69,9 @@ export async function EventsHighlights() {
                   <h4 className="font-semibold text-gray-900 group-hover:text-blue-700 leading-snug mb-1">
                     {event.title}
                   </h4>
-                  <p className="text-xs text-gray-500">
+                  <time dateTime={event.date} className="text-xs text-gray-500 block">
                     {formatEventDate(event.date)}
-                  </p>
+                  </time>
                   {event.location && (
                     <p className="text-xs text-gray-500">{event.location}</p>
                   )}
@@ -91,11 +92,11 @@ export async function EventsHighlights() {
                 <h3 className="font-semibold text-gray-900 group-hover:text-blue-700 leading-snug mb-2">
                   {event.title}
                 </h3>
-                <p className="text-sm text-gray-500 mb-1">
-                  📅 {formatEventDate(event.date)}
-                </p>
+                <time dateTime={event.date} className="text-sm text-gray-500 mb-1 block">
+                  <span aria-hidden="true">📅</span> {formatEventDate(event.date)}
+                </time>
                 {event.location && (
-                  <p className="text-sm text-gray-500">📍 {event.location}</p>
+                  <p className="text-sm text-gray-500"><span aria-hidden="true">📍</span> {event.location}</p>
                 )}
               </div>
             </Link>
