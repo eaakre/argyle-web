@@ -35,16 +35,16 @@ export async function NewsHighlights() {
             >
               {article.pinned && (
                 <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-700 mb-3">
-                  📌 Pinned
+                  <span aria-hidden="true">📌</span> Pinned
                 </span>
               )}
               <h3 className="font-semibold text-gray-900 group-hover:text-blue-700 leading-snug mb-2">
                 {article.title}
               </h3>
-              <time className="text-xs text-gray-500 block mb-2">
+              <time dateTime={article.date} className="text-xs text-gray-500 block mb-2">
                 {new Date(article.date + "T12:00:00").toLocaleDateString(
                   "en-US",
-                  { month: "long", day: "numeric", year: "numeric" }
+                  { month: "long", day: "numeric", year: "numeric" },
                 )}
               </time>
               {article.excerpt && (
