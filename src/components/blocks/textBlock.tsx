@@ -129,7 +129,7 @@ export function TextBlock({
   backgroundColor,
   layout = "single",
   align = "left",
-  maxWidth = "max-w-4xl",
+  maxWidth = "max-w-screen-xl",
   padding = "py-4",
   ctas = [],
 }: TextBlockProps) {

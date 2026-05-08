@@ -35,7 +35,7 @@ const QuickLinksGrid = ({
 
   return (
     <section className="py-12 md:py-16">
-      <div className="container mx-auto px-4">
+      <div className="max-w-screen-xl mx-auto px-4">
         {/* Section Header */}
         {(title || description) && (
           <div className="text-center mb-8 md:mb-12">

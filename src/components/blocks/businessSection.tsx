@@ -25,7 +25,7 @@ export async function BusinessesSection({
   if (!businesses || businesses.length === 0) {
     return (
       <section className={className}>
-        <div className="container mx-auto px-4">
+        <div className="max-w-screen-xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8 text-center">{title}</h2>
           <p className="text-center">No businesses found at the moment.</p>
         </div>
@@ -42,7 +42,7 @@ export async function BusinessesSection({
 
   return (
     <section className={`py-12 bg-bg-secondary ${className}`}>
-      <div className="container mx-auto px-4">
+      <div className="max-w-screen-xl mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8 text-center">{title}</h2>
 
         {/* Featured Businesses */}

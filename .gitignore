@@ -44,3 +44,7 @@ next-env.d.ts
 /studio/node_modules
 /studio/dist
 /studio/.sanity
+
+# brainstorming/planning docs
+/docs/superpowers/
+/.superpowers/

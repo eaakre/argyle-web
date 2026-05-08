@@ -119,7 +119,7 @@ export default function EmblaGallery({ title, images }: EmblaGalleryProps) {
   }
 
   return (
-    <div className="my-8 max-w-4xl mx-auto px-6">
+    <div className="my-8 max-w-screen-xl mx-auto px-4">
       {title && <h3 className="text-2xl font-bold mb-4">{title}</h3>}
 
       <div className="space-y-4">

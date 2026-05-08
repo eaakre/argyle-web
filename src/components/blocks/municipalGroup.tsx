@@ -52,7 +52,7 @@ export function MunicipalGroup({
   );
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-screen-xl mx-auto p-6 space-y-8">
       {/* Header */}
       <div className="text-center border-b border-bg-secondary pb-8">
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
