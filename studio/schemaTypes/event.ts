@@ -124,7 +124,13 @@ export const event = defineType({
       name: 'customUrl',
       title: 'Custom Landing Page URL',
       type: 'string',
-      description: 'If set, the event card in the directory links here instead of /events/[slug]. e.g. /meet-your-neighbor-day',
+      description:
+        'Internal path only — must start with /. e.g. /meet-your-neighbor-day. If set, the event card links here instead of /events/[slug].',
+      validation: (Rule) =>
+        Rule.custom((val: string | undefined) => {
+          if (!val) return true
+          return val.startsWith('/') ? true : 'Must be a root-relative path starting with /'
+        }),
     }),
     defineField({
       name: 'galleryImages',
@@ -192,7 +198,7 @@ export const event = defineType({
               name: 'categories',
               title: 'Categories',
               type: 'array',
-              description: 'e.g. games, food, music. Used for filter pills.',
+              description: 'Use lowercase. e.g. games, food, music. Consistent spelling required — filter pills are case-sensitive.',
               of: [{type: 'string'}],
             }),
             defineField({
