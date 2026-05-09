@@ -17,13 +17,14 @@ function formatTime(iso: string) {
 }
 
 function getTimeOfDay(iso: string): "morning" | "afternoon" | "evening" {
-  const hour = parseInt(
-    new Date(iso).toLocaleString("en-US", {
-      hour: "numeric",
-      hour12: false,
-      timeZone: TZ,
-    })
-  );
+  const hour =
+    parseInt(
+      new Date(iso).toLocaleString("en-US", {
+        hour: "numeric",
+        hour12: false,
+        timeZone: TZ,
+      })
+    ) % 24;
   if (hour < 12) return "morning";
   if (hour < 17) return "afternoon";
   return "evening";
@@ -98,6 +99,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
             <button
               key={t}
               onClick={() => setTimeFilter(t)}
+              aria-pressed={timeFilter === t}
               className={`${pillBase} ${timeFilter === t ? pillActive : pillInactive}`}
             >
               {t === "all"
@@ -112,6 +114,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
               onClick={() =>
                 setCategoryFilter(categoryFilter === cat ? "all" : cat)
               }
+              aria-pressed={categoryFilter === cat}
               className={`${pillBase} capitalize ${
                 categoryFilter === cat
                   ? "bg-accent text-white"
@@ -124,6 +127,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
 
           <button
             onClick={() => setFreeOnly(!freeOnly)}
+            aria-pressed={freeOnly}
             className={`${pillBase} ${
               freeOnly ? "bg-green-600 text-white" : pillInactive
             }`}
@@ -147,7 +151,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
               >
                 {/* Time */}
                 <div className="flex-shrink-0 flex items-center gap-1 text-xs font-bold text-text-secondary min-w-[72px] pt-0.5">
-                  <Clock size={11} className="opacity-60" />
+                  <Clock size={11} aria-hidden="true" className="opacity-60" />
                   {formatTime(event.startTime)}
                 </div>
 
@@ -172,12 +176,13 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
 
                   {event.locationName && (
                     <div className="flex items-center gap-1 text-xs text-text-secondary">
-                      <MapPin size={11} className="flex-shrink-0 opacity-60" />
+                      <MapPin size={11} aria-hidden="true" className="flex-shrink-0 opacity-60" />
                       {event.address ? (
                         <a
                           href={mapsUrl(event.address)}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`${event.locationName} – open in Google Maps`}
                           className="hover:text-text-hover transition-colors underline underline-offset-2"
                         >
                           {event.locationName}
