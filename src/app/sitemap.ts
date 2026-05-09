@@ -21,6 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${domainUrl}/contact` },
     { url: `${domainUrl}/events` },
     { url: `${domainUrl}/news` },
+    { url: `${domainUrl}/meet-your-neighbor-day` },
   ];
 
   const pageRoutes: MetadataRoute.Sitemap = pages
@@ -38,8 +39,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const eventRoutes: MetadataRoute.Sitemap = events
     .filter((e: { slug?: { current?: string } }) => e.slug?.current)
-    .map((e: { slug: { current: string } }) => ({
-      url: `${domainUrl}/events/${e.slug.current}`,
+    .map((e: { slug: { current: string }; customUrl?: string }) => ({
+      url: e.customUrl
+        ? `${domainUrl}${e.customUrl}`
+        : `${domainUrl}/events/${e.slug.current}`,
     }));
 
   const newsRoutes: MetadataRoute.Sitemap = newsArticles
