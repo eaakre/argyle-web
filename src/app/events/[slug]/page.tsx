@@ -120,7 +120,7 @@ export default async function EventPage({ params }: EventPageProps) {
       </div>
 
       {/* Hero header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary to-accent">
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary to-accent dark:to-primary">
         {event.image?.asset?.url && (
           <>
             <Image
@@ -134,7 +134,7 @@ export default async function EventPage({ params }: EventPageProps) {
           </>
         )}
         {!event.image && (
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent/80 to-primary opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent/80 to-primary dark:via-primary opacity-90" />
         )}
 
         {/* Decorative diagonal */}
@@ -150,7 +150,7 @@ export default async function EventPage({ params }: EventPageProps) {
         <div className="relative z-10 container mx-auto px-4 py-14 pb-16">
           <div className="flex flex-col md:flex-row md:items-end gap-6">
             {/* Date badge */}
-            <div className="flex-shrink-0 bg-secondary text-primary text-center px-4 py-3 shadow-lg w-[72px]">
+            <div className="flex-shrink-0 bg-badge-secondary-bg text-badge-secondary-text text-center px-4 py-3 shadow-lg w-[72px]">
               <div className="text-[10px] font-extrabold tracking-widest leading-none mb-1">
                 {month}
               </div>
@@ -171,7 +171,7 @@ export default async function EventPage({ params }: EventPageProps) {
                   </span>
                 )}
                 {event.featured && (
-                  <span className="text-xs px-2.5 py-0.5 bg-secondary text-primary rounded-full font-bold">
+                  <span className="badge badge-secondary font-bold">
                     Featured
                   </span>
                 )}

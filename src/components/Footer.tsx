@@ -58,17 +58,8 @@ export function Footer() {
   ];
 
   return (
-    <footer
-      className="relative overflow-hidden bg-primary"
-      style={
-        {
-          "--bg-footer": "#540d0d",
-          "--footer-text": "#f8bd27",
-          "--footer-text-secondary": "#eba800",
-        } as React.CSSProperties
-      }
-    >
-      <div className="bg-primary w-full h-2"></div>
+    <footer className="relative overflow-hidden bg-bg-footer text-footer-text">
+      <div className="bg-stripe w-full h-2"></div>
       <div className="bg-secondary w-full h-4"></div>
 
       {/* Argyle Pattern Background */}
@@ -76,7 +67,7 @@ export function Footer() {
         className="absolute inset-0 opacity-2 pointer-events-none"
         style={{
           backgroundImage: `
-            conic-gradient(from 90deg at 50% 50%, transparent 45deg, #FFFFFF 45deg, #FFFFFF 135deg, #eba800 135deg, #eba800 225deg, #540d0d 225deg, #540d0d 315deg, transparent 315deg),
+            conic-gradient(from 90deg at 50% 50%, transparent 45deg, var(--footer-argyle-1) 45deg, var(--footer-argyle-1) 135deg, var(--footer-argyle-2) 135deg, var(--footer-argyle-2) 225deg, var(--footer-argyle-3) 225deg, var(--footer-argyle-3) 315deg, transparent 315deg),
             linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0.2) 51%, transparent 52%),
             linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.2) 49%, rgba(255, 255, 255, 0.2) 51%, transparent 52%)
           `,

@@ -83,7 +83,7 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
           <div className="border-l-4 border-secondary px-8 pt-8 pb-2">
             <div className="flex items-center gap-2 flex-wrap mb-3">
               {article.category && (
-                <span className="text-xs px-2.5 py-0.5 bg-primary/10 text-primary rounded-full font-medium">
+                <span className="badge badge-primary">
                   {CATEGORY_LABELS[article.category] ?? article.category}
                 </span>
               )}

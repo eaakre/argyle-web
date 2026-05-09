@@ -65,7 +65,7 @@ const QuickLinksGrid = ({
               href={link.url}
               target={link.isExternal ? "_blank" : "_self"}
               rel={link.isExternal ? "noopener noreferrer" : undefined}
-              className="group block p-6 bg-bg-secondary shadow-sm rounded-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+              className="group block p-6 bg-bg-secondary shadow-sm ring-1 ring-black/10 dark:ring-white/10 rounded-sm hover:shadow-md hover:ring-black/20 dark:hover:ring-white/20 transition-all duration-300 hover:-translate-y-1"
             >
               <div className="flex flex-col items-center text-center space-y-4">
                 {/* Icon / Image */}

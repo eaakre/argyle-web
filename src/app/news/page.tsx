@@ -31,7 +31,7 @@ function formatDate(dateStr: string) {
 function CategoryBadge({ category }: { category?: string }) {
   if (!category) return null;
   return (
-    <span className="text-xs px-2.5 py-0.5 bg-primary/10 text-primary rounded-full font-medium">
+    <span className="badge badge-primary">
       {CATEGORY_LABELS[category] ?? category}
     </span>
   );
@@ -57,7 +57,7 @@ function ArticleCard({ article }: { article: SanityNewsArticle }) {
       )}
       <Link
         href={`/news/${article.slug.current}`}
-        className="mt-auto inline-flex items-center text-sm font-semibold text-primary hover:text-accent transition-colors"
+        className="mt-auto inline-flex items-center text-sm font-semibold text-text-primary hover:text-accent transition-colors"
       >
         Read more →
       </Link>
@@ -72,7 +72,7 @@ export default async function NewsPage() {
   return (
     <div className="min-h-screen bg-bg-secondary">
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary to-accent">
+      <div className="bg-gradient-to-br from-primary to-accent dark:to-primary">
         <div className="container max-w-6xl mx-auto px-4 py-12">
           <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-md">
             News
@@ -96,7 +96,7 @@ export default async function NewsPage() {
               <div className="bg-bg-primary rounded-sm shadow-sm overflow-hidden">
                 <div className="border-l-4 border-secondary px-8 pt-8 pb-2">
                   <div className="flex items-center gap-2 flex-wrap mb-3">
-                    <span className="text-xs px-2.5 py-0.5 bg-secondary text-primary rounded-full font-bold">
+                    <span className="badge badge-secondary font-bold">
                       Latest
                     </span>
                     <CategoryBadge category={latest.category} />

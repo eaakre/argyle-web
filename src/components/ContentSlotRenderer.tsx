@@ -11,19 +11,17 @@ import { EventsHighlights } from "./blocks/EventsHighlights";
 
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
-  className?: string;
   isHomepage?: boolean;
 };
-// Option 2: Update ContentSlotsRenderer to strip CMS properties
+
 export function ContentSlotsRenderer({
   contentSlots,
-  className = "",
   isHomepage = false,
 }: ContentSlotsRendererProps) {
   if (!contentSlots?.length) return null;
 
   return (
-    <section className={className}>
+    <>
       {contentSlots.map((slot: PageContentSlot, index: number) => {
         switch (slot._type) {
           case "hero":
@@ -63,6 +61,6 @@ export function ContentSlotsRenderer({
             );
         }
       })}
-    </section>
+    </>
   );
 }

@@ -74,7 +74,7 @@ export function Header({ announcements = [] }: Props) {
           <div className="bg-secondary w-full h-2"></div>
         )}
 
-        <div className="bg-primary w-full h-4"></div>
+        <div className="bg-stripe w-full h-4"></div>
       </nav>
 
       <div className="h-0 bg-gradient-to-r from-transparent via-secondary-foreground/20 to-transparent"></div>
@@ -143,7 +143,7 @@ function NavLinks({
                 onClick={() =>
                   mobile
                     ? setOpenDropdown(
-                        openDropdown === link.label ? null : link.label
+                        openDropdown === link.label ? null : link.label,
                       )
                     : undefined
                 }

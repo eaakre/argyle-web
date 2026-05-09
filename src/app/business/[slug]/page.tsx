@@ -138,13 +138,13 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
                   <div>
                     <h1 className="text-3xl font-bold mb-2">{business.name}</h1>
                     {business.category && (
-                      <span className="inline-block px-3 py-1 text-sm font-medium bg-white text-black rounded-full">
+                      <span className="badge badge-neutral">
                         {formatCategoryDisplay(business.category)}
                       </span>
                     )}
                   </div>
                   {business.featured && (
-                    <span className="inline-block px-3 py-1 text-sm font-medium bg-accent text-bg-secondary rounded-full">
+                    <span className="badge badge-secondary">
                       Featured
                     </span>
                   )}

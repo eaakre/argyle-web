@@ -30,18 +30,21 @@ export async function NewsHighlights() {
               className={`h-full rounded-lg border p-5 transition-shadow hover:shadow-md ${
                 article.pinned
                   ? "bg-secondary/15 border-secondary/40"
-                  : "bg-bg-secondary border-text-primary/10"
+                  : "bg-bg-secondary border-text-primary/20"
               }`}
             >
               {article.pinned && (
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary mb-3">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-badge-primary-text mb-3">
                   <span aria-hidden="true">📌</span> Pinned
                 </span>
               )}
-              <h3 className="font-semibold text-text-primary group-hover:text-primary leading-snug mb-2">
+              <h3 className="font-semibold text-text-primary group-hover:text-text-hover leading-snug mb-2">
                 {article.title}
               </h3>
-              <time dateTime={article.date} className="text-xs text-text-secondary block mb-2">
+              <time
+                dateTime={article.date}
+                className="text-xs text-text-secondary block mb-2"
+              >
                 {new Date(article.date + "T12:00:00").toLocaleDateString(
                   "en-US",
                   { month: "long", day: "numeric", year: "numeric" },

@@ -56,7 +56,7 @@ function EventCard({ event }: { event: SanityEvent }) {
           )}
           {past && <div className="absolute inset-0 bg-black/20" />}
           {event.featured && (
-            <span className="absolute top-3 right-3 text-[11px] px-2.5 py-0.5 bg-secondary text-primary font-bold rounded-full shadow">
+            <span className="absolute top-3 right-3 badge badge-secondary font-bold shadow">
               Featured
             </span>
           )}
@@ -68,7 +68,7 @@ function EventCard({ event }: { event: SanityEvent }) {
         </div>
 
         {/* Date badge — outside overflow-hidden so it renders fully */}
-        <div className="absolute bottom-0 left-4 translate-y-1/2 z-20 bg-secondary text-primary shadow-md text-center min-w-[52px] px-2.5 py-1.5">
+        <div className="absolute bottom-0 left-4 translate-y-1/2 z-20 bg-badge-secondary-bg text-badge-secondary-text shadow-md text-center min-w-[52px] px-2.5 py-1.5">
           <div className="text-[9px] font-extrabold tracking-widest leading-none mb-0.5">
             {month}
           </div>
@@ -112,14 +112,12 @@ function EventCard({ event }: { event: SanityEvent }) {
 
         <div className="flex flex-wrap gap-1.5">
           {event.category && (
-            <span className="text-[11px] px-2 py-0.5 bg-neutral-100 text-neutral-700 rounded-full font-medium">
+            <span className="badge badge-neutral">
               {formatCategory(event.category)}
             </span>
           )}
           {event.isFree && (
-            <span className="text-[11px] px-2 py-0.5 bg-secondary/20 text-primary rounded-full font-semibold">
-              Free
-            </span>
+            <span className="badge badge-neutral font-semibold">Free</span>
           )}
         </div>
       </div>
@@ -202,21 +200,21 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
     <section className="py-12 bg-bg-secondary">
       <div className="container max-w-6xl mx-auto px-4">
         {/* Tab row */}
-        <div className="flex gap-1 mb-6 bg-bg-primary p-1 w-fit shadow-sm rounded-sm">
+        <div className="flex gap-1 mb-6 bg-bg-primary p-1 w-full md:w-fit shadow-sm rounded-sm">
           {(["upcoming", "all", "past"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`px-4 py-1.5 text-sm font-semibold rounded-sm transition-all ${
+              className={`flex-1 md:flex-none px-4 py-1.5 text-sm font-semibold rounded-sm transition-all ${
                 tab === t
-                  ? "bg-primary text-white"
+                  ? "bg-tab-active-bg text-tab-active-text"
                   : "text-text-secondary hover:text-text-primary"
               }`}
             >
               {t === "upcoming" ? "Upcoming" : t === "all" ? "All" : "Past"}
               <span
                 className={`ml-1.5 text-xs font-normal ${
-                  tab === t ? "text-white/60" : "text-text-secondary"
+                  tab === t ? "text-tab-active-text/60" : "text-text-secondary"
                 }`}
               >
                 ({tabCounts[t]})
