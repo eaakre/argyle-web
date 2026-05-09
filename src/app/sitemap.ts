@@ -38,11 +38,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
   const eventRoutes: MetadataRoute.Sitemap = events
-    .filter((e: { slug?: { current?: string } }) => e.slug?.current)
-    .map((e: { slug: { current: string }; customUrl?: string }) => ({
-      url: e.customUrl
-        ? `${domainUrl}${e.customUrl}`
-        : `${domainUrl}/events/${e.slug.current}`,
+    .filter(
+      (e: { slug?: { current?: string }; customUrl?: string }) =>
+        e.slug?.current && !e.customUrl
+    )
+    .map((e: { slug: { current: string } }) => ({
+      url: `${domainUrl}/events/${e.slug.current}`,
     }));
 
   const newsRoutes: MetadataRoute.Sitemap = newsArticles
