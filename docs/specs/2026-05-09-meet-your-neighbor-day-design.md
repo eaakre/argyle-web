@@ -40,7 +40,7 @@ Each sub-event has:
 | `address` | string | Full address for Google Maps geocoding |
 | `lat` | number | Latitude for map pin |
 | `lng` | number | Longitude for map pin |
-| `categories` | string[] | e.g. `["games", "food", "music"]` |
+| `categories` | string[] | Free-text strings set by CMS editor, e.g. `["games", "food", "music"]`. Filter pills are generated dynamically from whatever values exist in the data — no fixed vocabulary enforced. |
 | `isFree` | boolean | Drives "Free only" filter |
 
 Sub-events have no slugs and no standalone pages — they are purely display data within the MYND landing page.
@@ -86,7 +86,7 @@ Time-of-day buckets:
 - Evening: after 5:00 PM
 
 #### Map (`MYNDMap.tsx`)
-Client component. Google Maps JavaScript API embed with one pin per sub-event. Pin click sets `activeSubEvent` state, which scrolls the schedule to that row and highlights it.
+Client component using the **Google Maps JavaScript API** (not the existing iframe embed in `google-map.tsx`, which does not support interactive pins). Requires a `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` environment variable. One pin per sub-event; pin click sets `activeSubEvent` state, which scrolls the schedule to that row and highlights it.
 
 Shared state: `activeSubEvent` (sub-event ID or null) lives in the parent page component and is passed as props to both `MYNDSchedule` and `MYNDMap`. Clicking a schedule row on desktop pans the map to that pin.
 
