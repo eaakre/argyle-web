@@ -119,6 +119,106 @@ export const event = defineType({
       title: 'Contact Phone',
       type: 'string',
     }),
+    // --- MYND / special event fields ---
+    defineField({
+      name: 'customUrl',
+      title: 'Custom Landing Page URL',
+      type: 'string',
+      description: 'If set, the event card in the directory links here instead of /events/[slug]. e.g. /meet-your-neighbor-day',
+    }),
+    defineField({
+      name: 'galleryImages',
+      title: 'Gallery Images',
+      type: 'array',
+      description: 'Photos shown in the horizontal scroll strip on the landing page.',
+      of: [
+        {
+          type: 'image',
+          options: {hotspot: true},
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'subEvents',
+      title: 'Sub-Events',
+      type: 'array',
+      description: 'Individual activities shown in the filterable schedule on the landing page.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+            }),
+            defineField({
+              name: 'startTime',
+              title: 'Start Time',
+              type: 'datetime',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'endTime',
+              title: 'End Time',
+              type: 'datetime',
+            }),
+            defineField({
+              name: 'locationName',
+              title: 'Location Name',
+              type: 'string',
+              description: 'e.g. "Community Park"',
+            }),
+            defineField({
+              name: 'address',
+              title: 'Address',
+              type: 'string',
+              description: 'Full address — used to create a Google Maps link',
+            }),
+            defineField({
+              name: 'categories',
+              title: 'Categories',
+              type: 'array',
+              description: 'e.g. games, food, music. Used for filter pills.',
+              of: [{type: 'string'}],
+            }),
+            defineField({
+              name: 'isFree',
+              title: 'Free',
+              type: 'boolean',
+              initialValue: false,
+            }),
+          ],
+          preview: {
+            select: {title: 'title', subtitle: 'startTime'},
+            prepare({title, subtitle}) {
+              return {
+                title,
+                subtitle: subtitle
+                  ? new Date(subtitle).toLocaleString('en-US', {
+                      month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+                      timeZone: 'America/Chicago',
+                    })
+                  : '',
+              }
+            },
+          },
+        },
+      ],
+    }),
   ],
   preview: {
     select: {
