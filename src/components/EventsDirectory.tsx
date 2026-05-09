@@ -40,7 +40,7 @@ function EventCard({ event }: { event: SanityEvent }) {
 
   return (
     <Link
-      href={`/events/${event.slug.current}`}
+      href={event.customUrl ?? `/events/${event.slug.current}`}
       className="group block bg-bg-primary rounded-sm shadow-sm hover:shadow-lg transition-all duration-300"
     >
       {/* Image / color band — wrapper is relative so badge can escape overflow-hidden */}
