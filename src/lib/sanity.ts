@@ -235,6 +235,18 @@ export async function getBusinessesByCategory(
   return client.fetch(query, { category });
 }
 
+export interface SubEvent {
+  _key: string;
+  title: string;
+  description?: string;
+  startTime: string;
+  endTime?: string;
+  locationName?: string;
+  address?: string;
+  categories?: string[];
+  isFree?: boolean;
+}
+
 export interface SanityEvent {
   _id: string;
   title: string;
@@ -257,12 +269,16 @@ export interface SanityEvent {
   organizer?: string;
   isFree?: boolean;
   cost?: string;
+  // Special landing page fields
+  customUrl?: string;
+  galleryImages?: Array<{ asset: { _id: string; url: string }; alt?: string }>;
+  subEvents?: SubEvent[];
 }
 
 const EVENT_FIELDS = `
   _id, title, slug, date, endDate, allDay, location, address, description,
   image { asset->{ _id, url }, alt },
-  category, featured, registrationUrl, contactEmail, contactPhone, organizer, isFree, cost
+  category, featured, registrationUrl, contactEmail, contactPhone, organizer, isFree, cost, customUrl
 `;
 
 export async function getAllEvents(): Promise<SanityEvent[]> {
@@ -304,6 +320,19 @@ export async function getEventsHighlights(): Promise<{
     featured: result.featured ?? null,
     upcoming: result.upcoming ?? [],
   };
+}
+
+export async function getMYNDEvent(): Promise<SanityEvent | null> {
+  return client.fetch(
+    `*[_type == "event" && slug.current == "meet-your-neighbor-day"][0] {
+      ${EVENT_FIELDS},
+      galleryImages[] { asset->{ _id, url }, alt },
+      subEvents[] {
+        _key, title, description, startTime, endTime,
+        locationName, address, categories, isFree
+      }
+    }`
+  );
 }
 
 export interface SanityNewsArticle {
