@@ -1,13 +1,14 @@
 {
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:ci.argyle.mn.us)",
+      "Bash(C:/Users/erika/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh --project-dir C:/Users/erika/projects/argyle-web)"
+    ]
+  },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "code-review@claude-plugins-official": true
-  },
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:ci.argyle.mn.us)"
-    ]
   }
 }
