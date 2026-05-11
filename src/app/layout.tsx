@@ -23,6 +23,7 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   title: "City of Argyle",
   description: "The Home in Hometown",
+  robots: { index: false, follow: false },
 };
 
 export default async function RootLayout({
