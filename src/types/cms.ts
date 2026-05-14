@@ -24,6 +24,7 @@ export type SanityImage = {
   asset: {
     _ref?: string;
     _type?: string;
+    url?: string;
   };
   _type?: string;
   _key?: string;
@@ -232,6 +233,7 @@ export type PageContentSlot =
   | {
       _type: "eventsHighlights";
       _key: string;
+      image?: SanityImage;
     }
   | {
       _type: string;
