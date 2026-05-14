@@ -47,7 +47,7 @@ export function ContentSlotsRenderer({
           case "newsHighlights":
             return <NewsHighlights key={index} />;
           case "eventsHighlights":
-            return <EventsHighlights key={index} />;
+            return <EventsHighlights key={index} image={slot.image} />;
           default:
             return (
               <div key={index} className="border p-4 rounded">
