@@ -8,6 +8,7 @@ import { MunicipalGroup } from "./blocks/municipalGroup";
 import { MunicipalGroupData } from "@/types/cms";
 import { NewsHighlights } from "./blocks/NewsHighlights";
 import { EventsHighlights } from "./blocks/EventsHighlights";
+import { SanityImage } from "@/types/cms";
 
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
@@ -47,7 +48,7 @@ export function ContentSlotsRenderer({
           case "newsHighlights":
             return <NewsHighlights key={index} />;
           case "eventsHighlights":
-            return <EventsHighlights key={index} image={slot.image} />;
+            return <EventsHighlights key={index} image={slot.image as SanityImage | undefined} />;
           default:
             return (
               <div key={index} className="border p-4 rounded">
