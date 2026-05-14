@@ -56,7 +56,8 @@ export async function getPageBySlug(slug: string) {
       heading,
       contentSlots[]{
         _type,
-        ...
+        ...,
+        image { asset->{ url }, alt }
       }
     }`;
   return await client.fetch(query, { slug });
