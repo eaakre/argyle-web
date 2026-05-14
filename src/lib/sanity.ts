@@ -303,24 +303,14 @@ export async function getUpcomingEvents(limit?: number): Promise<SanityEvent[]> 
 }
 
 export async function getEventsHighlights(): Promise<{
-  featured: SanityEvent | null;
   upcoming: SanityEvent[];
 }> {
   const now = new Date().toISOString();
-  const result = await client.fetch<{
-    featured: SanityEvent | null;
-    upcoming: SanityEvent[];
-  }>(
-    `{
-      "featured": *[_type == "event" && featured == true] | order(date asc)[0] { ${EVENT_FIELDS} },
-      "upcoming": *[_type == "event" && date >= $now && featured != true] | order(date asc)[0...3] { ${EVENT_FIELDS} }
-    }`,
+  const upcoming = await client.fetch<SanityEvent[]>(
+    `*[_type == "event" && date >= $now] | order(date asc)[0...3] { ${EVENT_FIELDS} }`,
     { now }
   );
-  return {
-    featured: result.featured ?? null,
-    upcoming: result.upcoming ?? [],
-  };
+  return { upcoming: upcoming ?? [] };
 }
 
 export async function getMYNDEvent(): Promise<SanityEvent | null> {
