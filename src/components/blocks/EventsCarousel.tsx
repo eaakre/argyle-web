@@ -50,6 +50,8 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
+  if (!events.length) return null;
+
   return (
     <div className="flex flex-col h-full">
       {/* Embla viewport */}
@@ -71,11 +73,13 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
                   dateTime={event.date}
                   className="text-sm text-text-secondary"
                 >
-                  📅 {formatEventDate(event.date)}
+                  <span aria-hidden="true">📅</span>{" "}
+                  {formatEventDate(event.date)}
                 </time>
                 {event.location && (
                   <p className="text-sm text-text-secondary">
-                    📍 {event.location}
+                    <span aria-hidden="true">📍</span>{" "}
+                    {event.location}
                   </p>
                 )}
               </div>
@@ -100,7 +104,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
           aria-label="Previous event"
           className={`w-8 h-8 rounded-full border border-text-primary/20 flex items-center justify-center text-text-primary transition-opacity ${
             !canScrollPrev
-              ? "opacity-40 pointer-events-none"
+              ? "opacity-40"
               : "hover:border-primary hover:text-primary"
           }`}
         >
@@ -110,15 +114,19 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
         <div className="flex gap-2">
           {events.map((_, i) => (
             <button
-              key={i}
+              key={events[i]._id}
               onClick={() => emblaApi?.scrollTo(i)}
               aria-label={`Go to event ${i + 1}`}
-              className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                i === selectedIndex
-                  ? "bg-primary"
-                  : "bg-text-primary/20 hover:bg-text-primary/40"
-              }`}
-            />
+              className="p-2 -m-2 flex items-center justify-center"
+            >
+              <span
+                className={`block w-2.5 h-2.5 rounded-full transition-colors ${
+                  i === selectedIndex
+                    ? "bg-primary"
+                    : "bg-text-primary/20 hover:bg-text-primary/40"
+                }`}
+              />
+            </button>
           ))}
         </div>
 
@@ -128,7 +136,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
           aria-label="Next event"
           className={`w-8 h-8 rounded-full border border-text-primary/20 flex items-center justify-center text-text-primary transition-opacity ${
             !canScrollNext
-              ? "opacity-40 pointer-events-none"
+              ? "opacity-40"
               : "hover:border-primary hover:text-primary"
           }`}
         >
