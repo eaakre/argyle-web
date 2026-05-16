@@ -117,6 +117,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
               key={events[i]._id}
               onClick={() => emblaApi?.scrollTo(i)}
               aria-label={`Go to event ${i + 1}`}
+              aria-current={i === selectedIndex ? "true" : undefined}
               className="p-2 -m-2 flex items-center justify-center"
             >
               <span

@@ -36,7 +36,7 @@ export async function EventsHighlights({
 
       {/* Mobile image — full width above carousel, hidden on desktop */}
       {imageUrl && (
-        <div className="relative h-48 w-full md:hidden overflow-hidden mb-0">
+        <div className="relative h-48 w-full md:hidden overflow-hidden">
           <Image
             src={imageUrl}
             alt={image?.alt ?? ""}
@@ -51,7 +51,7 @@ export async function EventsHighlights({
       <div className="flex bg-bg-secondary overflow-hidden min-h-64">
         {/* Left column: full-bleed image, desktop only */}
         {imageUrl && (
-          <div className="relative hidden md:block md:w-2/5 flex-shrink-0">
+          <div className="relative hidden md:block md:w-2/5 flex-shrink-0 overflow-hidden">
             <Image
               src={imageUrl}
               alt={image?.alt ?? ""}
