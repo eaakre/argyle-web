@@ -14,7 +14,7 @@ export async function NewsHighlights() {
         </h2>
         <Link
           href="/news"
-          className="text-sm font-medium text-primary hover:underline"
+          className="text-sm font-medium text-text-primary hover:underline"
         >
           See all news →
         </Link>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 import { SanityEvent } from "@/lib/sanity";
+import { MapPin, Calendar } from "lucide-react";
 
 function formatEventDate(dateString: string) {
   return new Date(dateString).toLocaleDateString("en-US", {
@@ -73,12 +74,22 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
                   dateTime={event.date}
                   className="text-sm text-text-secondary"
                 >
-                  <span aria-hidden="true">📅</span>{" "}
+                  <span aria-hidden="true">
+                    <Calendar
+                      size={16}
+                      className="inline-flex flex-shrink-0 mt-0.5 text-accent"
+                    />
+                  </span>{" "}
                   {formatEventDate(event.date)}
                 </time>
                 {event.location && (
                   <p className="text-sm text-text-secondary">
-                    <span aria-hidden="true">📍</span>{" "}
+                    <span aria-hidden="true">
+                      <MapPin
+                        size={16}
+                        className="inline-flex flex-shrink-0 mt-0.5 text-accent"
+                      />
+                    </span>{" "}
                     {event.location}
                   </p>
                 )}
@@ -86,7 +97,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
               <div>
                 <Link
                   href={event.customUrl ?? `/events/${event.slug.current}`}
-                  className="inline-block border-2 border-primary text-primary text-xs font-bold uppercase tracking-widest px-6 py-2 hover:bg-primary hover:text-white transition-colors"
+                  className="inline-block border-2 border-accent text-accent text-xs font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                 >
                   View Details
                 </Link>
@@ -102,7 +113,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
           onClick={scrollPrev}
           disabled={!canScrollPrev}
           aria-label="Previous event"
-          className={`w-8 h-8 rounded-full border border-text-primary/20 flex items-center justify-center text-text-primary transition-opacity ${
+          className={`w-8 h-8 cursor-pointer disabled:cursor-default rounded-full border border-text-text-primary/20 flex items-center justify-center text-text-primary transition-opacity ${
             !canScrollPrev
               ? "opacity-40"
               : "hover:border-primary hover:text-primary"
@@ -123,7 +134,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
               <span
                 className={`block w-2.5 h-2.5 rounded-full transition-colors ${
                   i === selectedIndex
-                    ? "bg-primary"
+                    ? "bg-text-primary"
                     : "bg-text-primary/20 hover:bg-text-primary/40"
                 }`}
               />
@@ -135,10 +146,10 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
           onClick={scrollNext}
           disabled={!canScrollNext}
           aria-label="Next event"
-          className={`w-8 h-8 rounded-full border border-text-primary/20 flex items-center justify-center text-text-primary transition-opacity ${
+          className={`w-8 h-8 cursor-pointer disabled:cursor-default rounded-full border border-text-text-primary/20 flex items-center justify-center text-text-primary transition-opacity ${
             !canScrollNext
               ? "opacity-40"
-              : "hover:border-primary hover:text-primary"
+              : "hover:border-primary hover:text-text-primary"
           }`}
         >
           ›

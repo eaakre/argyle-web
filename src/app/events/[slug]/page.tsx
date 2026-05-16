@@ -94,9 +94,16 @@ export default async function EventPage({ params }: EventPageProps) {
   if (!event) return notFound();
 
   const date = new Date(event.date);
-  const month = date.toLocaleString("en-US", { month: "short", timeZone: TZ }).toUpperCase();
-  const day = Number(date.toLocaleString("en-US", { day: "numeric", timeZone: TZ }));
-  const dayOfWeek = date.toLocaleString("en-US", { weekday: "short", timeZone: TZ });
+  const month = date
+    .toLocaleString("en-US", { month: "short", timeZone: TZ })
+    .toUpperCase();
+  const day = Number(
+    date.toLocaleString("en-US", { day: "numeric", timeZone: TZ }),
+  );
+  const dayOfWeek = date.toLocaleString("en-US", {
+    weekday: "short",
+    timeZone: TZ,
+  });
   const isPast = new Date(event.date) < new Date();
   const gcalUrl = buildGoogleCalendarUrl(event);
 
@@ -332,10 +339,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
                   {event.contactPhone && (
                     <div className="flex items-center gap-3">
-                      <Phone
-                        size={16}
-                        className="flex-shrink-0 text-accent"
-                      />
+                      <Phone size={16} className="flex-shrink-0 text-accent" />
                       <a
                         href={`tel:${event.contactPhone}`}
                         className="text-sm hover:text-text-hover transition-colors"
@@ -365,7 +369,7 @@ export default async function EventPage({ params }: EventPageProps) {
                   href={event.registrationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-secondary text-primary font-bold text-sm rounded-sm shadow-sm hover:brightness-95 transition-all"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-bg-secondary text-text-primary font-bold text-sm rounded-sm shadow-sm hover:brightness-95 transition-all"
                 >
                   <ExternalLink size={15} />
                   Register / Learn More
