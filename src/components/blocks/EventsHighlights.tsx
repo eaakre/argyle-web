@@ -51,7 +51,7 @@ export async function EventsHighlights({
       <div className="flex bg-bg-secondary overflow-hidden min-h-64">
         {/* Left column: full-bleed image, desktop only */}
         {imageUrl && (
-          <div className="relative hidden md:block md:w-3/5 flex-shrink-0">
+          <div className="relative hidden md:block md:w-2/5 flex-shrink-0">
             <Image
               src={imageUrl}
               alt={image?.alt ?? ""}
