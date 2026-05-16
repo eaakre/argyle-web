@@ -14,9 +14,10 @@ function formatEventDate(dateString: string) {
 
 interface EventsHighlightsProps {
   image?: SanityImage;
+  sectionTitle?: string;
 }
 
-export async function EventsHighlights({ image }: EventsHighlightsProps) {
+export async function EventsHighlights({ image, sectionTitle }: EventsHighlightsProps) {
   const { upcoming } = await getEventsHighlights();
 
   if (!upcoming.length) return null;
@@ -26,9 +27,16 @@ export async function EventsHighlights({ image }: EventsHighlightsProps) {
   return (
     <section className="px-4 py-12 max-w-screen-xl mx-auto">
       {/* Header — indented on desktop to align with event cards */}
-      <div className={`flex items-center justify-between mb-6 ${imageUrl ? "md:pl-44" : ""}`}>
-        <h2 className="text-2xl font-bold text-text-primary">Upcoming Events</h2>
-        <Link href="/events" className="text-sm font-medium text-primary hover:underline">
+      <div
+        className={`flex items-center justify-between mb-6 ${imageUrl ? "md:pl-44" : ""}`}
+      >
+        <h2 className="text-2xl font-bold text-text-primary">
+          {sectionTitle ?? "Upcoming Events"}
+        </h2>
+        <Link
+          href="/events"
+          className="text-sm font-medium text-text-primary hover:underline"
+        >
           See all events →
         </Link>
       </div>
@@ -37,19 +45,29 @@ export async function EventsHighlights({ image }: EventsHighlightsProps) {
         {/* Event cards — first in DOM so they appear above the circle on mobile.
             Desktop: pl-44 shifts them right to start at circle's midpoint (z-20).
             Mobile:  normal flow at top, z-20 keeps them in front of circle below. */}
-        <div className={`relative z-20 flex flex-col gap-3 ${imageUrl ? "md:pl-44" : ""}`}>
+        <div
+          className={`relative z-20 flex flex-col gap-3 ${imageUrl ? "md:pl-44" : ""}`}
+        >
           {upcoming.map((event) => (
             <Link
               key={event._id}
-              href={event.customUrl ? event.customUrl : `/events/${event.slug.current}`}
+              href={
+                event.customUrl
+                  ? event.customUrl
+                  : `/events/${event.slug.current}`
+              }
               className="block group"
             >
-              <div className="rounded-lg bg-white border border-text-primary/10 p-4 shadow-md transition-shadow hover:shadow-lg">
-                <h3 className="font-semibold text-text-primary group-hover:text-primary leading-snug mb-1">
+              <div className="rounded-lg bg-bg-secondary border border-text-primary/10 p-4 shadow-md transition-shadow hover:shadow-lg">
+                <h3 className="font-semibold text-text-primary group-hover:text-text-hover leading-snug mb-1">
                   {event.title}
                 </h3>
-                <time dateTime={event.date} className="text-xs text-text-secondary block">
-                  <span aria-hidden="true">📅</span> {formatEventDate(event.date)}
+                <time
+                  dateTime={event.date}
+                  className="text-xs text-text-secondary block"
+                >
+                  <span aria-hidden="true">📅</span>{" "}
+                  {formatEventDate(event.date)}
                 </time>
                 {event.location && (
                   <p className="text-xs text-text-secondary">

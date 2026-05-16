@@ -9,7 +9,7 @@ export const eventsHighlights = defineType({
       name: 'sectionTitle',
       type: 'string',
       title: 'Section Title (optional)',
-      description: 'Overrides the default "Upcoming Events" heading. Leave blank to use the default.',
+      description: 'Heading displayed above the event cards. Defaults to "Upcoming Events" if left blank.',
     }),
     defineField({
       name: 'image',

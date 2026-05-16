@@ -234,6 +234,7 @@ export type PageContentSlot =
       _type: "eventsHighlights";
       _key: string;
       image?: SanityImage;
+      sectionTitle?: string;
     }
   | {
       _type: string;
