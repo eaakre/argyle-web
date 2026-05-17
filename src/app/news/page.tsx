@@ -57,7 +57,7 @@ function ArticleCard({ article }: { article: SanityNewsArticle }) {
       )}
       <Link
         href={`/news/${article.slug.current}`}
-        className="mt-auto inline-flex items-center text-sm font-semibold text-text-primary hover:text-accent transition-colors"
+        className="mt-auto text-sm font-medium text-text-secondary hover:underline"
       >
         Read more →
       </Link>
@@ -124,7 +124,7 @@ export default async function NewsPage() {
                         href={latest.pdfAttachment.asset.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-semibold rounded-sm hover:bg-accent transition-colors shadow-sm"
+                        className="inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                       >
                         <Download size={14} />
                         Download PDF
@@ -132,9 +132,9 @@ export default async function NewsPage() {
                     )}
                     <Link
                       href={`/news/${latest.slug.current}`}
-                      className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 rounded-sm hover:bg-gray-50 transition-colors"
+                      className="inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                     >
-                      Permalink →
+                      Read more →
                     </Link>
                   </div>
                 </div>

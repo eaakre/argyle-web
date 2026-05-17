@@ -244,7 +244,7 @@ export default async function EventPage({ params }: EventPageProps) {
                   href={gcalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-sm hover:bg-accent transition-colors shadow-sm"
+                  className="inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                 >
                   <Calendar size={15} />
                   Add to Google Calendar
@@ -369,7 +369,7 @@ export default async function EventPage({ params }: EventPageProps) {
                   href={event.registrationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-bg-secondary text-text-primary font-bold text-sm rounded-sm shadow-sm hover:brightness-95 transition-all"
+                  className="flex items-center justify-center gap-2 w-full border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                 >
                   <ExternalLink size={15} />
                   Register / Learn More
@@ -382,7 +382,7 @@ export default async function EventPage({ params }: EventPageProps) {
           <div className="mt-10 text-center">
             <Link
               href="/events"
-              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-sm shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+              className="text-sm font-medium text-text-secondary hover:underline"
             >
               ← Back to Events
             </Link>

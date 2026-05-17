@@ -6,7 +6,9 @@
       "Bash(bash \"/c/Users/erika/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh\" --project-dir \"/c/Users/erika/projects/argyle-web\")",
       "Bash(scripts/start-server.sh --project-dir \"C:/Users/erika/projects/argyle-web\")",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\erika\\\\projects\\\\argyle-web\" -Recurse -Depth 3)",
-      "Bash(Select-Object -First 30)"
+      "Bash(Select-Object -First 30)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\erika\\\\projects\\\\argyle-web\\\\src\" -Recurse -Filter \"*.tsx\" -File)",
+      "Bash(Select-Object -First 20)"
     ]
   },
   "enabledPlugins": {

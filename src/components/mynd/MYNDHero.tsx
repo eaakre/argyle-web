@@ -47,7 +47,7 @@ export function MYNDHero({ event }: { event: SanityEvent }) {
         )}
         <a
           href="#schedule"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-primary font-bold rounded-sm hover:brightness-95 transition shadow-sm"
+          className="inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
         >
           See the Schedule ↓
         </a>

@@ -114,7 +114,7 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
                   href={article.pdfAttachment.asset.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-sm hover:bg-accent transition-colors shadow-sm"
+                  className="inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                 >
                   <Download size={14} />
                   Download PDF
@@ -127,7 +127,7 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
         <div className="mt-8 text-center">
           <Link
             href="/news"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-sm shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+            className="text-sm font-medium text-text-secondary hover:underline"
           >
             ← Back to News
           </Link>
