@@ -3,28 +3,27 @@
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
-import { SanityEvent } from "@/lib/sanity";
-import { MapPin, Calendar } from "lucide-react";
+import { SanityNewsArticle } from "@/lib/sanity";
+import { Calendar } from "lucide-react";
 
-function formatEventDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString("en-US", {
+function formatDate(dateString: string) {
+  return new Date(dateString + "T12:00:00").toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
-    timeZone: "America/Chicago",
   });
 }
 
-type EventSlide = Pick<
-  SanityEvent,
-  "_id" | "title" | "date" | "location" | "slug" | "customUrl"
+type NewsSlide = Pick<
+  SanityNewsArticle,
+  "_id" | "title" | "slug" | "date" | "excerpt" | "pinned"
 >;
 
-interface EventsCarouselProps {
-  events: EventSlide[];
+interface NewsCarouselProps {
+  articles: NewsSlide[];
 }
 
-export function EventsCarousel({ events }: EventsCarouselProps) {
+export function NewsCarousel({ articles }: NewsCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -51,27 +50,27 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
-  if (!events.length) return null;
+  if (!articles.length) return null;
 
   return (
     <div className="flex flex-col h-full">
       {/* Embla viewport */}
       <div className="overflow-hidden flex-1" ref={emblaRef}>
         <div className="flex h-full">
-          {events.map((event) => (
+          {articles.map((article) => (
             <div
-              key={event._id}
-              className="flex-[0_0_100%] min-w-0 px-8 py-8 flex flex-col justify-center border-r-2 border-accent"
+              key={article._id}
+              className="flex-[0_0_100%] min-w-0 px-8 py-8 flex flex-col justify-center border-l-2 border-accent"
             >
               <span className="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 block">
-                Upcoming Event
+                {article.pinned ? "Pinned" : "Latest News"}
               </span>
               <h3 className="text-2xl font-extrabold text-text-primary uppercase leading-tight mb-3">
-                {event.title}
+                {article.title}
               </h3>
-              <div className="flex flex-col gap-1 mb-6">
+              <div className="flex flex-col gap-1 mb-4">
                 <time
-                  dateTime={event.date}
+                  dateTime={article.date}
                   className="text-sm text-text-secondary"
                 >
                   <span aria-hidden="true">
@@ -80,32 +79,26 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
                       className="inline-flex flex-shrink-0 mt-0.5 text-accent"
                     />
                   </span>{" "}
-                  {formatEventDate(event.date)}
+                  {formatDate(article.date)}
                 </time>
-                {event.location && (
-                  <p className="text-sm text-text-secondary">
-                    <span aria-hidden="true">
-                      <MapPin
-                        size={16}
-                        className="inline-flex flex-shrink-0 mt-0.5 text-accent"
-                      />
-                    </span>{" "}
-                    {event.location}
-                  </p>
-                )}
               </div>
+              {article.excerpt && (
+                <p className="text-sm text-text-secondary line-clamp-3 mb-6">
+                  {article.excerpt}
+                </p>
+              )}
               <div className="flex items-center gap-4">
                 <Link
-                  href={event.customUrl ?? `/events/${event.slug.current}`}
+                  href={`/news/${article.slug.current}`}
                   className="inline-block border-2 border-accent text-accent text-xs font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                 >
-                  View Details
+                  Read More
                 </Link>
                 <Link
-                  href="/events"
+                  href="/news"
                   className="text-sm font-medium text-text-secondary hover:underline"
                 >
-                  See all events →
+                  See all news →
                 </Link>
               </div>
             </div>
@@ -118,7 +111,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
         <button
           onClick={scrollPrev}
           disabled={!canScrollPrev}
-          aria-label="Previous event"
+          aria-label="Previous article"
           className={`w-8 h-8 cursor-pointer disabled:cursor-default rounded-full border border-text-text-primary/20 flex items-center justify-center text-text-primary transition-opacity ${
             !canScrollPrev
               ? "opacity-40"
@@ -129,11 +122,11 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
         </button>
 
         <div className="flex gap-2">
-          {events.map((_, i) => (
+          {articles.map((_, i) => (
             <button
-              key={events[i]._id}
+              key={articles[i]._id}
               onClick={() => emblaApi?.scrollTo(i)}
-              aria-label={`Go to event ${i + 1}`}
+              aria-label={`Go to article ${i + 1}`}
               aria-current={i === selectedIndex ? "true" : undefined}
               className="p-2 -m-2 flex items-center justify-center"
             >
@@ -151,7 +144,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
         <button
           onClick={scrollNext}
           disabled={!canScrollNext}
-          aria-label="Next event"
+          aria-label="Next article"
           className={`w-8 h-8 cursor-pointer disabled:cursor-default rounded-full border border-text-text-primary/20 flex items-center justify-center text-text-primary transition-opacity ${
             !canScrollNext
               ? "opacity-40"

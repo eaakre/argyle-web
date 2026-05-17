@@ -46,7 +46,7 @@ export function ContentSlotsRenderer({
           case "googleMap":
             return <GoogleMap key={index} {...slot} />;
           case "newsHighlights":
-            return <NewsHighlights key={index} />;
+            return <NewsHighlights key={index} image={slot.image as SanityImage | undefined} sectionTitle={slot.sectionTitle as string | undefined} />;
           case "eventsHighlights":
             return <EventsHighlights key={index} image={slot.image as SanityImage | undefined} sectionTitle={slot.sectionTitle as string | undefined} />;
           default:

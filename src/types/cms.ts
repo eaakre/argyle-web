@@ -229,6 +229,8 @@ export type PageContentSlot =
   | {
       _type: "newsHighlights";
       _key: string;
+      image?: SanityImage;
+      sectionTitle?: string;
     }
   | {
       _type: "eventsHighlights";

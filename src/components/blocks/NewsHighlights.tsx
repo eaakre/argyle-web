@@ -1,63 +1,72 @@
-import Link from "next/link";
+import Image from "next/image";
 import { getNewsHighlights } from "@/lib/sanity";
+import { SanityImage } from "@/types/cms";
+import { NewsCarousel } from "./NewsCarousel";
 
-export async function NewsHighlights() {
+interface NewsHighlightsProps {
+  image?: SanityImage;
+  sectionTitle?: string;
+}
+
+export async function NewsHighlights({
+  image,
+  sectionTitle,
+}: NewsHighlightsProps) {
   const articles = await getNewsHighlights();
 
   if (!articles?.length) return null;
 
+  const imageUrl = image?.asset?.url;
+  const title = sectionTitle ?? "News & Announcements";
+
   return (
-    <section className="px-4 py-12 max-w-screen-xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-text-primary">
-          News &amp; Announcements
-        </h2>
-        <Link
-          href="/news"
-          className="text-sm font-medium text-text-primary hover:underline"
-        >
-          See all news →
-        </Link>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {articles.map((article) => (
-          <Link
-            key={article._id}
-            href={`/news/${article.slug.current}`}
-            className="block group"
-          >
-            <div
-              className={`h-full rounded-lg border p-5 transition-shadow hover:shadow-md ${
-                article.pinned
-                  ? "bg-secondary/15 border-secondary/40"
-                  : "bg-bg-secondary border-text-primary/20"
-              }`}
-            >
-              {article.pinned && (
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-badge-primary-text mb-3">
-                  <span aria-hidden="true">📌</span> Pinned
-                </span>
-              )}
-              <h3 className="font-semibold text-text-primary group-hover:text-text-hover leading-snug mb-2">
-                {article.title}
-              </h3>
-              <time
-                dateTime={article.date}
-                className="text-xs text-text-secondary block mb-2"
-              >
-                {new Date(article.date + "T12:00:00").toLocaleDateString(
-                  "en-US",
-                  { month: "long", day: "numeric", year: "numeric" },
-                )}
-              </time>
-              {article.excerpt && (
-                <p className="text-sm text-text-secondary line-clamp-2">
-                  {article.excerpt}
-                </p>
-              )}
+    <section className="md:px-4 py-12 bg-bg-secondary">
+      <div className="mx-auto max-w-screen-xl">
+        {/* Mobile image — full width above carousel, hidden on desktop */}
+        {imageUrl ? (
+          <div className="relative h-48 w-full md:hidden overflow-hidden">
+            <Image
+              src={imageUrl}
+              alt={image?.alt ?? ""}
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute top-[20px] left-0 bg-accent/90 px-6 py-2">
+              <h2 className="text-2xl font-bold text-bg-primary uppercase">
+                {title}
+              </h2>
             </div>
-          </Link>
-        ))}
+          </div>
+        ) : (
+          <h2 className="text-2xl font-bold text-text-primary mb-6">{title}</h2>
+        )}
+
+        {/* Two-column layout */}
+        <div className="flex bg-bg-primary overflow-hidden min-h-80">
+          {/* Left column: carousel */}
+          <div className="flex-1 min-w-0">
+            <NewsCarousel articles={articles} />
+          </div>
+
+          {/* Right column: full-bleed image, desktop only */}
+          {imageUrl && (
+            <div className="relative hidden md:block md:w-3/5 flex-shrink-0">
+              <Image
+                src={imageUrl}
+                alt={image?.alt ?? ""}
+                fill
+                className="object-cover"
+                sizes="60vw"
+              />
+              <div className="absolute top-[20px] left-[-20] bg-accent px-12 py-2">
+                <h2 className="text-2xl font-bold text-bg-primary py-4 uppercase">
+                  {title}
+                </h2>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
