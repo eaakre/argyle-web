@@ -19,13 +19,19 @@ if (!process.env.NEXT_PUBLIC_SANITY_DATASET) {
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 
-// Sanity client
+// Sanity client — useCdn: false so Next.js cache tags are the sole caching layer
 export const client = createClient({
   projectId,
   dataset,
   apiVersion: "2024-06-01",
-  useCdn: true,
+  useCdn: false,
 });
+
+// Wrapper that tags every fetch with 'sanity' so revalidateTag('sanity')
+// busts all Sanity data at once when the Sanity webhook fires.
+function sanityFetch<T>(query: string, params: Record<string, unknown> = {}): Promise<T> {
+  return client.fetch<T>(query, params, { next: { tags: ["sanity"] } });
+}
 
 // ✅ Image URL builder
 const builder = imageUrlBuilder({ projectId, dataset });
@@ -40,11 +46,11 @@ export async function getHomepageContent() {
       ...
     }
   }`;
-  return await client.fetch(query);
+  return await sanityFetch(query);
 }
 
 export async function getAllPages() {
-  return await client.fetch(`*[_type == "page"]{ slug, pathPrefix }`);
+  return await sanityFetch(`*[_type == "page"]{ slug, pathPrefix }`);
 }
 
 // Get a flexible page by slug (preferred long-term)
@@ -60,7 +66,7 @@ export async function getPageBySlug(slug: string) {
         image { asset->{ url }, alt }
       }
     }`;
-  return await client.fetch(query, { slug });
+  return await sanityFetch(query, { slug });
 }
 
 export interface Business {
@@ -146,11 +152,11 @@ export async function getAllBusinesses(options?: {
     query += `[0...${limit}]`;
   }
 
-  return client.fetch(query);
+  return sanityFetch(query);
 }
 
 export async function getBusinessBySlug(slug: string) {
-  return client.fetch(
+  return sanityFetch(
     `*[_type == "business" && slug.current == $slug][0] {
       _id,
       name,
@@ -201,7 +207,7 @@ export async function getFeaturedBusinesses(limit?: number) {
     query += `[0...${limit}]`;
   }
 
-  return client.fetch(query);
+  return sanityFetch(query);
 }
 
 export async function getBusinessesByCategory(
@@ -233,7 +239,7 @@ export async function getBusinessesByCategory(
     query += `[0...${limit}]`;
   }
 
-  return client.fetch(query, { category });
+  return sanityFetch(query, { category });
 }
 
 export interface SubEvent {
@@ -283,13 +289,13 @@ const EVENT_FIELDS = `
 `;
 
 export async function getAllEvents(): Promise<SanityEvent[]> {
-  return client.fetch(
+  return sanityFetch(
     `*[_type == "event"] { ${EVENT_FIELDS} } | order(date asc)`
   );
 }
 
 export async function getEventBySlug(slug: string): Promise<SanityEvent | null> {
-  return client.fetch(
+  return sanityFetch(
     `*[_type == "event" && slug.current == $slug][0] { ${EVENT_FIELDS} }`,
     { slug }
   );
@@ -299,14 +305,14 @@ export async function getUpcomingEvents(limit?: number): Promise<SanityEvent[]> 
   const now = new Date().toISOString();
   const base = `*[_type == "event" && date >= $now] { ${EVENT_FIELDS} } | order(date asc)`;
   const query = limit ? `(${base})[0...${limit}]` : base;
-  return client.fetch(query, { now });
+  return sanityFetch(query, { now });
 }
 
 export async function getEventsHighlights(): Promise<{
   upcoming: SanityEvent[];
 }> {
   const now = new Date().toISOString();
-  const upcoming = await client.fetch<SanityEvent[]>(
+  const upcoming = await sanityFetch<SanityEvent[]>(
     `*[_type == "event" && date >= $now] | order(date asc)[0...3] { ${EVENT_FIELDS} }`,
     { now }
   );
@@ -314,7 +320,7 @@ export async function getEventsHighlights(): Promise<{
 }
 
 export async function getMYNDEvent(): Promise<SanityEvent | null> {
-  return client.fetch(
+  return sanityFetch(
     `*[_type == "event" && slug.current == "meet-your-neighbor-day"][0] {
       ${EVENT_FIELDS},
       galleryImages[] { asset->{ _id, url }, alt },
@@ -344,28 +350,28 @@ const NEWS_FIELDS = `
 `;
 
 export async function getAllNewsArticles(): Promise<SanityNewsArticle[]> {
-  return client.fetch(
+  return sanityFetch(
     `*[_type == "newsArticle"] { ${NEWS_FIELDS} } | order(date desc)`
   );
 }
 
 export async function getNewsHighlights(): Promise<SanityNewsArticle[]> {
-  return client.fetch(
-    `*[_type == "newsArticle"] | order(pinned desc, date desc)[0...3] {
+  return sanityFetch(
+    `*[_type == "newsArticle"] | order(coalesce(pinned, false) desc, date desc)[0...3] {
       _id, title, slug, date, category, excerpt, pinned
     }`
   );
 }
 
 export async function getNewsArticleBySlug(slug: string): Promise<SanityNewsArticle | null> {
-  return client.fetch(
+  return sanityFetch(
     `*[_type == "newsArticle" && slug.current == $slug][0] { ${NEWS_FIELDS}, body }`,
     { slug }
   );
 }
 
 export async function getAllNewsArticleSlugs(): Promise<{ slug: { current: string } }[]> {
-  return client.fetch(`*[_type == "newsArticle"]{ slug }`);
+  return sanityFetch(`*[_type == "newsArticle"]{ slug }`);
 }
 
 export async function getAnnouncements(isActive: boolean, limit?: number) {
@@ -385,5 +391,5 @@ export async function getAnnouncements(isActive: boolean, limit?: number) {
     query += `[0...${limit}]`;
   }
 
-  return client.fetch(query, { isActive });
+  return sanityFetch(query, { isActive });
 }
