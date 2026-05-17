@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:ci.argyle.mn.us)",
       "Bash(C:/Users/erika/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh --project-dir C:/Users/erika/projects/argyle-web)",
-      "Bash(bash \"/c/Users/erika/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh\" --project-dir \"/c/Users/erika/projects/argyle-web\")"
+      "Bash(bash \"/c/Users/erika/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/scripts/start-server.sh\" --project-dir \"/c/Users/erika/projects/argyle-web\")",
+      "Bash(scripts/start-server.sh --project-dir \"C:/Users/erika/projects/argyle-web\")"
     ]
   },
   "enabledPlugins": {

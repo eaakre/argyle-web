@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { ExternalLink, ArrowRight } from "lucide-react";
-import { Typography } from "../ui/Typography";
 import { urlForImage } from "@/lib/sanity";
 import { SanityImage } from "@/types/cms";
 
@@ -11,6 +10,7 @@ interface QuickLink {
   icon?: string;
   url: string;
   isExternal?: boolean;
+  _key?: string;
 }
 
 interface QuickLinksGridProps {
@@ -20,12 +20,16 @@ interface QuickLinksGridProps {
   columns?: number;
 }
 
-const QuickLinksGrid = ({
-  title,
-  description,
-  links,
-  columns = 3,
-}: QuickLinksGridProps) => {
+const GRADIENTS = [
+  "linear-gradient(145deg, #1a0505, #540d0d)",
+  "linear-gradient(145deg, #540d0d, #751b1b)",
+  "linear-gradient(145deg, #751b1b, #8b2525)",
+  "linear-gradient(145deg, #8b2525, #540d0d)",
+  "linear-gradient(145deg, #540d0d, #1a0505)",
+  "linear-gradient(145deg, #1a0505, #751b1b)",
+];
+
+const QuickLinksGrid = ({ title, links, columns = 3 }: QuickLinksGridProps) => {
   const gridCols =
     {
       2: "grid-cols-1 md:grid-cols-2",
@@ -33,101 +37,85 @@ const QuickLinksGrid = ({
       4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
     }[columns] || "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
 
+  if (!links?.length) return null;
+
   return (
-    <section className="py-12 md:py-16">
+    <section className="py-12 md:py-16 bg-bg-primary">
       <div className="max-w-screen-xl mx-auto px-4">
-        {/* Section Header */}
-        {(title || description) && (
-          <div className="text-center mb-8 md:mb-12">
-            {title && (
-              <Typography variant="h2" center>
-                {title}
-              </Typography>
-            )}
-            {description && (
-              <Typography
-                variant="lead"
-                color="secondary"
-                center
-                className="max-w-3xl mx-auto"
-              >
-                {description}
-              </Typography>
-            )}
+        {title && (
+          <div className="bg-accent inline-block mb-3 px-5 md:px-12 py-4">
+            <h2 className="text-bg-primary text-2xl font-bold uppercase">
+              {title}
+            </h2>
           </div>
         )}
 
-        {/* Links Grid */}
-        <div className={`grid ${gridCols} gap-6 md:gap-8`}>
-          {links?.map((link, index) => (
-            <a
-              key={index}
-              href={link.url}
-              target={link.isExternal ? "_blank" : "_self"}
-              rel={link.isExternal ? "noopener noreferrer" : undefined}
-              className="group block p-6 bg-bg-secondary shadow-sm ring-1 ring-black/10 dark:ring-white/10 rounded-sm hover:shadow-md hover:ring-black/20 dark:hover:ring-white/20 transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="flex flex-col items-center text-center space-y-4">
-                {/* Icon / Image */}
-                {(link.image || link.icon) && (
-                  <div className="flex items-center justify-center w-20 h-20 bg-secondary/20 rounded-full group-hover:bg-secondary/40 transition-colors overflow-hidden flex-shrink-0">
-                    {link.image ? (
-                      <div className="relative w-16 h-16">
-                        <Image
-                          src={urlForImage(link.image)
-                            .width(100)
-                            .height(100)
-                            .url()}
-                          alt={link.image.alt || link.title}
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <span className="text-2xl" role="img" aria-hidden="true">
-                        {link.icon}
-                      </span>
-                    )}
+        <div className={`grid ${gridCols} gap-[10px]`}>
+          {links?.map((link, index) => {
+            const imageUrl = link.image?.asset?._ref
+              ? urlForImage(link.image).width(600).height(320).url()
+              : null;
+
+            return (
+              <a
+                key={link._key ?? link.url}
+                href={link.url}
+                target={link.isExternal ? "_blank" : "_self"}
+                rel={link.isExternal ? "noopener noreferrer" : undefined}
+                className="group relative block h-60 overflow-hidden"
+              >
+                {/* Background: photo or gradient */}
+                {imageUrl ? (
+                  <Image
+                    src={imageUrl}
+                    alt={link.image?.alt || link.title}
+                    fill
+                    className="object-cover transition-all duration-200 group-hover:brightness-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div
+                    className="absolute inset-0 transition-all duration-200 group-hover:brightness-110"
+                    style={{ background: GRADIENTS[index % GRADIENTS.length] }}
+                  />
+                )}
+
+                {/* Dark gradient overlay — ensures text legibility over any background */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.85)] via-[rgba(26,5,5,0.55)] to-transparent" />
+
+                {/* Faded emoji icon — gradient cards only, when icon field is set */}
+                {!imageUrl && link.icon && (
+                  <div
+                    className="absolute inset-0 flex items-center justify-center text-6xl opacity-20 select-none"
+                    aria-hidden="true"
+                  >
+                    {link.icon}
                   </div>
                 )}
 
-                {/* Content */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-center gap-2">
-                    <Typography
-                      variant="h5"
-                      noMargin
-                      className="group-hover:text-text-hover transition-colors"
-                    >
+                {/* Footer: title + gold bar + arrow */}
+                <div className="absolute bottom-0 left-0 right-0 z-10 flex items-end justify-between px-3 pb-3">
+                  <div>
+                    <p className="text-white text-base font-bold uppercase tracking-widest mb-1">
                       {link.title}
-                    </Typography>
-                    {link.isExternal ? (
-                      <ExternalLink
-                        size={16}
-                        className="group-hover:text-text-hover transition-colors"
-                      />
-                    ) : (
-                      <ArrowRight
-                        size={16}
-                        className="group-hover:text-text-hover transition-colors group-hover:translate-x-1"
-                      />
-                    )}
+                    </p>
+                    <div className="w-[18px] h-[2px] bg-secondary" />
                   </div>
-
-                  {link.description && (
-                    <Typography
-                      variant="small"
-                      color="secondary"
-                      noMargin
-                      className="line-clamp-2"
-                    >
-                      {link.description}
-                    </Typography>
+                  {link.isExternal ? (
+                    <ExternalLink
+                      size={22}
+                      className="text-secondary flex-shrink-0"
+                    />
+                  ) : (
+                    <ArrowRight
+                      size={22}
+                      className="text-secondary flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+                    />
                   )}
                 </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
