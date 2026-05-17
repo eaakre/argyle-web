@@ -207,7 +207,7 @@ export function MunicipalGroup({
 
                     {(member.termStart || member.termEnd) && (
                       <div className="mt-3 pt-3">
-                        <p className="text-xs">
+                        <p className="text-sm">
                           Term:{" "}
                           {member.termStart
                             ? new Date(member.termStart).getFullYear()

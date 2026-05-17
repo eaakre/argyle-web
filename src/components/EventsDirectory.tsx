@@ -61,7 +61,7 @@ function EventCard({ event }: { event: SanityEvent }) {
             </span>
           )}
           {past && (
-            <span className="absolute top-3 left-3 text-[11px] px-2.5 py-0.5 bg-black/60 text-white/90 rounded-full font-medium">
+            <span className="absolute top-3 left-3 text-xs px-2.5 py-0.5 bg-black/60 text-white/90 rounded-full font-medium">
               Past
             </span>
           )}
@@ -69,13 +69,13 @@ function EventCard({ event }: { event: SanityEvent }) {
 
         {/* Date badge — outside overflow-hidden so it renders fully */}
         <div className="absolute bottom-0 left-4 translate-y-1/2 z-20 bg-badge-secondary-bg text-badge-secondary-text shadow-md text-center min-w-[52px] px-2.5 py-1.5">
-          <div className="text-[9px] font-extrabold tracking-widest leading-none mb-0.5">
+          <div className="text-[11px] font-extrabold tracking-widest leading-none mb-0.5">
             {month}
           </div>
           <div className="text-[26px] font-black leading-none tracking-tight">
             {day}
           </div>
-          <div className="text-[9px] font-semibold tracking-wider opacity-70 mt-0.5">
+          <div className="text-[11px] font-semibold tracking-wider opacity-70 mt-0.5">
             {dayOfWeek}
           </div>
         </div>
@@ -83,24 +83,24 @@ function EventCard({ event }: { event: SanityEvent }) {
 
       {/* Content */}
       <div className="pt-10 pb-5 px-4">
-        <h3 className="font-bold text-[15px] leading-snug mb-2.5 line-clamp-2 group-hover:text-accent transition-colors">
+        <h3 className="font-bold text-base leading-snug mb-2.5 line-clamp-2 group-hover:text-accent transition-colors">
           {event.title}
         </h3>
 
         <div className="space-y-1 mb-3">
           {event.location && (
-            <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+            <div className="flex items-center gap-1.5 text-sm text-text-secondary">
               <MapPin size={11} className="flex-shrink-0 opacity-60" />
               <span className="truncate">{event.location}</span>
             </div>
           )}
           {event.allDay ? (
-            <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+            <div className="flex items-center gap-1.5 text-sm text-text-secondary">
               <Calendar size={11} className="flex-shrink-0 opacity-60" />
               <span>All Day</span>
             </div>
           ) : (
-            <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+            <div className="flex items-center gap-1.5 text-sm text-text-secondary">
               <Clock size={11} className="flex-shrink-0 opacity-60" />
               <span>
                 {formatTime(event.date)}
@@ -213,7 +213,7 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
             >
               {t === "upcoming" ? "Upcoming" : t === "all" ? "All" : "Past"}
               <span
-                className={`ml-1.5 text-xs font-normal ${
+                className={`ml-1.5 text-sm font-normal ${
                   tab === t ? "text-tab-active-text/60" : "text-text-secondary"
                 }`}
               >

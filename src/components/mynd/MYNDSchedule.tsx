@@ -150,7 +150,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
                 style={{ borderLeftColor: borderColorFor(event) }}
               >
                 {/* Time */}
-                <div className="flex-shrink-0 flex items-center gap-1 text-xs font-bold text-text-secondary min-w-[72px] pt-0.5">
+                <div className="flex-shrink-0 flex items-center gap-1 text-sm font-bold text-text-secondary min-w-[72px] pt-0.5">
                   <Clock size={11} aria-hidden="true" className="opacity-60" />
                   {formatTime(event.startTime)}
                 </div>
@@ -162,20 +162,20 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
                       {event.title}
                     </span>
                     {event.isFree && (
-                      <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-semibold">
+                      <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-semibold">
                         Free
                       </span>
                     )}
                   </div>
 
                   {event.description && (
-                    <p className="text-xs text-text-secondary mb-1.5">
+                    <p className="text-sm text-text-secondary mb-1.5">
                       {event.description}
                     </p>
                   )}
 
                   {event.locationName && (
-                    <div className="flex items-center gap-1 text-xs text-text-secondary">
+                    <div className="flex items-center gap-1 text-sm text-text-secondary">
                       <MapPin size={11} aria-hidden="true" className="flex-shrink-0 opacity-60" />
                       {event.address ? (
                         <a
@@ -198,7 +198,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
                       {event.categories.map((cat) => (
                         <span
                           key={cat}
-                          className="text-[10px] px-2 py-0.5 bg-bg-secondary text-text-secondary rounded-full capitalize"
+                          className="text-xs px-2 py-0.5 bg-bg-secondary text-text-secondary rounded-full capitalize"
                         >
                           {cat}
                         </span>
@@ -209,7 +209,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
 
                 {/* End time */}
                 {event.endTime && (
-                  <div className="flex-shrink-0 text-[10px] text-text-secondary pt-0.5 whitespace-nowrap">
+                  <div className="flex-shrink-0 text-xs text-text-secondary pt-0.5 whitespace-nowrap">
                     ends {formatTime(event.endTime)}
                   </div>
                 )}

@@ -50,8 +50,8 @@ const variantStyles: Record<TypographyVariant, string> = {
   blockquote: "text-lg italic border-l-4 border-primary pl-4 my-4 font-lato",
   code: "bg-secondary text-secondary-foreground px-1 py-0.5 rounded text-sm font-mono",
   "footer-header":
-    "text-lg font-semibold leading-normal text-footer-text-secondary",
-  "footer-text": "text-sm leading-relaxed text-footer-text font-lato",
+    "text-xl font-semibold leading-normal text-footer-text-secondary",
+  "footer-text": "text-base leading-relaxed text-footer-text font-lato",
 };
 
 const colorStyles: Record<ColorVariant, string> = {

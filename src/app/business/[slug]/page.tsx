@@ -100,7 +100,7 @@ export default async function BusinessPage({ params }: BusinessPageProps) {
       {/* Breadcrumb */}
       <div className="bg-bg-secondary border-b">
         <div className="container mx-auto px-4 py-4">
-          <nav className="text-sm text-text-secondary">
+          <nav className="text-base text-text-secondary">
             <Link href="/" className="hover:text-text-hover">
               Home
             </Link>

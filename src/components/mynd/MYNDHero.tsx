@@ -31,7 +31,7 @@ export function MYNDHero({ event }: { event: SanityEvent }) {
         </>
       )}
       <div className="relative z-10 container mx-auto px-4 py-20 text-white text-center">
-        <p className="text-xs tracking-widest uppercase opacity-70 mb-3">
+        <p className="text-sm tracking-widest uppercase opacity-70 mb-3">
           <time dateTime={event.date}>
             {formatDateRange(event.date, event.endDate)}
           </time>{" "}

@@ -178,7 +178,7 @@ function NavLinks({
                       <Link
                         key={child.label}
                         href={child.href}
-                        className={`block px-4 py-3 text-sm hover:bg-gray-50 transition-colors ${
+                        className={`block px-4 py-3 text-base hover:bg-gray-50 transition-colors ${
                           index !== link.children!.length - 1
                             ? "border-b border-gray-100"
                             : ""

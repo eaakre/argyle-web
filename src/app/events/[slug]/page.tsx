@@ -112,7 +112,7 @@ export default async function EventPage({ params }: EventPageProps) {
       {/* Breadcrumb */}
       <div className="bg-bg-secondary border-b">
         <div className="container mx-auto px-4 py-4">
-          <nav className="text-sm text-text-secondary">
+          <nav className="text-base text-text-secondary">
             <Link href="/" className="hover:text-text-hover">
               Home
             </Link>
@@ -158,13 +158,13 @@ export default async function EventPage({ params }: EventPageProps) {
           <div className="flex flex-col md:flex-row md:items-end gap-6">
             {/* Date badge */}
             <div className="flex-shrink-0 bg-badge-secondary-bg text-badge-secondary-text text-center px-4 py-3 shadow-lg w-[72px]">
-              <div className="text-[10px] font-extrabold tracking-widest leading-none mb-1">
+              <div className="text-xs font-extrabold tracking-widest leading-none mb-1">
                 {month}
               </div>
               <div className="text-4xl font-black leading-none tracking-tight">
                 {day}
               </div>
-              <div className="text-[10px] font-semibold tracking-wider opacity-70 mt-1">
+              <div className="text-xs font-semibold tracking-wider opacity-70 mt-1">
                 {dayOfWeek}
               </div>
             </div>
@@ -173,7 +173,7 @@ export default async function EventPage({ params }: EventPageProps) {
             <div className="flex-1 text-white">
               <div className="flex flex-wrap items-center gap-2 mb-3">
                 {event.category && (
-                  <span className="text-xs px-2.5 py-0.5 bg-white/20 text-white rounded-full font-medium backdrop-blur-sm">
+                  <span className="text-sm px-2.5 py-0.5 bg-white/20 text-white rounded-full font-medium backdrop-blur-sm">
                     {formatCategory(event.category)}
                   </span>
                 )}
@@ -183,12 +183,12 @@ export default async function EventPage({ params }: EventPageProps) {
                   </span>
                 )}
                 {isPast && (
-                  <span className="text-xs px-2.5 py-0.5 bg-black/40 text-white/80 rounded-full">
+                  <span className="text-sm px-2.5 py-0.5 bg-black/40 text-white/80 rounded-full">
                     Past Event
                   </span>
                 )}
                 {event.isFree && (
-                  <span className="text-xs px-2.5 py-0.5 bg-green-500/30 text-green-200 rounded-full font-medium">
+                  <span className="text-sm px-2.5 py-0.5 bg-green-500/30 text-green-200 rounded-full font-medium">
                     Free
                   </span>
                 )}
@@ -270,11 +270,11 @@ export default async function EventPage({ params }: EventPageProps) {
                         {formatFullDate(event.date)}
                       </div>
                       {event.allDay ? (
-                        <div className="text-xs text-text-secondary">
+                        <div className="text-sm text-text-secondary">
                           All Day
                         </div>
                       ) : (
-                        <div className="text-xs text-text-secondary">
+                        <div className="text-sm text-text-secondary">
                           {formatTime(event.date)}
                           {event.endDate
                             ? ` – ${formatTime(event.endDate)}`
@@ -284,7 +284,7 @@ export default async function EventPage({ params }: EventPageProps) {
                       {event.endDate &&
                         formatFullDate(event.endDate) !==
                           formatFullDate(event.date) && (
-                          <div className="text-xs text-text-secondary">
+                          <div className="text-sm text-text-secondary">
                             through {formatFullDate(event.endDate)}
                           </div>
                         )}
@@ -306,7 +306,7 @@ export default async function EventPage({ params }: EventPageProps) {
                             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.address)}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs text-text-secondary hover:text-text-hover transition-colors"
+                            className="text-sm text-text-secondary hover:text-text-hover transition-colors"
                           >
                             {event.address}
                           </a>

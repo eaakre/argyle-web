@@ -63,7 +63,7 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
       {/* Breadcrumb */}
       <div className="bg-bg-secondary border-b">
         <div className="container mx-auto px-4 py-4">
-          <nav className="text-sm text-text-secondary">
+          <nav className="text-base text-text-secondary">
             <Link href="/" className="hover:text-text-hover">
               Home
             </Link>
@@ -87,7 +87,7 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
                   {CATEGORY_LABELS[article.category] ?? article.category}
                 </span>
               )}
-              <span className="flex items-center gap-1 text-xs text-text-secondary">
+              <span className="flex items-center gap-1 text-sm text-text-secondary">
                 <Calendar size={11} className="opacity-60" />
                 {formatDate(article.date)}
               </span>

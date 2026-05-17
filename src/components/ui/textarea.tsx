@@ -11,7 +11,7 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
         "flex field-sizing-content min-h-16 w-full",
         // Background & Colors
         "bg-bg-primary dark:bg-input/30",
-        "text-base md:text-sm",
+        "text-base",
         "placeholder:text-text-primary/50",
         // Border & Shape
         "border border-input rounded-md",

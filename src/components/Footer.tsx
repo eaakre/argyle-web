@@ -87,14 +87,19 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <div className="space-y-0">
-                  <Typography variant="footer-text">
-                    428 3rd Avenue NW
+                <a
+                  href="https://maps.google.com/?q=701+Pacific+Avenue,+Argyle,+MN+56713"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-hover transition-colors"
+                >
+                  <Typography variant="footer-text" className="block">
+                    701 Pacific Avenue
                   </Typography>
-                  <Typography variant="footer-text">
+                  <Typography variant="footer-text" className="block">
                     Argyle, MN 56713
                   </Typography>
-                </div>
+                </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 flex-shrink-0" />
@@ -118,14 +123,14 @@ export function Footer() {
               </div>
               <div className="flex items-start space-x-3">
                 <Clock className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <div className="space-y-0">
-                  <Typography variant="footer-text" noMargin>
+                <div>
+                  <Typography variant="footer-text" className="block" noMargin>
                     City Hall Hours:
                   </Typography>
-                  <Typography variant="footer-text" noMargin>
+                  <Typography variant="footer-text" className="block" noMargin>
                     Monday - Friday
                   </Typography>
-                  <Typography variant="footer-text" noMargin>
+                  <Typography variant="footer-text" className="block" noMargin>
                     9:00 AM - 4:00 PM
                   </Typography>
                 </div>

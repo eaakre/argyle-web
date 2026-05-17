@@ -134,7 +134,7 @@ const AnnouncementBar = ({
                   variant="small"
                   noMargin
                   color="default"
-                  className="underline text-xs md:text-sm transition-colors !text-primary"
+                  className="underline text-sm md:text-base transition-colors !text-primary"
                 >
                   {currentAnnouncement.linkText || "Learn more"}
                 </Typography>

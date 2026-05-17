@@ -62,7 +62,7 @@ export function NewsCarousel({ articles }: NewsCarouselProps) {
               key={article._id}
               className="flex-[0_0_100%] min-w-0 px-8 py-8 flex flex-col justify-center border-l-2 border-accent"
             >
-              <span className="text-xs font-bold uppercase tracking-widest text-text-secondary mb-3 block">
+              <span className="text-sm font-bold uppercase tracking-widest text-text-secondary mb-3 block">
                 {article.pinned ? "Pinned" : "Latest News"}
               </span>
               <h3 className="text-2xl font-extrabold text-text-primary uppercase leading-tight mb-3">
@@ -90,7 +90,7 @@ export function NewsCarousel({ articles }: NewsCarouselProps) {
               <div className="flex items-center gap-4">
                 <Link
                   href={`/news/${article.slug.current}`}
-                  className="inline-block border-2 border-accent text-accent text-xs font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
+                  className="inline-block border-2 border-accent text-accent text-sm font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                 >
                   Read More
                 </Link>

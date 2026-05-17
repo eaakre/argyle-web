@@ -42,7 +42,7 @@ function ArticleCard({ article }: { article: SanityNewsArticle }) {
     <div className="bg-bg-primary rounded-sm shadow-sm p-6 flex flex-col gap-3">
       <div className="flex items-center gap-2 flex-wrap">
         <CategoryBadge category={article.category} />
-        <span className="flex items-center gap-1 text-xs text-text-secondary">
+        <span className="flex items-center gap-1 text-sm text-text-secondary">
           <Calendar size={11} className="opacity-60" />
           {formatDate(article.date)}
         </span>
@@ -100,7 +100,7 @@ export default async function NewsPage() {
                       Latest
                     </span>
                     <CategoryBadge category={latest.category} />
-                    <span className="flex items-center gap-1 text-xs text-text-secondary">
+                    <span className="flex items-center gap-1 text-sm text-text-secondary">
                       <Calendar size={11} className="opacity-60" />
                       {formatDate(latest.date)}
                     </span>

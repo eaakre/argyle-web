@@ -13,7 +13,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
 
         // Background & Colors
         "bg-bg-primary dark:bg-input/30",
-        "text-base md:text-sm",
+        "text-base",
         "placeholder:text-text-primary/50",
 
         // Selection Styles
