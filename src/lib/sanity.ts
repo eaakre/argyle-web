@@ -29,6 +29,7 @@ export const client = createClient({
 
 // Wrapper that tags every fetch with 'sanity' so revalidateTag('sanity')
 // busts all Sanity data at once when the Sanity webhook fires.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function sanityFetch<T = any>(query: string, params: Record<string, unknown> = {}): Promise<T> {
   return client.fetch<T>(query, params, { next: { tags: ["sanity"] } });
 }
