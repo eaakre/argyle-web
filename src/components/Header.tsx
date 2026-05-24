@@ -143,14 +143,12 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
         onClose={() => setIsOpen(false)}
         direction="right"
       >
-        <nav className="space-y-4 mt-8">
-          <div className="flex flex-col divide-y divide-secondary/20 gap-y-5">
-            <NavLinks
-              links={navLinks}
-              mobile
-              onClick={() => setIsOpen(false)}
-            />
-          </div>
+        <nav className="mt-8">
+          <NavLinks
+            links={navLinks}
+            mobile
+            onClick={() => setIsOpen(false)}
+          />
         </nav>
       </Drawer>
     </>
@@ -187,7 +185,15 @@ function NavLinks({
           return (
             <div key={link.label}>
               <button
-                className="flex w-full justify-between items-center py-5 md:py-0 hover:text-primary-hover"
+                className={
+                  desktop
+                    ? "flex items-center hover:text-primary-hover"
+                    : `flex w-full items-center justify-between px-5 py-4 font-semibold text-base border-b border-secondary/15 transition-colors ${
+                        isOpen
+                          ? "bg-primary/5 text-primary border-l-[3px] border-l-secondary pl-[17px]"
+                          : ""
+                      }`
+                }
                 onClick={() =>
                   mobile
                     ? setMobileOpenDropdown(isOpen ? null : link.label)
@@ -203,21 +209,24 @@ function NavLinks({
                   />
                 ) : (
                   <ChevronRight
-                    className={`ml-2 transition-transform ${isOpen ? "rotate-90" : ""}`}
+                    className={`ml-2 transition-transform duration-200 ${
+                      isOpen ? "rotate-90 text-secondary opacity-100" : "opacity-40"
+                    }`}
                   />
                 )}
               </button>
 
-              {/* Mobile accordion */}
+              {/* Mobile accordion sub-items */}
               {mobile && isOpen && (
-                <div className="pl-4 mt-2 space-y-2">
+                <div className="bg-bg-secondary border-b border-secondary/15">
                   {link.children.map((child) => (
                     <Link
                       key={child.label}
                       href={child.href}
-                      className="block py-2"
+                      className="flex items-center gap-2.5 border-b border-black/[0.04] px-6 py-2.5 text-sm font-medium text-text-secondary last:border-b-0"
                       onClick={onClick}
                     >
+                      <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-secondary" />
                       {child.label}
                     </Link>
                   ))}
@@ -231,11 +240,14 @@ function NavLinks({
           <Link
             key={link.label}
             href={link.href!}
-            className="flex w-full justify-between md:w-auto hover:text-primary-hover py-5 md:py-0"
+            className={
+              desktop
+                ? "hover:text-primary-hover"
+                : "flex w-full items-center px-5 py-4 font-semibold text-base border-b border-secondary/15"
+            }
             onClick={onClick}
           >
             {link.label}
-            {mobile && <ChevronRight />}
           </Link>
         );
       })}
