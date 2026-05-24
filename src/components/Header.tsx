@@ -143,7 +143,7 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
         onClose={() => setIsOpen(false)}
         direction="right"
       >
-        <nav className="mt-8">
+        <nav className="-mx-6 mt-8">
           <NavLinks
             links={navLinks}
             mobile
@@ -209,7 +209,7 @@ function NavLinks({
                   />
                 ) : (
                   <ChevronRight
-                    className={`ml-2 transition-transform duration-200 ${
+                    className={`ml-2 transition-[transform,opacity] duration-200 ${
                       isOpen ? "rotate-90 text-secondary opacity-100" : "opacity-40"
                     }`}
                   />
