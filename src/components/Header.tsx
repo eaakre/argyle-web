@@ -35,6 +35,12 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    };
+  }, []);
+
   const handleDesktopMouseEnter = (label: string) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     setDesktopOpenDropdown(label);
@@ -88,6 +94,16 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
           </button>
         </div>
 
+        {announcements && announcements.length ? (
+          <div className="bg-secondary w-full overflow-hidden h-10">
+            <AnnouncementBar announcements={announcements} />
+          </div>
+        ) : (
+          <div className="bg-secondary w-full h-2"></div>
+        )}
+
+        <div className="bg-stripe w-full h-4"></div>
+
         {/* Full-width desktop dropdown panel */}
         {desktopOpenDropdown && activeDropdownLink?.children && (
           <div
@@ -117,16 +133,6 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
             </div>
           </div>
         )}
-
-        {announcements && announcements.length ? (
-          <div className="bg-secondary w-full overflow-hidden h-10">
-            <AnnouncementBar announcements={announcements} />
-          </div>
-        ) : (
-          <div className="bg-secondary w-full h-2"></div>
-        )}
-
-        <div className="bg-stripe w-full h-4"></div>
       </nav>
 
       <div className="h-0 bg-gradient-to-r from-transparent via-secondary-foreground/20 to-transparent"></div>
