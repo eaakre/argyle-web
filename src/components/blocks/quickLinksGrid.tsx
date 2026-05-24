@@ -40,10 +40,10 @@ const QuickLinksGrid = ({ title, links, columns = 3 }: QuickLinksGridProps) => {
   if (!links?.length) return null;
 
   return (
-    <section className="py-12 md:py-16 bg-bg-primary">
+    <section className="py-4 md:py-16 bg-bg-primary">
       <div className="max-w-screen-xl mx-auto px-4">
         {title && (
-          <div className="bg-accent inline-block mb-3 px-5 md:px-12 py-4">
+          <div className="bg-accent inline-block mb-3 px-6 md:px-12 py-2 md:py-6">
             <h2 className="text-bg-primary text-2xl font-bold uppercase">
               {title}
             </h2>

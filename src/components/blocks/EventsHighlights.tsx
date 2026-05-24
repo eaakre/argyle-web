@@ -20,7 +20,7 @@ export async function EventsHighlights({
   const title = sectionTitle ?? "Upcoming Events";
 
   return (
-    <section className="md:px-4 py-12 bg-bg-secondary">
+    <section className="md:px-4 py-4 md:py-12 bg-bg-secondary">
       <div className="mx-auto max-w-screen-xl">
         {/* Mobile image — full width above carousel, hidden on desktop */}
         {imageUrl ? (

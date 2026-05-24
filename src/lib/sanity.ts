@@ -375,6 +375,26 @@ export async function getAllNewsArticleSlugs(): Promise<{ slug: { current: strin
   return sanityFetch(`*[_type == "newsArticle"]{ slug }`);
 }
 
+export interface SanityNavChild {
+  _key: string;
+  label: string;
+  href: string;
+}
+
+export interface SanityNavLink {
+  _key: string;
+  label: string;
+  href?: string;
+  children?: SanityNavChild[];
+}
+
+export async function getNavLinks(): Promise<SanityNavLink[]> {
+  const result = await sanityFetch<{ navLinks: SanityNavLink[] } | null>(
+    `*[_type == "navigation" && _id == "navigation"][0]{ navLinks }`
+  );
+  return result?.navLinks ?? [];
+}
+
 export async function getAnnouncements(isActive: boolean, limit?: number) {
   let query = `*[_type == "announcement" && isActive == $isActive] {
     _id,

@@ -3,7 +3,7 @@ import { Lato, Raleway } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { getAnnouncements } from "@/lib/sanity";
+import { getAnnouncements, getNavLinks } from "@/lib/sanity";
 import { Analytics } from "@vercel/analytics/next";
 
 const lato = Lato({
@@ -31,12 +31,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const announcements = await getAnnouncements(true);
+  const [announcements, navLinks] = await Promise.all([
+    getAnnouncements(true),
+    getNavLinks(),
+  ]);
 
   return (
     <html lang="en">
       <body className={`${raleway.variable} ${lato.variable} antialiased`}>
-        <Header announcements={announcements} />
+        <Header announcements={announcements} navLinks={navLinks} />
         <div className="min-h-[100vh]">{children}</div>
         <Footer />
         <Analytics />

@@ -4,15 +4,16 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, ChevronRight, ChevronDown } from "lucide-react";
 import Drawer from "./ui/Drawer";
-import { navLinks, NavLink } from "../types/navLink";
+import { SanityNavLink } from "@/lib/sanity";
 import Image from "next/image";
 import AnnouncementBar, { Announcement } from "./ui/AnnouncementBar";
 
 type Props = {
   announcements?: Announcement[];
+  navLinks?: SanityNavLink[];
 };
 
-export function Header({ announcements = [] }: Props) {
+export function Header({ announcements = [], navLinks = [] }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -39,7 +40,7 @@ export function Header({ announcements = [] }: Props) {
           hidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
-        <div className="max-w-6xl md:px-20 mx-auto px-4 flex items-center justify-between relative">
+        <div className="max-w-6xl lg:px-20 mx-auto px-4 flex items-center justify-between relative">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold">
             <Image
@@ -47,13 +48,13 @@ export function Header({ announcements = [] }: Props) {
               alt="Argyle Home"
               width={100}
               height={100}
-              className="w-[100px] md:w-[100px] object-contain logo-image"
+              className="w-[100px] md:w-[100px] shrink-0 object-contain logo-image"
             />
           </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-6">
-            <NavLinks desktop />
+            <NavLinks links={navLinks} desktop />
           </div>
 
           {/* Mobile Button */}
@@ -87,7 +88,11 @@ export function Header({ announcements = [] }: Props) {
       >
         <nav className="space-y-4 mt-8">
           <div className="flex flex-col divide-y divide-secondary/20 gap-y-5">
-            <NavLinks mobile onClick={() => setIsOpen(false)} />
+            <NavLinks
+              links={navLinks}
+              mobile
+              onClick={() => setIsOpen(false)}
+            />
           </div>
         </nav>
       </Drawer>
@@ -96,10 +101,12 @@ export function Header({ announcements = [] }: Props) {
 }
 
 function NavLinks({
+  links,
   onClick,
   desktop,
   mobile,
 }: {
+  links: SanityNavLink[];
   onClick?: () => void;
   desktop?: boolean;
   mobile?: boolean;
@@ -132,7 +139,7 @@ function NavLinks({
 
   return (
     <>
-      {navLinks.map((link: NavLink) => {
+      {links.map((link) => {
         if (link.children) {
           // Parent link with dropdown/accordion
           return (

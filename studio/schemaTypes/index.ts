@@ -12,6 +12,7 @@ import {event} from './event'
 import {newsArticle} from './news'
 import {newsHighlights} from './newsHighlights'
 import {eventsHighlights} from './eventsHighlights'
+import {navigation} from './navigation'
 
 export const schemaTypes = [
   page,
@@ -28,4 +29,5 @@ export const schemaTypes = [
   announcement,
   newsHighlights,
   eventsHighlights,
+  navigation,
 ]
