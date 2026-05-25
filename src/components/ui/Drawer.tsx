@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 
 type DrawerDirection = "left" | "right" | "top" | "bottom";
@@ -36,6 +36,49 @@ const Drawer: React.FC<DrawerProps> = ({
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
+
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  // Focus trap
+  useEffect(() => {
+    if (!isOpen) {
+      previousFocusRef.current?.focus();
+      return;
+    }
+
+    previousFocusRef.current = document.activeElement as HTMLElement;
+
+    const getFocusable = () =>
+      Array.from(
+        drawerRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      );
+
+    getFocusable()[0]?.focus();
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusable = getFocusable();
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
+  }, [isOpen]);
 
   // Prevent body scroll when drawer is open
   useEffect(() => {
@@ -88,13 +131,9 @@ const Drawer: React.FC<DrawerProps> = ({
     return `${baseClasses} ${positions[direction]}`;
   };
 
-  if (
-    typeof window === "undefined" ||
-    (!isOpen &&
-      !document.querySelector(`[data-drawer-direction="${direction}"]`))
-  ) {
-    return null;
-  }
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
   return (
     <>
@@ -109,7 +148,12 @@ const Drawer: React.FC<DrawerProps> = ({
       )}
 
       {/* Drawer */}
-      <div className={getDrawerClasses()} data-drawer-direction={direction}>
+      <div
+        ref={drawerRef}
+        className={getDrawerClasses()}
+        data-drawer-direction={direction}
+        {...(!isOpen ? { inert: true } : {})}
+      >
         {/* Close button */}
         {!hideCloseButton && (
           <button
