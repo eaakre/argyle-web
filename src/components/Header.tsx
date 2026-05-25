@@ -52,6 +52,10 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
     }, 150);
   };
 
+  const handleDesktopClick = (label: string) => {
+    setDesktopOpenDropdown((prev) => (prev === label ? null : label));
+  };
+
   const activeDropdownLink = navLinks.find((l) => l.label === desktopOpenDropdown);
 
   return (
@@ -81,6 +85,7 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
               desktopOpenDropdown={desktopOpenDropdown}
               onDesktopMouseEnter={handleDesktopMouseEnter}
               onDesktopMouseLeave={handleDesktopMouseLeave}
+              onDesktopClick={handleDesktopClick}
             />
           </div>
 
@@ -163,6 +168,7 @@ function NavLinks({
   desktopOpenDropdown,
   onDesktopMouseEnter,
   onDesktopMouseLeave,
+  onDesktopClick,
 }: {
   links: SanityNavLink[];
   onClick?: () => void;
@@ -171,6 +177,7 @@ function NavLinks({
   desktopOpenDropdown?: string | null;
   onDesktopMouseEnter?: (label: string) => void;
   onDesktopMouseLeave?: () => void;
+  onDesktopClick?: (label: string) => void;
 }) {
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null);
 
@@ -194,11 +201,12 @@ function NavLinks({
                           : ""
                       }`
                 }
-                onClick={() =>
-                  mobile
-                    ? setMobileOpenDropdown(isOpen ? null : link.label)
-                    : undefined
-                }
+                aria-haspopup="true"
+                aria-expanded={isOpen}
+                onClick={() => {
+                  if (mobile) setMobileOpenDropdown(isOpen ? null : link.label);
+                  else onDesktopClick?.(link.label);
+                }}
                 onMouseEnter={() => desktop && onDesktopMouseEnter?.(link.label)}
                 onMouseLeave={() => desktop && onDesktopMouseLeave?.()}
               >
