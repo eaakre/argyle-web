@@ -131,10 +131,8 @@ interface EventsDirectoryProps {
 
 export function EventsDirectory({ events }: EventsDirectoryProps) {
   const [search, setSearch] = useState("");
-  const [tab, setTab] = useState<"upcoming" | "all" | "past">("upcoming");
+  const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedMonth, setSelectedMonth] = useState("all");
-
   const categories = useMemo(() => {
     const cats = new Set<string>();
     events.forEach((e) => {
@@ -143,21 +141,9 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
     return Array.from(cats).sort();
   }, [events]);
 
-  const months = useMemo(() => {
-    const seen = new Set<string>();
-    events.forEach((e) => {
-      const d = new Date(e.date);
-      seen.add(
-        `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`,
-      );
-    });
-    return Array.from(seen).sort();
-  }, [events]);
-
   const tabCounts = useMemo(
     () => ({
       upcoming: events.filter((e) => isUpcoming(e.date)).length,
-      all: events.length,
       past: events.filter((e) => !isUpcoming(e.date)).length,
     }),
     [events],
@@ -171,14 +157,6 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
 
     if (selectedCategory !== "all")
       result = result.filter((e) => e.category === selectedCategory);
-
-    if (selectedMonth !== "all") {
-      result = result.filter((e) => {
-        const d = new Date(e.date);
-        const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-        return ym === selectedMonth;
-      });
-    }
 
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -194,14 +172,14 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
       const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
       return tab === "past" ? -diff : diff;
     });
-  }, [events, tab, selectedCategory, selectedMonth, search]);
+  }, [events, tab, selectedCategory, search]);
 
   return (
     <section className="py-12 bg-bg-secondary">
       <div className="container max-w-6xl mx-auto px-4">
         {/* Tab row */}
         <div className="flex gap-1 mb-6 bg-bg-primary p-1 w-full md:w-fit shadow-sm rounded-sm">
-          {(["upcoming", "all", "past"] as const).map((t) => (
+          {(["upcoming", "past"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -211,7 +189,7 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
                   : "text-text-secondary hover:text-text-primary"
               }`}
             >
-              {t === "upcoming" ? "Upcoming" : t === "all" ? "All" : "Past"}
+              {t === "upcoming" ? "Upcoming" : "Past"}
               <span
                 className={`ml-1.5 text-sm font-normal ${
                   tab === t ? "text-tab-active-text/60" : "text-text-secondary"
@@ -248,31 +226,6 @@ export function EventsDirectory({ events }: EventsDirectoryProps) {
                   {formatCategory(cat)}
                 </option>
               ))}
-            </select>
-          )}
-
-          {months.length > 1 && (
-            <select
-              value={selectedMonth}
-              onChange={(e) => setSelectedMonth(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-sm bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
-            >
-              <option value="all">All Months</option>
-              {months.map((ym) => {
-                const [year, month] = ym.split("-");
-                const label = new Date(
-                  Number(year),
-                  Number(month) - 1,
-                ).toLocaleString("en-US", {
-                  month: "long",
-                  year: "numeric",
-                });
-                return (
-                  <option key={ym} value={ym}>
-                    {label}
-                  </option>
-                );
-              })}
             </select>
           )}
         </div>

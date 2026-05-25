@@ -73,11 +73,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
       aria-label="Upcoming events"
     >
       {/* Screen reader live announcement */}
-      <div
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
         {announcement}
       </div>
 
@@ -92,7 +88,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
               aria-label={`${i + 1} of ${events.length}`}
               aria-hidden={i !== selectedIndex ? true : undefined}
               {...(i !== selectedIndex ? { inert: true } : {})}
-              className="flex-[0_0_100%] min-w-0 px-8 py-8 flex flex-col justify-center border-r-2 border-accent"
+              className="flex-[0_0_100%] min-w-0 px-8 py-8 flex flex-col justify-center border-l-2 md:border-l-0 md:border-r-2 border-accent"
             >
               <span className="text-sm font-bold uppercase tracking-widest text-text-secondary mb-3 block">
                 Upcoming Event
@@ -165,9 +161,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
             <span
               key={events[i]._id}
               className={`block w-2.5 h-2.5 rounded-full transition-colors ${
-                i === selectedIndex
-                  ? "bg-text-primary"
-                  : "bg-text-primary/20"
+                i === selectedIndex ? "bg-text-primary" : "bg-text-primary/20"
               }`}
             />
           ))}

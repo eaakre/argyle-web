@@ -48,6 +48,7 @@ export const event = defineType({
       options: {
         list: [
           {title: 'Community', value: 'community'},
+          {title: 'Food Truck', value: 'food-truck'},
           {title: 'Government', value: 'government'},
           {title: 'Recreation', value: 'recreation'},
           {title: 'Arts & Culture', value: 'arts-culture'},
@@ -110,6 +111,14 @@ export const event = defineType({
       type: 'url',
     }),
     defineField({
+      name: 'registrationText',
+      title: 'Registration Button Text',
+      type: 'string',
+      description:
+        'Label for the registration button (e.g. "Register Now", "Buy Tickets", "Learn More"). Defaults to "Register / Learn More" if left blank.',
+      hidden: ({document}) => !document?.registrationUrl,
+    }),
+    defineField({
       name: 'contactEmail',
       title: 'Contact Email',
       type: 'string',
@@ -136,7 +145,7 @@ export const event = defineType({
       name: 'galleryImages',
       title: 'Gallery Images',
       type: 'array',
-      description: 'Photos shown in the horizontal scroll strip on the landing page.',
+      description: 'Photos shown on the event page in a photo grid.',
       of: [
         {
           type: 'image',
@@ -198,7 +207,8 @@ export const event = defineType({
               name: 'categories',
               title: 'Categories',
               type: 'array',
-              description: 'Use lowercase. e.g. games, food, music. Consistent spelling required — filter pills are case-sensitive.',
+              description:
+                'Use lowercase. e.g. games, food, music. Consistent spelling required — filter pills are case-sensitive.',
               of: [{type: 'string'}],
             }),
             defineField({
@@ -215,7 +225,10 @@ export const event = defineType({
                 title,
                 subtitle: subtitle
                   ? new Date(subtitle).toLocaleString('en-US', {
-                      month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+                      month: 'short',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: '2-digit',
                       timeZone: 'America/Chicago',
                     })
                   : '',

@@ -10,7 +10,6 @@ export interface Announcement {
   endDate?: string;
   link?: string;
   linkText?: string;
-  slug?: string;
   icon?: "info" | "alert" | "calendar" | "construction" | "emergency";
 }
 
@@ -127,8 +126,10 @@ const AnnouncementBar = ({
               <a
                 href={currentAnnouncement.link}
                 className="flex-shrink-0 whitespace-nowrap"
-                target="_blank"
-                rel="noopener noreferrer"
+                {...(!currentAnnouncement.link.startsWith('/') && {
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                })}
               >
                 <Typography
                   variant="small"

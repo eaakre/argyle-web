@@ -4,6 +4,7 @@ import { generateSEOMetadata } from "@/lib/seo";
 import { domainUrl } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
+import { EventGallery } from "@/components/ui/EventGallery";
 import {
   MapPin,
   Calendar,
@@ -372,11 +373,19 @@ export default async function EventPage({ params }: EventPageProps) {
                   className="flex items-center justify-center gap-2 w-full border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                 >
                   <ExternalLink size={15} />
-                  Register / Learn More
+                  {event.registrationText || "Register / Learn More"}
                 </a>
               )}
             </div>
           </div>
+
+          {/* Gallery */}
+          {event.galleryImages && event.galleryImages.length > 0 && (
+            <div className="mt-10">
+              <h2 className="text-xl font-bold mb-4 text-text-primary">Photos</h2>
+              <EventGallery images={event.galleryImages} title={event.title} />
+            </div>
+          )}
 
           {/* Back link */}
           <div className="mt-10 text-center">

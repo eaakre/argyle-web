@@ -32,9 +32,20 @@ export const announcement = defineType({
     }),
     defineField({
       name: 'link',
-      type: 'url',
+      type: 'string',
       title: 'Link URL',
-      description: 'Optional link for more information',
+      description: 'Optional link for more information. Use a full URL (https://...) for external links or a relative path (/page-slug) for internal pages.',
+      validation: (Rule) =>
+        Rule.custom((value) => {
+          if (!value) return true
+          if (value.startsWith('/')) return true
+          try {
+            new URL(value)
+            return true
+          } catch {
+            return 'Enter a valid URL (https://...) or a relative path starting with /'
+          }
+        }),
     }),
     defineField({
       name: 'linkText',
@@ -55,16 +66,6 @@ export const announcement = defineType({
           {title: 'Construction', value: 'construction'},
           {title: 'Emergency', value: 'emergency'},
         ],
-      },
-    }),
-    defineField({
-      name: 'slug',
-      type: 'slug',
-      title: 'Slug',
-      description: 'URL identifier for this announcement',
-      options: {
-        source: 'title',
-        maxLength: 96,
       },
     }),
   ],

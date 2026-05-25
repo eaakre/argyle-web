@@ -272,6 +272,7 @@ export interface SanityEvent {
   category?: string;
   featured?: boolean;
   registrationUrl?: string;
+  registrationText?: string;
   contactEmail?: string;
   contactPhone?: string;
   organizer?: string;
@@ -286,7 +287,8 @@ export interface SanityEvent {
 const EVENT_FIELDS = `
   _id, title, slug, date, endDate, allDay, location, address, description,
   image { asset->{ _id, url }, alt },
-  category, featured, registrationUrl, contactEmail, contactPhone, organizer, isFree, cost, customUrl
+  category, featured, registrationUrl, registrationText, contactEmail, contactPhone, organizer, isFree, cost, customUrl,
+  galleryImages[] { asset->{ _id, url }, alt }
 `;
 
 export async function getAllEvents(): Promise<SanityEvent[]> {
@@ -405,7 +407,6 @@ export async function getAnnouncements(isActive: boolean, limit?: number) {
     link,
     linkText,
     icon,
-    slug,
   }`;
 
   if (limit) {
