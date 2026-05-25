@@ -1,14 +1,7 @@
 import Link from "next/link";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Facebook,
-  Clock,
-  ExternalLink,
-  ChevronDown,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Clock, ExternalLink } from "lucide-react";
 import { Typography } from "./ui/Typography";
+import { FooterSection } from "./FooterSection";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -132,14 +125,8 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <details className="group">
-            <summary className="flex items-center justify-between cursor-pointer md:cursor-default md:pointer-events-none list-none [&::-webkit-details-marker]:hidden mb-4">
-              <Typography variant="footer-header" noMargin>
-                Quick Links
-              </Typography>
-              <ChevronDown className="w-4 h-4 md:hidden transition-transform duration-200 group-open:rotate-180" />
-            </summary>
-            <ul className="hidden group-open:block md:block space-y-2">
+          <FooterSection title="Quick Links">
+            <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -153,17 +140,11 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </details>
+          </FooterSection>
 
           {/* Services & Resources */}
-          <details className="group">
-            <summary className="flex items-center justify-between cursor-pointer md:cursor-default md:pointer-events-none list-none [&::-webkit-details-marker]:hidden mb-4">
-              <Typography variant="footer-header" noMargin>
-                Services
-              </Typography>
-              <ChevronDown className="w-4 h-4 md:hidden transition-transform duration-200 group-open:rotate-180" />
-            </summary>
-            <ul className="hidden group-open:block md:block space-y-2">
+          <FooterSection title="Services">
+            <ul className="space-y-2">
               {services.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -177,17 +158,11 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </details>
+          </FooterSection>
 
-          {/* Organizations & Emergency */}
-          <details className="group">
-            <summary className="flex items-center justify-between cursor-pointer md:cursor-default md:pointer-events-none list-none [&::-webkit-details-marker]:hidden mb-4">
-              <Typography variant="footer-header" noMargin>
-                Organizations
-              </Typography>
-              <ChevronDown className="w-4 h-4 md:hidden transition-transform duration-200 group-open:rotate-180" />
-            </summary>
-            <ul className="hidden group-open:block md:block space-y-2">
+          {/* Organizations */}
+          <FooterSection title="Organizations">
+            <ul className="space-y-2">
               {organizations.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -201,7 +176,7 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </details>
+          </FooterSection>
         </div>
 
         {/* Bottom Bar */}
