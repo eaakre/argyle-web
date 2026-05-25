@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SanityEvent } from "@/lib/sanity";
 import { MapPin, Calendar } from "lucide-react";
 
@@ -29,6 +29,8 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [announcement, setAnnouncement] = useState("");
+  const isInitialMount = useRef(true);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -48,19 +50,48 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
     };
   }, [emblaApi, onSelect]);
 
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    setAnnouncement(
+      `Event ${selectedIndex + 1} of ${events.length}: ${events[selectedIndex].title}`,
+    );
+  }, [selectedIndex, events]);
+
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   if (!events.length) return null;
 
   return (
-    <div className="flex flex-col h-full">
+    <div
+      className="flex flex-col h-full"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Upcoming events"
+    >
+      {/* Screen reader live announcement */}
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {announcement}
+      </div>
+
       {/* Embla viewport */}
       <div className="overflow-hidden flex-1" ref={emblaRef}>
         <div className="flex h-full">
-          {events.map((event) => (
+          {events.map((event, i) => (
             <div
               key={event._id}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${events.length}`}
+              aria-hidden={i !== selectedIndex ? true : undefined}
+              {...(i !== selectedIndex ? { inert: true } : {})}
               className="flex-[0_0_100%] min-w-0 px-8 py-8 flex flex-col justify-center border-r-2 border-accent"
             >
               <span className="text-sm font-bold uppercase tracking-widest text-text-secondary mb-3 block">
@@ -98,6 +129,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
                 <Link
                   href={event.customUrl ?? `/events/${event.slug.current}`}
                   className="inline-block border-2 border-accent text-accent text-sm font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
+                  aria-label={`View details for ${event.title}`}
                 >
                   View Details
                 </Link>
@@ -128,23 +160,16 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
           ‹
         </button>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2" aria-hidden="true">
           {events.map((_, i) => (
-            <button
+            <span
               key={events[i]._id}
-              onClick={() => emblaApi?.scrollTo(i)}
-              aria-label={`Go to event ${i + 1}`}
-              aria-current={i === selectedIndex ? "true" : undefined}
-              className="p-2 -m-2 flex items-center justify-center"
-            >
-              <span
-                className={`block w-2.5 h-2.5 rounded-full transition-colors ${
-                  i === selectedIndex
-                    ? "bg-text-primary"
-                    : "bg-text-primary/20 hover:bg-text-primary/40"
-                }`}
-              />
-            </button>
+              className={`block w-2.5 h-2.5 rounded-full transition-colors ${
+                i === selectedIndex
+                  ? "bg-text-primary"
+                  : "bg-text-primary/20"
+              }`}
+            />
           ))}
         </div>
 

@@ -39,8 +39,6 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
     "all" | "morning" | "afternoon" | "evening"
   >("all");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
-  const [freeOnly, setFreeOnly] = useState(false);
-
   const categories = useMemo(() => {
     const set = new Set<string>();
     subEvents.forEach((e) => e.categories?.forEach((c) => set.add(c)));
@@ -72,10 +70,9 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
           !e.categories?.includes(categoryFilter)
         )
           return false;
-        if (freeOnly && !e.isFree) return false;
         return true;
       });
-  }, [subEvents, timeFilter, categoryFilter, freeOnly]);
+  }, [subEvents, timeFilter, categoryFilter]);
 
   function borderColorFor(e: SubEvent) {
     const firstCat = e.categories?.[0];
@@ -83,10 +80,11 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
   }
 
   const pillBase =
-    "px-3 py-1.5 rounded-full text-sm font-semibold transition-colors";
-  const pillActive = "bg-primary text-white";
+    "px-3 py-1.5 rounded-full text-sm font-semibold transition-colors border";
+  const pillActive =
+    "bg-primary text-white border-primary dark:bg-secondary dark:text-bg-primary dark:border-secondary";
   const pillInactive =
-    "bg-bg-primary text-text-secondary hover:text-text-primary";
+    "bg-bg-primary text-text-secondary border-text-primary/20 hover:text-text-primary hover:border-text-primary/40";
 
   return (
     <section id="schedule" className="py-12 bg-bg-secondary">
@@ -94,46 +92,54 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
         <h2 className="text-2xl font-bold text-text-primary mb-6">Schedule</h2>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {(["all", "morning", "afternoon", "evening"] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTimeFilter(t)}
-              aria-pressed={timeFilter === t}
-              className={`${pillBase} ${timeFilter === t ? pillActive : pillInactive}`}
-            >
-              {t === "all"
-                ? "All Day"
-                : t.charAt(0).toUpperCase() + t.slice(1)}
-            </button>
-          ))}
+        <div className="flex flex-col gap-3 mb-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-text-secondary mb-2">
+              Time of Day
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {(["all", "morning", "afternoon", "evening"] as const).map(
+                (t) => (
+                  <button
+                    key={t}
+                    onClick={() => setTimeFilter(t)}
+                    aria-pressed={timeFilter === t}
+                    className={`${pillBase} ${timeFilter === t ? pillActive : pillInactive}`}
+                  >
+                    {t === "all"
+                      ? "All Day"
+                      : t.charAt(0).toUpperCase() + t.slice(1)}
+                  </button>
+                ),
+              )}
+            </div>
+          </div>
 
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() =>
-                setCategoryFilter(categoryFilter === cat ? "all" : cat)
-              }
-              aria-pressed={categoryFilter === cat}
-              className={`${pillBase} capitalize ${
-                categoryFilter === cat
-                  ? "bg-accent text-white"
-                  : pillInactive
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-
-          <button
-            onClick={() => setFreeOnly(!freeOnly)}
-            aria-pressed={freeOnly}
-            className={`${pillBase} ${
-              freeOnly ? "bg-green-600 text-white" : pillInactive
-            }`}
-          >
-            Free only
-          </button>
+          {categories.length > 0 && (
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-text-secondary mb-2">
+                Category
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() =>
+                      setCategoryFilter(categoryFilter === cat ? "all" : cat)
+                    }
+                    aria-pressed={categoryFilter === cat}
+                    className={`${pillBase} capitalize ${
+                      categoryFilter === cat
+                        ? "bg-accent text-white border-accent dark:text-bg-primary dark:border-accent"
+                        : pillInactive
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Timeline */}

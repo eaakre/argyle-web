@@ -20,6 +20,7 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
   const [desktopOpenDropdown, setDesktopOpenDropdown] = useState<string | null>(
     null,
   );
+  const [lockedDropdown, setLockedDropdown] = useState<string | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -43,24 +44,36 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
     };
   }, []);
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeDropdown();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   const handleDesktopMouseEnter = (label: string) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     setDesktopOpenDropdown(label);
   };
 
   const handleDesktopMouseLeave = () => {
+    if (lockedDropdown) return;
     hoverTimeoutRef.current = setTimeout(() => {
       setDesktopOpenDropdown(null);
-    }, 150);
+    }, 250);
   };
 
   const handleDesktopClick = (label: string) => {
-    setDesktopOpenDropdown((prev) => (prev === label ? null : label));
+    const isLocking = lockedDropdown !== label;
+    setLockedDropdown(isLocking ? label : null);
+    setDesktopOpenDropdown(isLocking ? label : null);
   };
 
-  const activeDropdownLink = navLinks.find(
-    (l) => l.label === desktopOpenDropdown,
-  );
+  const closeDropdown = () => {
+    setLockedDropdown(null);
+    setDesktopOpenDropdown(null);
+  };
 
   return (
     <>
@@ -92,6 +105,7 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
                 onDesktopMouseEnter={handleDesktopMouseEnter}
                 onDesktopMouseLeave={handleDesktopMouseLeave}
                 onDesktopClick={handleDesktopClick}
+                onCloseDropdown={closeDropdown}
               />
             </div>
 
@@ -104,37 +118,6 @@ export function Header({ announcements = [], navLinks = [] }: Props) {
               <Menu width={40} height={40} className="cursor-pointer" />
             </button>
           </div>
-
-          {/* Full-width desktop dropdown panel */}
-          {desktopOpenDropdown && activeDropdownLink?.children && (
-            <div
-              className="absolute top-full left-0 right-0 bg-bg-primary border-t-[3px] border-secondary shadow-lg z-50"
-              onMouseEnter={() => {
-                if (hoverTimeoutRef.current)
-                  clearTimeout(hoverTimeoutRef.current);
-              }}
-              onMouseLeave={handleDesktopMouseLeave}
-            >
-              <div className="max-w-6xl lg:px-20 mx-auto px-4 py-5">
-                <p className="text-base font-extrabold uppercase tracking-[2px] text-text-primary opacity-90 mb-3">
-                  {desktopOpenDropdown}
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {activeDropdownLink.children.map((child) => (
-                    <Link
-                      key={child.label}
-                      href={child.href}
-                      className="group flex items-center gap-4 rounded-sm px-3 py-2.5 font-medium transition-colors duration-150 hover:bg-primary/5 hover:text-text-primary"
-                      onClick={() => setDesktopOpenDropdown(null)}
-                    >
-                      <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-secondary opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
         </nav>
 
         {announcements && announcements.length ? (
@@ -198,6 +181,7 @@ function NavLinks({
   onDesktopMouseEnter,
   onDesktopMouseLeave,
   onDesktopClick,
+  onCloseDropdown,
 }: {
   links: SanityNavLink[];
   onClick?: () => void;
@@ -207,6 +191,7 @@ function NavLinks({
   onDesktopMouseEnter?: (label: string) => void;
   onDesktopMouseLeave?: () => void;
   onDesktopClick?: (label: string) => void;
+  onCloseDropdown?: () => void;
 }) {
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(
     null,
@@ -258,6 +243,34 @@ function NavLinks({
                   />
                 )}
               </button>
+
+              {/* Desktop full-width dropdown panel — inline for correct tab order */}
+              {desktop && isOpen && (
+                <div
+                  className="absolute top-full left-0 right-0 bg-bg-primary border-t-[3px] border-secondary shadow-lg z-50"
+                  onMouseEnter={() => onDesktopMouseEnter?.(link.label)}
+                  onMouseLeave={onDesktopMouseLeave}
+                >
+                  <div className="max-w-6xl lg:px-20 mx-auto px-4 py-5">
+                    <p className="text-base font-extrabold uppercase tracking-[2px] text-text-primary opacity-90 mb-3">
+                      {link.label}
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          href={child.href}
+                          className="group flex items-center gap-4 rounded-sm px-3 py-2.5 font-medium transition-colors duration-150 hover:bg-primary/5 hover:text-text-primary"
+                          onClick={onCloseDropdown}
+                        >
+                          <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-secondary opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Mobile accordion sub-items */}
               {mobile && isOpen && (
