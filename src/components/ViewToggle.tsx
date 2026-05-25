@@ -1,13 +1,15 @@
+"use client";
+
 import { CalendarDays, List } from "lucide-react";
 
 type View = "calendar" | "list";
 
 interface ViewToggleProps {
   view: View;
-  onChange: (v: View) => void;
+  onViewChange: (v: View) => void;
 }
 
-export function ViewToggle({ view, onChange }: ViewToggleProps) {
+export function ViewToggle({ view, onViewChange }: ViewToggleProps) {
   return (
     <div
       className="flex gap-1 bg-bg-primary p-1 shadow-sm rounded-sm"
@@ -15,7 +17,7 @@ export function ViewToggle({ view, onChange }: ViewToggleProps) {
       aria-label="View toggle"
     >
       <button
-        onClick={() => onChange("calendar")}
+        onClick={() => onViewChange("calendar")}
         aria-label="Calendar view"
         aria-pressed={view === "calendar"}
         className={`p-1.5 rounded-sm transition-all ${
@@ -27,7 +29,7 @@ export function ViewToggle({ view, onChange }: ViewToggleProps) {
         <CalendarDays size={18} />
       </button>
       <button
-        onClick={() => onChange("list")}
+        onClick={() => onViewChange("list")}
         aria-label="List view"
         aria-pressed={view === "list"}
         className={`p-1.5 rounded-sm transition-all ${
