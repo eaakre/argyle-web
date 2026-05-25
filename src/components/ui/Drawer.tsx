@@ -11,6 +11,7 @@ interface DrawerProps {
   showOverlay?: boolean;
   closeOnOverlayClick?: boolean;
   className?: string;
+  hideCloseButton?: boolean;
 }
 
 const Drawer: React.FC<DrawerProps> = ({
@@ -21,6 +22,7 @@ const Drawer: React.FC<DrawerProps> = ({
   showOverlay = true,
   closeOnOverlayClick = true,
   className = "",
+  hideCloseButton = false,
 }) => {
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -109,13 +111,15 @@ const Drawer: React.FC<DrawerProps> = ({
       {/* Drawer */}
       <div className={getDrawerClasses()} data-drawer-direction={direction}>
         {/* Close button */}
-        <button
-          onClick={onClose}
-          className={getCloseButtonPosition()}
-          aria-label="Close drawer"
-        >
-          <X size={32} className="text-primary-foreground" />
-        </button>
+        {!hideCloseButton && (
+          <button
+            onClick={onClose}
+            className={getCloseButtonPosition()}
+            aria-label="Close drawer"
+          >
+            <X size={32} className="text-primary-foreground" />
+          </button>
+        )}
 
         {/* Content */}
         <div className="p-6 h-full overflow-y-auto">{children}</div>

@@ -62,7 +62,7 @@ const QuickLinksGrid = ({ title, links, columns = 3 }: QuickLinksGridProps) => {
                 href={link.url}
                 target={link.isExternal ? "_blank" : "_self"}
                 rel={link.isExternal ? "noopener noreferrer" : undefined}
-                className="group relative block h-60 overflow-hidden"
+                className="group relative block h-80 overflow-hidden"
               >
                 {/* Background: photo or gradient */}
                 {imageUrl ? (
@@ -96,10 +96,10 @@ const QuickLinksGrid = ({ title, links, columns = 3 }: QuickLinksGridProps) => {
                 {/* Footer: title + gold bar + arrow */}
                 <div className="absolute bottom-0 left-0 right-0 z-10 flex items-end justify-between px-3 pb-3">
                   <div>
-                    <p className="text-white text-base font-bold uppercase tracking-widest mb-1">
+                    <p className="text-white text-base md:text-xl font-bold uppercase tracking-widest mb-1">
                       {link.title}
                     </p>
-                    <div className="w-[18px] h-[2px] bg-secondary" />
+                    <div className="max-w-[40px] group-hover:max-w-[120px] transition-all duration-300 ease-in-out h-[2px] bg-secondary" />
                   </div>
                   {link.isExternal ? (
                     <ExternalLink

@@ -6,7 +6,7 @@ import { NewsBody } from "@/components/NewsBody";
 import { FileText, Calendar, Download } from "lucide-react";
 
 export const metadata = generateSEOMetadata({
-  title: "News – Argyle, MN",
+  title: "News | City of Argyle",
   description:
     "City news, announcements, and council meeting minutes for Argyle, Minnesota.",
   canonicalUrl: `${domainUrl}/news`,
