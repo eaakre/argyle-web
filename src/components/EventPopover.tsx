@@ -45,7 +45,31 @@ export function EventPopover({
       }
     }
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && ref.current) {
+        const focusable = Array.from(
+          ref.current.querySelectorAll<HTMLElement>(
+            'a[href], button, [tabindex]:not([tabindex="-1"])',
+          ),
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     }
     document.addEventListener("mousedown", onMouseDown);
     document.addEventListener("keydown", onKeyDown);

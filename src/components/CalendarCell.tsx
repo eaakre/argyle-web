@@ -58,7 +58,7 @@ export function CalendarCell({
       tabIndex={hasEvents ? 0 : undefined}
       aria-label={
         hasEvents
-          ? `${new Date(year, month, day).toLocaleDateString("en-US", { month: "long", day: "numeric" })}, ${events.length} event${events.length !== 1 ? "s" : ""}`
+          ? `${new Date(year, month, day).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/Chicago" })}, ${events.length} event${events.length !== 1 ? "s" : ""}`
           : undefined
       }
       onClick={hasEvents ? onOpen : undefined}

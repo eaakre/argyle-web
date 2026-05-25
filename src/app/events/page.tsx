@@ -1,7 +1,7 @@
 import { getAllEvents, getPageBySlug } from "@/lib/sanity";
 import { generateSEOMetadata } from "@/lib/seo";
 import { domainUrl } from "@/lib/constants";
-import { EventsDirectory } from "@/components/EventsDirectory";
+import { EventsPageContent } from "@/components/EventsPageContent";
 import { ContentSlotsRenderer } from "@/components/ContentSlotRenderer";
 import { notFound } from "next/navigation";
 
@@ -31,7 +31,7 @@ export default async function Page() {
     <>
       {page.heading && <h1 className="sr-only">{page.heading}</h1>}
       <ContentSlotsRenderer contentSlots={page.contentSlots} />
-      <EventsDirectory events={events} />
+      <EventsPageContent events={events} />
     </>
   );
 }
