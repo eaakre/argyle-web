@@ -6,6 +6,7 @@ import {
   Facebook,
   Clock,
   ExternalLink,
+  ChevronDown,
 } from "lucide-react";
 import { Typography } from "./ui/Typography";
 
@@ -47,14 +48,6 @@ export function Footer() {
     { label: "H.O.P.E. Program", href: "/organizations/hope-program" },
     { label: "Argyle Lions", href: "/organizations/lions" },
 */
-  ];
-
-  const emergencyContacts = [
-    /*
-    { label: "Fire Emergency", phone: "911" },
-    { label: "Non-Emergency", phone: "(218) 437-6621" },
-*/
-    { label: "City Hall", phone: "(218) 437-6621" },
   ];
 
   return (
@@ -139,11 +132,14 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <Typography variant="footer-header" noMargin>
-              Quick Links
-            </Typography>
-            <ul className="space-y-2">
+          <details className="group">
+            <summary className="flex items-center justify-between cursor-pointer md:cursor-default md:pointer-events-none list-none [&::-webkit-details-marker]:hidden mb-4">
+              <Typography variant="footer-header" noMargin>
+                Quick Links
+              </Typography>
+              <ChevronDown className="w-4 h-4 md:hidden transition-transform duration-200 group-open:rotate-180" />
+            </summary>
+            <ul className="hidden group-open:block md:block space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -157,14 +153,17 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </details>
 
           {/* Services & Resources */}
-          <div className="space-y-4">
-            <Typography variant="footer-header" noMargin>
-              Services
-            </Typography>
-            <ul className="space-y-2">
+          <details className="group">
+            <summary className="flex items-center justify-between cursor-pointer md:cursor-default md:pointer-events-none list-none [&::-webkit-details-marker]:hidden mb-4">
+              <Typography variant="footer-header" noMargin>
+                Services
+              </Typography>
+              <ChevronDown className="w-4 h-4 md:hidden transition-transform duration-200 group-open:rotate-180" />
+            </summary>
+            <ul className="hidden group-open:block md:block space-y-2">
               {services.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -178,14 +177,17 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </details>
 
           {/* Organizations & Emergency */}
-          <div className="space-y-4">
-            <Typography variant="footer-header" noMargin>
-              Organizations
-            </Typography>
-            <ul className="space-y-2">
+          <details className="group">
+            <summary className="flex items-center justify-between cursor-pointer md:cursor-default md:pointer-events-none list-none [&::-webkit-details-marker]:hidden mb-4">
+              <Typography variant="footer-header" noMargin>
+                Organizations
+              </Typography>
+              <ChevronDown className="w-4 h-4 md:hidden transition-transform duration-200 group-open:rotate-180" />
+            </summary>
+            <ul className="hidden group-open:block md:block space-y-2">
               {organizations.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -199,38 +201,7 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-
-            {/* Emergency Contacts */}
-            <div className="pt-4 border-t border-primary-foreground/20">
-              <Typography
-                variant="footer-text"
-                className="font-medium mb-3"
-                noMargin
-              >
-                Emergency Contacts
-              </Typography>
-              <div className="space-y-2">
-                {emergencyContacts.map((contact) => (
-                  <div
-                    key={contact.label}
-                    className="flex justify-between items-center"
-                  >
-                    <Typography variant="footer-text" noMargin>
-                      {contact.label}:
-                    </Typography>
-                    <a
-                      href={`tel:${contact.phone}`}
-                      className="font-medium hover:text-primary-hover transition-colors"
-                    >
-                      <Typography variant="footer-text" noMargin>
-                        {contact.phone}
-                      </Typography>
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          </details>
         </div>
 
         {/* Bottom Bar */}
