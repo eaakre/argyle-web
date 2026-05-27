@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Argyle, MN — City Website
+
+The official website for Argyle, Minnesota. Built with Next.js 15 (App Router) and Sanity CMS.
+
+## Tech Stack
+
+- **Framework:** Next.js 15 with Turbopack
+- **CMS:** Sanity
+- **Styling:** Tailwind CSS v4 with `class-variance-authority`
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy `.env.local.example` to `.env.local` and fill in the required variables (see Environment Variables below).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server with Turbopack |
+| `npm run build` | Production build |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Architecture
 
-To learn more about Next.js, take a look at the following resources:
+Content is managed entirely through Sanity. Pages contain a `contentSlots` array — typed blocks (hero, gallery, textBlock, etc.) dispatched by `ContentSlotRenderer`. To add a new content type, add a Sanity schema and a case in `ContentSlotRenderer`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+GROQ queries live in `src/lib/`. Pages are server components that call these directly.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Key Routes
 
-## Deploy on Vercel
+- `src/app/[slug]/page.tsx` — CMS-driven pages
+- `src/app/business/[slug]/page.tsx` — Business detail pages
+- `src/app/city-services/[slug]/page.tsx` — City service pages
+- `src/app/api/contact/route.ts` — Contact form (POST)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=
+```
