@@ -94,14 +94,14 @@ export function EventGallery({
 
           <button
             onClick={prev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 cursor-pointer"
+            className="z-10 absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 cursor-pointer"
             aria-label="Previous photo"
           >
             <ChevronLeft size={40} />
           </button>
 
           <div
-            className="relative w-full max-w-4xl aspect-video"
+            className="relative w-full max-w-[600px] h-[70vh]"
             {...swipeHandlers}
           >
             <Image
@@ -116,7 +116,7 @@ export function EventGallery({
 
           <button
             onClick={next}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 cursor-pointer"
+            className="z-10 absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 cursor-pointer"
             aria-label="Next photo"
           >
             <ChevronRight size={40} />
