@@ -100,7 +100,7 @@ export function EventPopover({
       ].join(" ")}
     >
       <div className="px-3 py-2 border-b border-gray-100 flex items-center justify-between gap-2">
-        <span className="text-xs font-semibold text-text-secondary uppercase tracking-wide truncate">
+        <span className="text-sm font-semibold text-text-secondary uppercase tracking-wide truncate">
           {dateLabel}
         </span>
         <button
@@ -109,7 +109,7 @@ export function EventPopover({
           aria-label="Close"
           className="flex-shrink-0 text-text-secondary hover:text-text-primary transition-colors"
         >
-          <X size={14} />
+          <X size={16} />
         </button>
       </div>
       <div className="divide-y divide-gray-50 max-h-72 overflow-y-auto">
@@ -117,10 +117,10 @@ export function EventPopover({
           const href = event.customUrl ?? `/events/${event.slug.current}`;
           return (
             <div key={event._id} className="px-3 py-2.5">
-              <div className="font-semibold text-sm text-text-primary mb-0.5 leading-snug">
+              <div className="font-semibold text-base text-text-primary mb-0.5 leading-snug">
                 {event.title}
               </div>
-              <div className="text-xs text-text-secondary mb-1 flex items-center gap-1 flex-wrap">
+              <div className="text-sm text-text-secondary mb-1 flex items-center gap-1 flex-wrap">
                 <span>
                   {formatTime(event.date, event.allDay)}
                   {event.endDate && !event.allDay
@@ -129,14 +129,14 @@ export function EventPopover({
                 </span>
                 {event.location && (
                   <span className="flex items-center gap-0.5">
-                    <MapPin size={9} className="opacity-60 flex-shrink-0" />
+                    <MapPin size={12} className="opacity-60 flex-shrink-0" />
                     {event.location}
                   </span>
                 )}
               </div>
               <Link
                 href={href}
-                className="text-xs text-accent font-medium hover:underline"
+                className="text-sm text-accent font-medium hover:underline"
               >
                 View details →
               </Link>

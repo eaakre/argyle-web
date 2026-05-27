@@ -26,7 +26,9 @@ export function FooterSection({
           className={`w-4 h-4 md:hidden transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
-      <div className={`${isOpen ? "block" : "hidden"} md:block`}>{children}</div>
+      <div className={`${isOpen ? "block" : "hidden"} md:block`}>
+        {children}
+      </div>
     </div>
   );
 }

@@ -8,8 +8,18 @@ import { CalendarGrid } from "./CalendarGrid";
 const TZ = "America/Chicago";
 
 const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 function getTodayKey(): string {
@@ -65,7 +75,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
   return (
     <section className="py-12 bg-bg-secondary">
       <div className="container max-w-6xl mx-auto px-4">
-        <div className="bg-bg-primary shadow-sm rounded-sm overflow-hidden">
+        <div className="bg-bg-primary shadow-sm rounded-sm">
           {/* Month header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
             <h2 className="font-semibold text-text-primary">
@@ -75,14 +85,14 @@ export function EventCalendar({ events }: EventCalendarProps) {
               <button
                 onClick={prevMonth}
                 aria-label="Previous month"
-                className="w-8 h-8 flex items-center justify-center rounded-sm border border-gray-200 text-text-secondary hover:bg-bg-secondary transition-colors"
+                className="w-8 h-8 cursor-pointer flex items-center justify-center rounded-sm border border-gray-200 text-text-secondary hover:bg-bg-secondary transition-colors"
               >
                 <ChevronLeft size={16} />
               </button>
               <button
                 onClick={nextMonth}
                 aria-label="Next month"
-                className="w-8 h-8 flex items-center justify-center rounded-sm border border-gray-200 text-text-secondary hover:bg-bg-secondary transition-colors"
+                className="w-8 h-8 cursor-pointer flex items-center justify-center rounded-sm border border-gray-200 text-text-secondary hover:bg-bg-secondary transition-colors"
               >
                 <ChevronRight size={16} />
               </button>

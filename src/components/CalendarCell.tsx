@@ -46,7 +46,7 @@ export function CalendarCell({
   onOpen,
   onClose,
 }: CalendarCellProps) {
-  const hasEvents = events.length > 0;
+  const hasEvents = events.length > 0 && isCurrentMonth;
   // Popover opens leftward for last 3 columns (Thu=4, Fri=5, Sat=6)
   const openLeft = colIndex >= 4;
   // Popover opens upward for last 2 rows
@@ -84,7 +84,7 @@ export function CalendarCell({
         className={[
           "w-6 h-6 flex items-center justify-center text-xs font-medium mb-1",
           isToday
-            ? "rounded-full bg-accent text-white"
+            ? "rounded-full bg-accent text-bg-primary"
             : "text-text-primary",
         ].join(" ")}
       >

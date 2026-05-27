@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Facebook, Clock, ExternalLink } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Clock,
+  ExternalLink,
+} from "lucide-react";
 import { Typography } from "./ui/Typography";
 import { FooterSection } from "./FooterSection";
 
@@ -64,7 +71,7 @@ export function Footer() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-12 md:px-20">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8 mb-8">
           {/* City Information */}
           <div className="space-y-4">
             <Typography variant="footer-header" noMargin>

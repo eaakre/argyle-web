@@ -10,12 +10,27 @@ type GalleryImage = {
   alt?: string;
 };
 
-export function EventGallery({ images, title }: { images: GalleryImage[]; title: string }) {
+export function EventGallery({
+  images,
+  title,
+}: {
+  images: GalleryImage[];
+  title: string;
+}) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const close = useCallback(() => setActiveIndex(null), []);
-  const next = useCallback(() => setActiveIndex((i) => (i === null ? null : (i + 1) % images.length)), [images.length]);
-  const prev = useCallback(() => setActiveIndex((i) => (i === null ? null : (i - 1 + images.length) % images.length)), [images.length]);
+  const next = useCallback(
+    () => setActiveIndex((i) => (i === null ? null : (i + 1) % images.length)),
+    [images.length],
+  );
+  const prev = useCallback(
+    () =>
+      setActiveIndex((i) =>
+        i === null ? null : (i - 1 + images.length) % images.length,
+      ),
+    [images.length],
+  );
 
   useEffect(() => {
     if (activeIndex === null) return;
@@ -30,10 +45,16 @@ export function EventGallery({ images, title }: { images: GalleryImage[]; title:
 
   useEffect(() => {
     document.body.style.overflow = activeIndex !== null ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [activeIndex]);
 
-  const swipeHandlers = useSwipeable({ onSwipedLeft: next, onSwipedRight: prev, trackMouse: true });
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: next,
+    onSwipedRight: prev,
+    trackMouse: true,
+  });
 
   return (
     <>
@@ -59,7 +80,9 @@ export function EventGallery({ images, title }: { images: GalleryImage[]; title:
       {activeIndex !== null && (
         <div
           className="fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-4"
-          onClick={(e) => { if (e.target === e.currentTarget) close(); }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) close();
+          }}
         >
           <button
             className="absolute top-4 right-4 text-white hover:text-red-300 cursor-pointer"
@@ -77,10 +100,15 @@ export function EventGallery({ images, title }: { images: GalleryImage[]; title:
             <ChevronLeft size={40} />
           </button>
 
-          <div className="relative w-full max-w-4xl aspect-video" {...swipeHandlers}>
+          <div
+            className="relative w-full max-w-4xl aspect-video"
+            {...swipeHandlers}
+          >
             <Image
               src={images[activeIndex].asset.url}
-              alt={images[activeIndex].alt || `${title} photo ${activeIndex + 1}`}
+              alt={
+                images[activeIndex].alt || `${title} photo ${activeIndex + 1}`
+              }
               fill
               className="object-contain"
             />
