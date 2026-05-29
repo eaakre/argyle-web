@@ -65,7 +65,7 @@ export async function getPageBySlug(slug: string) {
         _type,
         ...,
         image { asset->{ url }, alt },
-        images[]{ asset->{ url }, alt, _key }
+        images[]{ asset, alt, _key, hotspot, crop }
       }
     }`;
   return await sanityFetch(query, { slug });

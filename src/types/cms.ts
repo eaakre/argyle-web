@@ -31,6 +31,8 @@ export type SanityImage = {
   alt?: string;
   url?: string;
   caption?: string;
+  hotspot?: { x: number; y: number; height: number; width: number };
+  crop?: { top: number; bottom: number; left: number; right: number };
 };
 
 export type InfoItemProps = {
