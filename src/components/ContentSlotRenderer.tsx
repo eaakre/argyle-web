@@ -62,7 +62,7 @@ export function ContentSlotsRenderer({
               />
             );
           default:
-            return (
+            return process.env.NODE_ENV === "development" ? (
               <div key={index} className="border p-4 rounded">
                 <p className="text-sm text-gray-500 mb-2">
                   Unknown component type: {slot._type}
@@ -71,7 +71,7 @@ export function ContentSlotsRenderer({
                   {JSON.stringify(slot, null, 2)}
                 </pre>
               </div>
-            );
+            ) : null;
         }
       })}
     </>
