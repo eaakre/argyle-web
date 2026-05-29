@@ -239,6 +239,15 @@ export type PageContentSlot =
       sectionTitle?: string;
     }
   | {
+      _type: "featureSpotlight";
+      _key: string;
+      title: string;
+      tagline?: string;
+      description?: string;
+      images?: SanityImage[];
+      ctas?: CTA[];
+    }
+  | {
       _type: string;
       _key: string;
       [key: string]: unknown;
