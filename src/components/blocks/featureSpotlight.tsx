@@ -36,7 +36,7 @@ export function FeatureSpotlight({
         {heroImage && (
           <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
             <Image
-              src={urlForImage(heroImage).width(1200).height(900).url()}
+              src={heroImage.asset?._ref ? urlForImage(heroImage).width(1200).height(900).url() : (heroImage.url ?? "")}
               alt={heroImage.alt ?? title}
               fill
               className="object-cover"
@@ -55,7 +55,7 @@ export function FeatureSpotlight({
                 className="relative flex-shrink-0 w-40 aspect-[4/3] rounded-md overflow-hidden"
               >
                 <Image
-                  src={urlForImage(img).width(320).height(240).url()}
+                  src={img.asset?._ref ? urlForImage(img).width(320).height(240).url() : (img.url ?? "")}
                   alt={img.alt ?? `${title} image ${i + 2}`}
                   fill
                   className="object-cover"
