@@ -72,6 +72,7 @@ export const page = defineType({
         {type: 'googleMap'},
         {type: 'newsHighlights'},
         {type: 'eventsHighlights'},
+        {type: 'featureSpotlight'},
       ],
     }),
   ],
