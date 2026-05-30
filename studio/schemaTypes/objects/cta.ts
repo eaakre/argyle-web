@@ -24,11 +24,9 @@ export const cta = defineType({
       options: {
         list: [
           { title: "Default", value: "default" },
-          { title: "Destructive", value: "destructive" },
-          { title: "Outline", value: "outline" },
           { title: "Secondary", value: "secondary" },
-          { title: "Ghost", value: "ghost" },
-          { title: "Link", value: "link" },
+          { title: "Outline", value: "outline" },
+          { title: "Underline", value: "underline" },
         ],
         layout: "dropdown",
       },

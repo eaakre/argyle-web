@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { StyledLink } from "../ui/Link";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SanityNewsArticle } from "@/lib/sanity";
@@ -119,19 +119,15 @@ export function NewsCarousel({ articles }: NewsCarouselProps) {
                 </p>
               )}
               <div className="flex items-center gap-4">
-                <Link
+                <StyledLink
                   href={`/news/${article.slug.current}`}
                   aria-label={`Read more about ${article.title}`}
-                  className="inline-block border-2 border-accent text-accent text-sm font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
                 >
                   Read More
-                </Link>
-                <Link
-                  href="/news"
-                  className="text-sm font-medium text-text-secondary hover:underline"
-                >
+                </StyledLink>
+                <StyledLink href="/news" variant="underline">
                   See all news →
-                </Link>
+                </StyledLink>
               </div>
             </div>
           ))}

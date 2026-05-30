@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { urlForImage } from "@/lib/sanity";
 import { CTA, SanityImage } from "@/types/cms";
+import { StyledLink } from "../ui/Link";
 
 type FeatureSpotlightProps = {
   title: string;
@@ -52,7 +53,7 @@ export function FeatureSpotlight({
 
           {/* Text content — left side */}
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full max-w-xs md:max-w-sm bg-black/50 py-12 px-6 md:px-10">
+            <div className="w-full max-w-xs md:max-w-md bg-black/50 py-12 px-6 md:px-10">
               {tagline && (
                 <span className="text-xs font-bold uppercase tracking-widest text-secondary mb-2 block">
                   {tagline}
@@ -69,13 +70,9 @@ export function FeatureSpotlight({
               {ctas.length > 0 && (
                 <div className="flex flex-wrap gap-3">
                   {ctas.map((cta, i) => (
-                    <Link
-                      key={i}
-                      href={cta.href}
-                      className="inline-block border-2 border-white text-white text-xs font-bold uppercase tracking-widest px-5 py-2 hover:bg-text-primary hover:text-bg-primary transition-colors"
-                    >
+                    <StyledLink href={cta.href} variant={cta.variant} key={i}>
                       {cta.text}
-                    </Link>
+                    </StyledLink>
                   ))}
                 </div>
               )}

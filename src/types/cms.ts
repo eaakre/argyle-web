@@ -1,15 +1,7 @@
 export type CTA = {
   text: string;
   href: string;
-  variant?:
-    | "default"
-    | "link"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | null
-    | undefined;
+  variant?: "default" | "secondary" | "outline" | "underline" | null | undefined;
   size?: "default" | "icon" | "sm" | "lg" | null | undefined;
 };
 
