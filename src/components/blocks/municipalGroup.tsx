@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Phone, Mail, Clock, MapPin, Calendar, Users } from "lucide-react";
 import { MunicipalGroupData } from "@/types/cms";
 
@@ -52,12 +53,17 @@ export function MunicipalGroup({
   );
 
   return (
-    <div className="max-w-screen-xl mx-auto p-6 space-y-8">
+    <div className="max-w-screen-xl mx-auto px-4 py-12 space-y-8">
       {/* Header */}
       <div className="text-center border-b border-bg-secondary pb-8">
+        {groupType && (
+          <p className="text-sm font-medium uppercase tracking-widest text-accent mb-2">
+            {groupType}
+          </p>
+        )}
         <h1 className="text-4xl font-bold uppercase mb-4">{title}</h1>
         {description && (
-          <p className="text-lg text-text-secondary max-w-3xl mx-auto">
+          <p className="text-lg text-text-secondary max-w-3xl mx-auto whitespace-pre-line">
             {description}
           </p>
         )}
@@ -65,11 +71,11 @@ export function MunicipalGroup({
 
       {/* Special Notices */}
       {currentNotices.length > 0 && (
-        <div className="bg-secondary p-4 rounded-r-lg">
+        <div className="bg-bg-secondary border-l-4 border-secondary p-4 rounded-r-md">
           <div className="flex items-start">
             <div className="flex-shrink-0">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-bold">!</span>
+              <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
+                <span className="text-bg-primary text-sm font-bold">!</span>
               </div>
             </div>
             <div className="ml-3 space-y-2">
@@ -90,10 +96,13 @@ export function MunicipalGroup({
 
       {/* Meeting Information */}
       {meetingInfo?.hasMeetings && (
-        <div className="bg-bg-secondary rounded-sm p-6">
+        <div className="bg-bg-secondary rounded-md p-6">
           <div className="flex items-center mb-4">
             <Calendar className="w-5 h-5 mr-2" />
-            <h2 className="text-xl font-semibold uppercase">Meeting Information</h2>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">Meetings</p>
+              <h2 className="text-xl font-bold uppercase">Meeting Information</h2>
+            </div>
           </div>
           <div className="space-y-2">
             {meetingInfo.schedule && (
@@ -122,10 +131,13 @@ export function MunicipalGroup({
 
       {/* Office Hours */}
       {officeHours?.hasHours && officeHours.hoursText && (
-        <div className="bg-bg-secondary rounded-sm p-6">
+        <div className="bg-bg-secondary rounded-md p-6">
           <div className="flex items-center mb-4">
             <Clock className="w-5 h-5 mr-2" />
-            <h2 className="text-xl font-semibold uppercase">Hours</h2>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">Hours</p>
+              <h2 className="text-xl font-bold uppercase">Office Hours</h2>
+            </div>
           </div>
           <p className="whitespace-pre-line">{officeHours.hoursText}</p>
         </div>
@@ -136,13 +148,16 @@ export function MunicipalGroup({
         <div>
           <div className="flex items-center mb-6">
             <Users className="w-6 h-6 mr-2" />
-            <h2 className="text-2xl font-semibold uppercase">
-              {groupType === "council"
-                ? "Council Members"
-                : groupType === "office"
-                  ? "Staff"
-                  : "Members"}
-            </h2>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">Members</p>
+              <h2 className="text-2xl font-bold uppercase">
+                {groupType === "council"
+                  ? "Council Members"
+                  : groupType === "office"
+                    ? "Staff"
+                    : "Members"}
+              </h2>
+            </div>
           </div>
 
           {displaySettings && (
@@ -152,14 +167,15 @@ export function MunicipalGroup({
               {activeMembers.map((member, index) => (
                 <div
                   key={index}
-                  className="bg-bg-secondary rounded-sm p-6 hover:shadow-lg transition-shadow"
+                  className="bg-bg-secondary rounded-md p-6 hover:shadow-lg transition-shadow"
                 >
                   {displaySettings.showPhotos && member.photo && (
-                    <div className="flex justify-center mb-4">
-                      <img
+                    <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-bg-primary mx-auto mb-4">
+                      <Image
                         src={member.photo.asset.url}
                         alt={member.photo.alt || `Photo of ${member.name}`}
-                        className="w-24 h-24 rounded-full object-cover border-4 border-gray-100"
+                        fill
+                        className="object-cover"
                       />
                     </div>
                   )}
@@ -229,10 +245,13 @@ export function MunicipalGroup({
 
       {/* Contact Information */}
       {contactInfo && Object.values(contactInfo).some((v) => v) && (
-        <div className="bg-bg-secondary rounded-sm p-6">
+        <div className="bg-bg-secondary rounded-md p-6">
           <div className="flex items-center mb-4">
             <MapPin className="w-5 h-5 mr-2" />
-            <h2 className="text-xl font-semibold uppercase">Contact Information</h2>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">Contact</p>
+              <h2 className="text-xl font-bold uppercase">Contact Information</h2>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -293,9 +312,9 @@ export function MunicipalGroup({
           {additionalContent
             .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
             .map((block, index) => (
-              <div key={index} className="bg-bg-secondary rounded-sm  p-6">
+              <div key={index} className="bg-bg-secondary rounded-md p-6">
                 {block.title && (
-                  <h3 className="text-xl font-semibold uppercase mb-3">{block.title}</h3>
+                  <h3 className="text-xl font-bold uppercase mb-3">{block.title}</h3>
                 )}
                 <p className="whitespace-pre-line">{block.content}</p>
               </div>
