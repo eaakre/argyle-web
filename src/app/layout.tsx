@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getAnnouncements, getNavLinks } from "@/lib/sanity";
 import { Analytics } from "@vercel/analytics/next";
+import { SanityLive } from "@/lib/live";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ export default async function RootLayout({
         <div className="min-h-[100vh]">{children}</div>
         <Footer />
         <Analytics />
+        <SanityLive />
       </body>
     </html>
   );
