@@ -49,7 +49,7 @@ export function MunicipalGroup({
   };
 
   const currentNotices = activeNotices.filter((notice) =>
-    isCurrentDate(notice.startDate, notice.endDate)
+    isCurrentDate(notice.startDate, notice.endDate),
   );
 
   return (
@@ -100,8 +100,12 @@ export function MunicipalGroup({
           <div className="flex items-center mb-4">
             <Calendar className="w-5 h-5 mr-2" />
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">Meetings</p>
-              <h2 className="text-xl font-bold uppercase">Meeting Information</h2>
+              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">
+                Meetings
+              </p>
+              <h2 className="text-xl font-bold uppercase">
+                Meeting Information
+              </h2>
             </div>
           </div>
           <div className="space-y-2">
@@ -135,7 +139,9 @@ export function MunicipalGroup({
           <div className="flex items-center mb-4">
             <Clock className="w-5 h-5 mr-2" />
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">Hours</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">
+                Hours
+              </p>
               <h2 className="text-xl font-bold uppercase">Office Hours</h2>
             </div>
           </div>
@@ -149,7 +155,9 @@ export function MunicipalGroup({
           <div className="flex items-center mb-6">
             <Users className="w-6 h-6 mr-2" />
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">Members</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">
+                Members
+              </p>
               <h2 className="text-2xl font-bold uppercase">
                 {groupType === "council"
                   ? "Council Members"
@@ -167,7 +175,7 @@ export function MunicipalGroup({
               {activeMembers.map((member, index) => (
                 <div
                   key={index}
-                  className="bg-bg-secondary rounded-md p-6 hover:shadow-lg transition-shadow"
+                  className="bg-bg-secondary border-l-2 border-secondary p-6 hover:shadow-lg transition-shadow"
                 >
                   {displaySettings.showPhotos && member.photo && (
                     <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-bg-primary mx-auto mb-4">
@@ -202,7 +210,7 @@ export function MunicipalGroup({
                             <span>
                               {formatPhoneNumber(
                                 member.phone,
-                                member.extension
+                                member.extension,
                               )}
                             </span>
                           </div>
@@ -249,8 +257,12 @@ export function MunicipalGroup({
           <div className="flex items-center mb-4">
             <MapPin className="w-5 h-5 mr-2" />
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">Contact</p>
-              <h2 className="text-xl font-bold uppercase">Contact Information</h2>
+              <p className="text-xs font-bold uppercase tracking-widest text-accent mb-0.5">
+                Contact
+              </p>
+              <h2 className="text-xl font-bold uppercase">
+                Contact Information
+              </h2>
             </div>
           </div>
 
@@ -258,14 +270,18 @@ export function MunicipalGroup({
             <div className="space-y-3">
               {contactInfo.address && (
                 <div>
-                  <h3 className="text-sm font-medium uppercase mb-1">Address</h3>
+                  <h3 className="text-sm font-medium uppercase mb-1">
+                    Address
+                  </h3>
                   <p className="whitespace-pre-line">{contactInfo.address}</p>
                 </div>
               )}
 
               {contactInfo.mailingAddress && (
                 <div>
-                  <h3 className="text-sm font-medium uppercase mb-1">Mailing Address</h3>
+                  <h3 className="text-sm font-medium uppercase mb-1">
+                    Mailing Address
+                  </h3>
                   <p className="whitespace-pre-line">
                     {contactInfo.mailingAddress}
                   </p>
@@ -314,7 +330,9 @@ export function MunicipalGroup({
             .map((block, index) => (
               <div key={index} className="bg-bg-secondary rounded-md p-6">
                 {block.title && (
-                  <h3 className="text-xl font-bold uppercase mb-3">{block.title}</h3>
+                  <h3 className="text-xl font-bold uppercase mb-3">
+                    {block.title}
+                  </h3>
                 )}
                 <p className="whitespace-pre-line">{block.content}</p>
               </div>

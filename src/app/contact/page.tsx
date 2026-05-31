@@ -34,7 +34,10 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Phone className="w-4 h-4 flex-shrink-0" />
-                    <a href="tel:218-437-6621" className="hover:text-text-hover transition-colors">
+                    <a
+                      href="tel:218-437-6621"
+                      className="hover:text-text-hover transition-colors"
+                    >
                       <Typography variant="small" color="muted" noMargin>
                         218-437-6621 (Phone/Fax)
                       </Typography>
@@ -42,7 +45,10 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Mail className="w-4 h-4 flex-shrink-0" />
-                    <a href="mailto:argyle@wiktel.com" className="hover:text-text-hover transition-colors">
+                    <a
+                      href="mailto:argyle@wiktel.com"
+                      className="hover:text-text-hover transition-colors"
+                    >
                       <Typography variant="small" color="muted" noMargin>
                         argyle@wiktel.com
                       </Typography>
@@ -70,7 +76,10 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Phone className="w-4 h-4 flex-shrink-0" />
-                    <a href="tel:218-437-6689" className="hover:text-text-hover transition-colors">
+                    <a
+                      href="tel:218-437-6689"
+                      className="hover:text-text-hover transition-colors"
+                    >
                       <Typography variant="small" color="muted" noMargin>
                         218-437-6689
                       </Typography>
@@ -78,7 +87,10 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Mail className="w-4 h-4 flex-shrink-0" />
-                    <a href="mailto:argyleshop@wiktel.com" className="hover:text-text-hover transition-colors">
+                    <a
+                      href="mailto:argyleshop@wiktel.com"
+                      className="hover:text-text-hover transition-colors"
+                    >
                       <Typography variant="small" color="muted" noMargin>
                         argyleshop@wiktel.com
                       </Typography>
@@ -94,7 +106,8 @@ export default function ContactPage() {
               Office Hours
             </Typography>
             <Typography variant="small" color="muted" noMargin>
-              Please call ahead to confirm availability or to schedule an appointment.
+              Please call ahead to confirm availability or to schedule an
+              appointment.
             </Typography>
           </div>
         </div>
