@@ -69,7 +69,7 @@ function EventCard({ event }: { event: SanityEvent }) {
 
         {/* Date badge — outside overflow-hidden so it renders fully */}
         <div className="absolute bottom-0 left-4 translate-y-1/2 z-20 bg-badge-secondary-bg text-badge-secondary-text shadow-md text-center min-w-[52px] px-2.5 py-1.5">
-          <div className="text-[11px] font-extrabold tracking-widest leading-none mb-0.5">
+          <div className="text-[11px] font-bold tracking-widest leading-none mb-0.5">
             {month}
           </div>
           <div className="text-[26px] font-black leading-none tracking-tight">

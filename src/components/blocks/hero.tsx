@@ -106,7 +106,7 @@ export function Hero({
         className={`relative z-20 px-6 text-white flex flex-col max-w-screen-xl w-full ${alignClass}`}
       >
         <div className="max-w-3xl space-y-6">
-          <h2 className="text-4xl md:text-6xl font-bold leading-tight">
+          <h2 className="text-4xl md:text-6xl font-bold uppercase leading-tight">
             {heading}
           </h2>
           {subheading && (

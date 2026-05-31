@@ -26,7 +26,7 @@ export async function BusinessesSection({
     return (
       <section className={className}>
         <div className="max-w-screen-xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">{title}</h2>
+          <h2 className="text-2xl md:text-3xl font-bold uppercase mb-8 text-center">{title}</h2>
           <p className="text-center">No businesses found at the moment.</p>
         </div>
       </section>
@@ -43,12 +43,12 @@ export async function BusinessesSection({
   return (
     <section className={`py-12 bg-bg-secondary ${className}`}>
       <div className="max-w-screen-xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-center">{title}</h2>
+        <h2 className="text-2xl md:text-3xl font-bold uppercase mb-8 text-center">{title}</h2>
 
         {/* Featured Businesses */}
         {featuredBusinesses.length > 0 && showFeaturedFirst && (
           <div className="mb-12">
-            <h3 className="text-xl font-semibold mb-6">Featured Businesses</h3>
+            <h3 className="text-xl font-semibold uppercase mb-6">Featured Businesses</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredBusinesses.map((business) => (
                 <BusinessLink
@@ -64,7 +64,7 @@ export async function BusinessesSection({
         {/* All Businesses or Regular Businesses */}
         <div>
           {featuredBusinesses.length > 0 && showFeaturedFirst && (
-            <h3 className="text-xl font-semibold mb-6">All Businesses</h3>
+            <h3 className="text-xl font-semibold uppercase mb-6">All Businesses</h3>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {(showFeaturedFirst ? regularBusinesses : businesses).map(

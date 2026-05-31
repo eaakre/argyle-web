@@ -33,13 +33,13 @@ export async function NewsHighlights({
               sizes="100vw"
             />
             <div className="absolute top-[20px] left-0 bg-accent/90 px-6 py-2">
-              <h2 className="text-2xl font-bold text-bg-primary uppercase">
+              <h2 className="text-2xl md:text-3xl font-bold text-bg-primary uppercase">
                 {title}
               </h2>
             </div>
           </div>
         ) : (
-          <h2 className="text-2xl font-bold text-text-primary mb-6">{title}</h2>
+          <h2 className="text-2xl md:text-3xl font-bold uppercase text-text-primary mb-6">{title}</h2>
         )}
 
         {/* Two-column layout */}

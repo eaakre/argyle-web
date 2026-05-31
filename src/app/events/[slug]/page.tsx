@@ -159,7 +159,7 @@ export default async function EventPage({ params }: EventPageProps) {
           <div className="flex flex-col md:flex-row md:items-end gap-6">
             {/* Date badge */}
             <div className="flex-shrink-0 bg-badge-secondary-bg text-badge-secondary-text text-center px-4 py-3 shadow-lg w-[72px]">
-              <div className="text-xs font-extrabold tracking-widest leading-none mb-1">
+              <div className="text-xs font-bold tracking-widest leading-none mb-1">
                 {month}
               </div>
               <div className="text-4xl font-black leading-none tracking-tight">
@@ -382,7 +382,9 @@ export default async function EventPage({ params }: EventPageProps) {
           {/* Gallery */}
           {event.galleryImages && event.galleryImages.length > 0 && (
             <div className="mt-10">
-              <h2 className="text-xl font-bold mb-4 text-text-primary">Photos</h2>
+              <h2 className="text-xl font-bold mb-4 text-text-primary">
+                Photos
+              </h2>
               <EventGallery images={event.galleryImages} title={event.title} />
             </div>
           )}

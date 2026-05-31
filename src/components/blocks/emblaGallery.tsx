@@ -120,7 +120,7 @@ export default function EmblaGallery({ title, images }: EmblaGalleryProps) {
 
   return (
     <div className="my-8 max-w-screen-xl mx-auto px-4">
-      {title && <h3 className="text-2xl font-bold mb-4">{title}</h3>}
+      {title && <h3 className="text-2xl font-bold uppercase mb-4">{title}</h3>}
 
       <div className="space-y-4">
         {/* Main Gallery - Option 1: Fixed height with max-height */}

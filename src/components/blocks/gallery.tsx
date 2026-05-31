@@ -35,7 +35,7 @@ export function Gallery({ title, images }: GalleryProps) {
   return (
     <section className="space-y-4 flex flex-col w-full items-center px-4">
       <div className="w-full max-w-screen-xl mx-auto px-4 py-12 space-y-8">
-        {title && <h2 className="text-4xl font-bold">{title}</h2>}
+        {title && <h2 className="text-2xl md:text-3xl font-bold uppercase">{title}</h2>}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {imageList.map((img, i) => (

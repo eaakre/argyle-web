@@ -252,7 +252,7 @@ function NavLinks({
                   onMouseLeave={onDesktopMouseLeave}
                 >
                   <div className="max-w-6xl lg:px-20 mx-auto px-4 py-5">
-                    <p className="text-base font-extrabold uppercase tracking-[2px] text-text-primary opacity-90 mb-3">
+                    <p className="text-base font-bold uppercase tracking-[2px] text-text-primary opacity-90 mb-3">
                       {link.label}
                     </p>
                     <div className="flex flex-wrap gap-1">

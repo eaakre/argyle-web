@@ -93,7 +93,7 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
               <span className="text-sm font-bold uppercase tracking-widest text-text-secondary mb-3 block">
                 Upcoming Event
               </span>
-              <h3 className="text-2xl font-extrabold text-text-primary uppercase leading-tight mb-3">
+              <h3 className="text-2xl font-bold text-text-primary uppercase leading-tight mb-3">
                 {event.title}
               </h3>
               <div className="flex flex-col gap-1 mb-6">

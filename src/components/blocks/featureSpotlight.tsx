@@ -59,7 +59,7 @@ export function FeatureSpotlight({
                   {tagline}
                 </span>
               )}
-              <h2 className="text-3xl font-extrabold text-white uppercase leading-tight mb-3">
+              <h2 className="text-3xl font-bold text-white uppercase leading-tight mb-3">
                 {title}
               </h2>
               {description && (
@@ -125,7 +125,7 @@ export function FeatureSpotlight({
               {tagline}
             </span>
           )}
-          <h2 className="text-2xl font-extrabold text-white uppercase leading-tight mb-3">
+          <h2 className="text-2xl font-bold text-white uppercase leading-tight mb-3">
             {title}
           </h2>
           {description && (

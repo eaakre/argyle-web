@@ -72,11 +72,7 @@ export function NewsCarousel({ articles }: NewsCarouselProps) {
       aria-label="News articles"
     >
       {/* Screen reader live announcement */}
-      <div
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
         {announcement}
       </div>
 
@@ -96,7 +92,7 @@ export function NewsCarousel({ articles }: NewsCarouselProps) {
               <span className="text-sm font-bold uppercase tracking-widest text-text-secondary mb-3 block">
                 {article.pinned ? "Pinned" : "Latest News"}
               </span>
-              <h3 className="text-2xl font-extrabold text-text-primary uppercase leading-tight mb-3">
+              <h3 className="text-2xl font-bold text-text-primary uppercase leading-tight mb-3">
                 {article.title}
               </h3>
               <div className="flex flex-col gap-1 mb-4">
@@ -154,9 +150,7 @@ export function NewsCarousel({ articles }: NewsCarouselProps) {
             <span
               key={articles[i]._id}
               className={`block w-2.5 h-2.5 rounded-full transition-colors ${
-                i === selectedIndex
-                  ? "bg-text-primary"
-                  : "bg-text-primary/20"
+                i === selectedIndex ? "bg-text-primary" : "bg-text-primary/20"
               }`}
             />
           ))}

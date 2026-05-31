@@ -55,7 +55,7 @@ export function MunicipalGroup({
     <div className="max-w-screen-xl mx-auto p-6 space-y-8">
       {/* Header */}
       <div className="text-center border-b border-bg-secondary pb-8">
-        <h1 className="text-4xl font-bold mb-4">{title}</h1>
+        <h1 className="text-4xl font-bold uppercase mb-4">{title}</h1>
         {description && (
           <p className="text-lg text-text-secondary max-w-3xl mx-auto">
             {description}
@@ -93,7 +93,7 @@ export function MunicipalGroup({
         <div className="bg-bg-secondary rounded-sm p-6">
           <div className="flex items-center mb-4">
             <Calendar className="w-5 h-5 mr-2" />
-            <h2 className="text-xl font-semibold">Meeting Information</h2>
+            <h2 className="text-xl font-semibold uppercase">Meeting Information</h2>
           </div>
           <div className="space-y-2">
             {meetingInfo.schedule && (
@@ -125,7 +125,7 @@ export function MunicipalGroup({
         <div className="bg-bg-secondary rounded-sm p-6">
           <div className="flex items-center mb-4">
             <Clock className="w-5 h-5 mr-2" />
-            <h2 className="text-xl font-semibold">Hours</h2>
+            <h2 className="text-xl font-semibold uppercase">Hours</h2>
           </div>
           <p className="whitespace-pre-line">{officeHours.hoursText}</p>
         </div>
@@ -136,7 +136,7 @@ export function MunicipalGroup({
         <div>
           <div className="flex items-center mb-6">
             <Users className="w-6 h-6 mr-2" />
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-2xl font-semibold uppercase">
               {groupType === "council"
                 ? "Council Members"
                 : groupType === "office"
@@ -165,7 +165,7 @@ export function MunicipalGroup({
                   )}
 
                   <div className="text-center">
-                    <h3 className="text-xl font-semibold mb-1">
+                    <h3 className="text-xl font-semibold uppercase mb-1">
                       {member.name}
                     </h3>
                     <p className="text-text-secondary font-medium mb-3">
@@ -232,21 +232,21 @@ export function MunicipalGroup({
         <div className="bg-bg-secondary rounded-sm p-6">
           <div className="flex items-center mb-4">
             <MapPin className="w-5 h-5 mr-2" />
-            <h2 className="text-xl font-semibold">Contact Information</h2>
+            <h2 className="text-xl font-semibold uppercase">Contact Information</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-3">
               {contactInfo.address && (
                 <div>
-                  <h3 className="text-sm font-medium mb-1">Address</h3>
+                  <h3 className="text-sm font-medium uppercase mb-1">Address</h3>
                   <p className="whitespace-pre-line">{contactInfo.address}</p>
                 </div>
               )}
 
               {contactInfo.mailingAddress && (
                 <div>
-                  <h3 className="text-sm font-medium mb-1">Mailing Address</h3>
+                  <h3 className="text-sm font-medium uppercase mb-1">Mailing Address</h3>
                   <p className="whitespace-pre-line">
                     {contactInfo.mailingAddress}
                   </p>
@@ -295,7 +295,7 @@ export function MunicipalGroup({
             .map((block, index) => (
               <div key={index} className="bg-bg-secondary rounded-sm  p-6">
                 {block.title && (
-                  <h3 className="text-xl font-semibold mb-3">{block.title}</h3>
+                  <h3 className="text-xl font-semibold uppercase mb-3">{block.title}</h3>
                 )}
                 <p className="whitespace-pre-line">{block.content}</p>
               </div>
