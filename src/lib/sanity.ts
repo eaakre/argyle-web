@@ -29,8 +29,23 @@ export const client = createClient({
 
 // Wrapper that tags every fetch with 'sanity' so revalidateTag('sanity')
 // busts all Sanity data at once when the Sanity webhook fires.
+// The live fetch wrapper (defineLive) lives in src/lib/live.ts to keep
+// this file importable by client components (for types and urlForImage).
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function sanityFetch<T = any>(query: string, params: Record<string, unknown> = {}): Promise<T> {
+async function sanityFetch<T = any>(query: string, params: Record<string, unknown> = {}): Promise<T> {
+  let isDraftMode = false;
+  try {
+    const { draftMode } = await import("next/headers");
+    isDraftMode = (await draftMode()).isEnabled;
+  } catch {
+    // Called outside a request scope (e.g. generateStaticParams); use plain fetch
+    return client.fetch<T>(query, params, { next: { tags: ["sanity"] } });
+  }
+  if (isDraftMode) {
+    const { liveFetch } = await import("@/lib/live");
+    const { data } = await liveFetch({ query, params });
+    return data as T;
+  }
   return client.fetch<T>(query, params, { next: { tags: ["sanity"] } });
 }
 
