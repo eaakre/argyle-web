@@ -34,7 +34,7 @@ export function FeatureSpotlight({
   return (
     <section className="bg-bg-secondary py-4 md:py-12">
       <div className="max-w-screen-xl mx-auto px-4 md:px-0">
-        <div className="relative overflow-hidden h-80 md:h-[600px]">
+        <div className="relative overflow-hidden h-56 md:h-[600px]">
           {/* Background image */}
           {activeImage && (
             <Image
@@ -48,24 +48,22 @@ export function FeatureSpotlight({
             />
           )}
 
-          {/* Left-side gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+          {/* Left-side gradient overlay — desktop only */}
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-          {/* Text content — left side */}
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full max-w-xs md:max-w-md bg-black/50 py-12 px-6 md:px-10">
+          {/* Text content — desktop overlay */}
+          <div className="hidden md:flex absolute inset-0 items-center">
+            <div className="w-full max-w-md bg-black/50 py-12 px-10">
               {tagline && (
                 <span className="text-xs font-bold uppercase tracking-widest text-secondary mb-2 block">
                   {tagline}
                 </span>
               )}
-              <h2 className="text-2xl md:text-3xl font-extrabold text-white uppercase leading-tight mb-3">
+              <h2 className="text-3xl font-extrabold text-white uppercase leading-tight mb-3">
                 {title}
               </h2>
               {description && (
-                <p className="text-sm text-white/75 mb-5 line-clamp-3 hidden md:block">
-                  {description}
-                </p>
+                <p className="text-sm text-white/75 mb-5">{description}</p>
               )}
               {ctas.length > 0 && (
                 <div className="flex flex-wrap gap-3">
@@ -117,6 +115,30 @@ export function FeatureSpotlight({
                 ))}
               </div>
             </>
+          )}
+        </div>
+
+        {/* Mobile text — stacked below the image */}
+        <div className="md:hidden bg-stone-900 py-6 px-6">
+          {tagline && (
+            <span className="text-xs font-bold uppercase tracking-widest text-secondary mb-2 block">
+              {tagline}
+            </span>
+          )}
+          <h2 className="text-2xl font-extrabold text-white uppercase leading-tight mb-3">
+            {title}
+          </h2>
+          {description && (
+            <p className="text-sm text-white/75 mb-5">{description}</p>
+          )}
+          {ctas.length > 0 && (
+            <div className="flex flex-wrap gap-3">
+              {ctas.map((cta, i) => (
+                <StyledLink href={cta.href} variant={cta.variant} key={i}>
+                  {cta.text}
+                </StyledLink>
+              ))}
+            </div>
           )}
         </div>
       </div>
