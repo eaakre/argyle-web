@@ -36,6 +36,8 @@ Pages in Sanity contain a `contentSlots` array — a list of typed blocks (hero,
 ### API Routes
 
 - `src/app/api/contact/route.ts` — POST handler for the contact form; validates fields and sends email via **Resend**.
+- `src/app/api/draft-mode/enable/route.ts` — enables Next.js draft mode for Sanity live preview (called by the Presentation tool).
+- `src/app/api/draft-mode/disable/route.ts` — disables draft mode and redirects to `/`.
 
 ### Environment Variables
 
@@ -45,6 +47,7 @@ NEXT_PUBLIC_SANITY_DATASET=production
 RESEND_API_KEY=
 RESEND_FROM=
 RESEND_TO=
+SANITY_API_READ_TOKEN=   # Sanity Viewer token — required for live preview draft fetching
 ```
 
 ### Key Conventions
