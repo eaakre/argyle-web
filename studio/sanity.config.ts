@@ -36,7 +36,7 @@ export default defineConfig({
           )
       },
       previewUrl: {
-        origin: 'http://localhost:3000',
+        origin: 'https://argyle-web-alpha.vercel.app',
         previewMode: {
           enable: '/api/draft-mode/enable',
         },
