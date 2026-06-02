@@ -90,6 +90,10 @@ export async function getPageBySlug(slug: string) {
           crop,
           asset,
           image { asset, alt }
+        },
+        members[]{
+          ...,
+          photo { asset->{ url }, alt }
         }
       }
     }`;

@@ -177,7 +177,7 @@ export function MunicipalGroup({
                   key={index}
                   className="bg-bg-secondary border-l-2 border-secondary p-6 hover:shadow-lg transition-shadow"
                 >
-                  {displaySettings.showPhotos && member.photo && (
+                  {displaySettings.showPhotos && member.photo?.asset?.url && (
                     <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-bg-primary mx-auto mb-4">
                       <Image
                         src={member.photo.asset.url}
