@@ -1,18 +1,10 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
-import {presentationTool} from 'sanity/presentation'
-import {map} from 'rxjs'
+import {presentationTool, defineLocations} from 'sanity/presentation'
 import {schemaTypes} from './schemaTypes'
 
 const SINGLETONS = ['navigation']
-
-const hrefFor: Record<string, (slug: string) => string> = {
-  page: (slug) => (slug === 'Homepage' ? '/' : `/${slug}`),
-  event: (slug) => `/events/${slug}`,
-  newsArticle: (slug) => `/news/${slug}`,
-  business: (slug) => `/business/${slug}`,
-}
 
 export default defineConfig({
   name: 'default',
@@ -21,19 +13,31 @@ export default defineConfig({
   dataset: 'production',
   plugins: [
     presentationTool({
-      locate: ({id, type}, context) => {
-        if (!(type in hrefFor)) return null
-        return context.documentStore
-          .listenQuery(`*[_id == $id][0]{title, slug}`, {id}, {perspective: 'previewDrafts'})
-          .pipe(
-            map((doc) => {
-              const slug = doc?.slug?.current
-              if (!slug) return {message: 'Missing slug', tone: 'caution' as const}
-              return {
-                locations: [{title: doc?.title ?? type, href: hrefFor[type](slug)}],
-              }
-            }),
-          )
+      resolve: {
+        locations: {
+          page: defineLocations({
+            select: {title: 'title', slug: 'slug.current'},
+            resolve: (doc) =>
+              doc?.slug
+                ? {locations: [{title: doc.title || 'Page', href: doc.slug === 'Homepage' ? '/' : `/${doc.slug}`}]}
+                : null,
+          }),
+          event: defineLocations({
+            select: {title: 'title', slug: 'slug.current'},
+            resolve: (doc) =>
+              doc?.slug ? {locations: [{title: doc.title || 'Event', href: `/events/${doc.slug}`}]} : null,
+          }),
+          newsArticle: defineLocations({
+            select: {title: 'title', slug: 'slug.current'},
+            resolve: (doc) =>
+              doc?.slug ? {locations: [{title: doc.title || 'Article', href: `/news/${doc.slug}`}]} : null,
+          }),
+          business: defineLocations({
+            select: {title: 'name', slug: 'slug.current'},
+            resolve: (doc) =>
+              doc?.slug ? {locations: [{title: doc.title || 'Business', href: `/business/${doc.slug}`}]} : null,
+          }),
+        },
       },
       previewUrl: {
         origin: 'https://argyle-web-alpha.vercel.app',

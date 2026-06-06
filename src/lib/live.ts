@@ -7,7 +7,9 @@ import { defineLive } from "next-sanity/live";
 import { client } from "@/lib/sanity";
 
 const { sanityFetch: liveFetch, SanityLive } = defineLive({
-  client,
+  client: client.withConfig({
+    stega: { enabled: true, studioUrl: "https://argyle.sanity.studio" },
+  }),
   serverToken: process.env.SANITY_API_READ_TOKEN,
 });
 

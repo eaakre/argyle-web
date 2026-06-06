@@ -4,8 +4,10 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getAnnouncements, getNavLinks } from "@/lib/sanity";
+import { draftMode } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import { SanityLive } from "@/lib/live";
+import { VisualEditing } from "next-sanity/visual-editing";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -32,9 +34,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [announcements, navLinks] = await Promise.all([
+  const [announcements, navLinks, { isEnabled: isDraftMode }] = await Promise.all([
     getAnnouncements(true),
     getNavLinks(),
+    draftMode(),
   ]);
 
   return (
@@ -45,6 +48,7 @@ export default async function RootLayout({
         <Footer />
         <Analytics />
         <SanityLive />
+        {isDraftMode && <VisualEditing />}
       </body>
     </html>
   );
