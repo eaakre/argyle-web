@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { SanityEvent } from "@/lib/sanity";
+import { StyledLink } from "../ui/Link";
 
 const TZ = "America/Chicago";
 
@@ -45,12 +46,13 @@ export function MYNDHero({ event }: { event: SanityEvent }) {
             {event.description}
           </p>
         )}
-        <a
+        <StyledLink
           href="#schedule"
-          className="inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
+          variant="secondary"
+          // className="inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
         >
           See the Schedule ↓
-        </a>
+        </StyledLink>
       </div>
     </div>
   );
