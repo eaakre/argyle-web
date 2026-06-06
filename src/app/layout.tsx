@@ -8,6 +8,7 @@ import { draftMode } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import { SanityLive } from "@/lib/live";
 import { VisualEditing } from "next-sanity/visual-editing";
+import { StyledLink } from "@/components/ui/Link";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -34,11 +35,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [announcements, navLinks, { isEnabled: isDraftMode }] = await Promise.all([
-    getAnnouncements(true),
-    getNavLinks(),
-    draftMode(),
-  ]);
+  const [announcements, navLinks, { isEnabled: isDraftMode }] =
+    await Promise.all([getAnnouncements(true), getNavLinks(), draftMode()]);
 
   return (
     <html lang="en">
@@ -49,6 +47,17 @@ export default async function RootLayout({
         <Analytics />
         <SanityLive />
         {isDraftMode && <VisualEditing />}
+        {isDraftMode && (
+          <div className="flex gap-4 flex-col md:flex-row justify-between w-full sticky border-t-2 border-text-primary z-[999] bottom-0 bg-gray-200 p-4 px-4 md:px-20">
+            <p>
+              You are in draft mode. Click here to resume viewing published
+              content
+            </p>
+            <StyledLink href="/api/draft-mode/disable" variant="default">
+              Exit Preview
+            </StyledLink>
+          </div>
+        )}
       </body>
     </html>
   );
