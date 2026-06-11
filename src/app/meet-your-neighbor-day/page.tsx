@@ -5,6 +5,7 @@ import { domainUrl } from "@/lib/constants";
 import { MYNDHero } from "@/components/mynd/MYNDHero";
 import { MYNDGallery } from "@/components/mynd/MYNDGallery";
 import { MYNDSchedule } from "@/components/mynd/MYNDSchedule";
+import { ImageLightbox } from "@/components/ui/ImageLightbox";
 
 export async function generateMetadata() {
   const event = await getMYNDEvent();
@@ -26,6 +27,18 @@ export default async function MeetYourNeighborDayPage() {
   return (
     <div className="min-h-screen bg-bg-secondary">
       <MYNDHero event={event} />
+      {event.image?.asset?.url && (
+        <div className="bg-bg-secondary">
+          <div className="container mx-auto px-4 py-6">
+            <div className="max-w-4xl mx-auto">
+              <ImageLightbox
+                src={event.image.asset.url}
+                alt={event.image.alt || event.title}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       {event.galleryImages && event.galleryImages.length > 0 && (
         <MYNDGallery images={event.galleryImages} />
       )}

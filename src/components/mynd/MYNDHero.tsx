@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { SanityEvent } from "@/lib/sanity";
 import { StyledLink } from "../ui/Link";
 
@@ -19,18 +18,6 @@ function formatDateRange(start: string, end?: string): string {
 export function MYNDHero({ event }: { event: SanityEvent }) {
   return (
     <div className="relative overflow-hidden bg-gradient-to-br from-primary to-accent min-h-[420px] flex items-center">
-      {event.image?.asset?.url && (
-        <>
-          <Image
-            src={event.image.asset.url}
-            alt={event.image.alt || event.title}
-            fill
-            priority
-            className="object-cover opacity-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
-        </>
-      )}
       <div className="relative z-10 container mx-auto px-4 py-20 text-white text-center">
         <p className="text-sm tracking-widest uppercase opacity-70 mb-3">
           <time dateTime={event.date}>
