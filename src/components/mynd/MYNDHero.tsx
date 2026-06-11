@@ -17,7 +17,7 @@ function formatDateRange(start: string, end?: string): string {
 
 export function MYNDHero({ event }: { event: SanityEvent }) {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-primary to-accent min-h-[420px] flex items-center">
+    <div className="relative overflow-hidden bg-primary min-h-[420px] flex items-center">
       <div className="relative z-10 container mx-auto px-4 py-20 text-white text-center">
         <p className="text-sm tracking-widest uppercase opacity-70 mb-3">
           <time dateTime={event.date}>
@@ -35,7 +35,7 @@ export function MYNDHero({ event }: { event: SanityEvent }) {
         )}
         <StyledLink
           href="#schedule"
-          variant="secondary"
+          variant="outline"
           // className="inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
         >
           See the Schedule ↓

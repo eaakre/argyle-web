@@ -164,3 +164,7 @@ footer {
   background-color: var(--badge-neutral-bg);
   color: var(--badge-neutral-text);
 }
+
+button {
+  cursor: pointer;
+}

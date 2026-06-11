@@ -23,7 +23,7 @@ function getTimeOfDay(iso: string): "morning" | "afternoon" | "evening" {
         hour: "numeric",
         hour12: false,
         timeZone: TZ,
-      })
+      }),
     ) % 24;
   if (hour < 12) return "morning";
   if (hour < 17) return "afternoon";
@@ -57,18 +57,12 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
     return [...subEvents]
       .sort(
         (a, b) =>
-          new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
+          new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
       )
       .filter((e) => {
-        if (
-          timeFilter !== "all" &&
-          getTimeOfDay(e.startTime) !== timeFilter
-        )
+        if (timeFilter !== "all" && getTimeOfDay(e.startTime) !== timeFilter)
           return false;
-        if (
-          categoryFilter !== "all" &&
-          !e.categories?.includes(categoryFilter)
-        )
+        if (categoryFilter !== "all" && !e.categories?.includes(categoryFilter))
           return false;
         return true;
       });
@@ -182,7 +176,11 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
 
                   {event.locationName && (
                     <div className="flex items-center gap-1 text-sm text-text-secondary">
-                      <MapPin size={11} aria-hidden="true" className="flex-shrink-0 opacity-60" />
+                      <MapPin
+                        size={11}
+                        aria-hidden="true"
+                        className="flex-shrink-0 opacity-60"
+                      />
                       {event.address ? (
                         <a
                           href={mapsUrl(event.address)}

@@ -29,7 +29,7 @@ export function ImageLightbox({ src, alt }: Props) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="group relative w-full bg-bg-primary shadow-sm overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="group relative cursor-pointer w-full bg-bg-primary shadow-sm overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         aria-label="View larger image"
       >
         <Image
