@@ -30,6 +30,7 @@ function getTimeOfDay(iso: string): "morning" | "afternoon" | "evening" {
   return "evening";
 }
 
+// Groups by weekday name — assumes subEvents don't span multiple calendar weeks.
 function getDayName(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
     weekday: "long",
@@ -39,6 +40,84 @@ function getDayName(iso: string): string {
 
 function mapsUrl(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+}
+
+function EventCard({ event, borderColor }: { event: SubEvent; borderColor: string }) {
+  return (
+    <div
+      className="flex gap-4 items-start bg-bg-primary rounded-sm shadow-sm px-4 py-4 border-l-4"
+      style={{ borderLeftColor: borderColor }}
+    >
+      {/* Time */}
+      <div className="flex-shrink-0 flex items-center gap-1 text-sm font-bold text-text-secondary min-w-[72px] pt-0.5">
+        <Clock size={11} aria-hidden="true" className="opacity-60" />
+        {formatTime(event.startTime)}
+      </div>
+
+      {/* Body */}
+      <div className="flex-1 min-w-0">
+        <div className="flex flex-wrap items-center gap-2 mb-1">
+          <span className="font-bold text-sm text-text-primary">
+            {event.title}
+          </span>
+          {event.isFree && (
+            <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-semibold">
+              Free
+            </span>
+          )}
+        </div>
+
+        {event.description && (
+          <p className="text-sm text-text-secondary mb-1.5">
+            {event.description}
+          </p>
+        )}
+
+        {event.locationName && (
+          <div className="flex items-center gap-1 text-sm text-text-secondary">
+            <MapPin
+              size={11}
+              aria-hidden="true"
+              className="flex-shrink-0 opacity-60"
+            />
+            {event.address ? (
+              <a
+                href={mapsUrl(event.address)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${event.locationName} – open in Google Maps`}
+                className="hover:text-text-hover transition-colors underline underline-offset-2"
+              >
+                {event.locationName}
+              </a>
+            ) : (
+              <span>{event.locationName}</span>
+            )}
+          </div>
+        )}
+
+        {event.categories && event.categories.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {event.categories.map((cat) => (
+              <span
+                key={cat}
+                className="text-xs px-2 py-0.5 bg-bg-secondary text-text-secondary rounded-full capitalize"
+              >
+                {cat}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* End time */}
+      {event.endTime && (
+        <div className="flex-shrink-0 text-xs text-text-secondary pt-0.5 whitespace-nowrap">
+          ends {formatTime(event.endTime)}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
@@ -62,123 +141,43 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
     return map;
   }, [categories]);
 
+  const sortedEvents = useMemo(
+    () =>
+      [...subEvents].sort(
+        (a, b) =>
+          new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
+      ),
+    [subEvents],
+  );
+
   const availableDays = useMemo(() => {
     const seen = new Set<string>();
     const ordered: string[] = [];
-    [...subEvents]
-      .sort(
-        (a, b) =>
-          new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
-      )
-      .forEach((e) => {
-        const day = getDayName(e.startTime);
-        if (!seen.has(day)) {
-          seen.add(day);
-          ordered.push(day);
-        }
-      });
+    sortedEvents.forEach((e) => {
+      const day = getDayName(e.startTime);
+      if (!seen.has(day)) {
+        seen.add(day);
+        ordered.push(day);
+      }
+    });
     return ordered;
-  }, [subEvents]);
+  }, [sortedEvents]);
 
   const filtered = useMemo(() => {
-    return [...subEvents]
-      .sort(
-        (a, b) =>
-          new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
-      )
-      .filter((e) => {
-        if (dayFilter !== "all" && getDayName(e.startTime) !== dayFilter)
-          return false;
-        if (timeFilter !== "all" && getTimeOfDay(e.startTime) !== timeFilter)
-          return false;
-        if (categoryFilter !== "all" && !e.categories?.includes(categoryFilter))
-          return false;
-        return true;
-      });
-  }, [subEvents, dayFilter, timeFilter, categoryFilter]);
+    return sortedEvents.filter((e) => {
+      if (dayFilter !== "all" && getDayName(e.startTime) !== dayFilter)
+        return false;
+      if (timeFilter !== "all" && getTimeOfDay(e.startTime) !== timeFilter)
+        return false;
+      if (categoryFilter !== "all" && !e.categories?.includes(categoryFilter))
+        return false;
+      return true;
+    });
+  }, [sortedEvents, dayFilter, timeFilter, categoryFilter]);
 
   function borderColorFor(e: SubEvent) {
     const firstCat = e.categories?.[0];
     return firstCat ? categoryColorMap[firstCat] : "var(--color-accent)";
-  }
-
-  function renderEventCard(event: SubEvent) {
-    return (
-      <div
-        key={event._key}
-        className="flex gap-4 items-start bg-bg-primary rounded-sm shadow-sm px-4 py-4 border-l-4"
-        style={{ borderLeftColor: borderColorFor(event) }}
-      >
-        {/* Time */}
-        <div className="flex-shrink-0 flex items-center gap-1 text-sm font-bold text-text-secondary min-w-[72px] pt-0.5">
-          <Clock size={11} aria-hidden="true" className="opacity-60" />
-          {formatTime(event.startTime)}
-        </div>
-
-        {/* Body */}
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="font-bold text-sm text-text-primary">
-              {event.title}
-            </span>
-            {event.isFree && (
-              <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-semibold">
-                Free
-              </span>
-            )}
-          </div>
-
-          {event.description && (
-            <p className="text-sm text-text-secondary mb-1.5">
-              {event.description}
-            </p>
-          )}
-
-          {event.locationName && (
-            <div className="flex items-center gap-1 text-sm text-text-secondary">
-              <MapPin
-                size={11}
-                aria-hidden="true"
-                className="flex-shrink-0 opacity-60"
-              />
-              {event.address ? (
-                <a
-                  href={mapsUrl(event.address)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${event.locationName} – open in Google Maps`}
-                  className="hover:text-text-hover transition-colors underline underline-offset-2"
-                >
-                  {event.locationName}
-                </a>
-              ) : (
-                <span>{event.locationName}</span>
-              )}
-            </div>
-          )}
-
-          {event.categories && event.categories.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-2">
-              {event.categories.map((cat) => (
-                <span
-                  key={cat}
-                  className="text-xs px-2 py-0.5 bg-bg-secondary text-text-secondary rounded-full capitalize"
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* End time */}
-        {event.endTime && (
-          <div className="flex-shrink-0 text-xs text-text-secondary pt-0.5 whitespace-nowrap">
-            ends {formatTime(event.endTime)}
-          </div>
-        )}
-      </div>
-    );
   }
 
   const pillBase =
@@ -201,7 +200,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
                 Day
               </p>
               <div className="flex flex-wrap gap-2">
-                {(["all", ...availableDays] as string[]).map((day) => (
+                {["all", ...availableDays].map((day) => (
                   <button
                     key={day}
                     onClick={() => {
@@ -289,7 +288,9 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
                     <div className="flex-1 h-px bg-text-primary/10" />
                   </div>
                   <div className="flex flex-col gap-3">
-                    {dayEvents.map((event) => renderEventCard(event))}
+                    {dayEvents.map((event) => (
+                      <EventCard key={event._key} event={event} borderColor={borderColorFor(event)} />
+                    ))}
                   </div>
                 </div>
               );
@@ -297,7 +298,9 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
           </div>
         ) : (
           <div className="flex flex-col gap-3">
-            {filtered.map((event) => renderEventCard(event))}
+            {filtered.map((event) => (
+              <EventCard key={event._key} event={event} borderColor={borderColorFor(event)} />
+            ))}
           </div>
         )}
       </div>
