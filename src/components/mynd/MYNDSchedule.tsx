@@ -38,6 +38,20 @@ function getDayName(iso: string): string {
   });
 }
 
+function ordinal(n: number): string {
+  const s = ["th", "st", "nd", "rd"];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+function getDayHeading(iso: string): string {
+  const date = new Date(iso);
+  const weekday = date.toLocaleDateString("en-US", { weekday: "long", timeZone: TZ });
+  const month = date.toLocaleDateString("en-US", { month: "long", timeZone: TZ });
+  const day = parseInt(date.toLocaleDateString("en-US", { day: "numeric", timeZone: TZ }));
+  return `${weekday}, ${month} ${ordinal(day)}`;
+}
+
 function mapsUrl(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 }
@@ -283,7 +297,7 @@ export function MYNDSchedule({ subEvents }: { subEvents: SubEvent[] }) {
                 <div key={day}>
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-sm font-semibold text-text-secondary">
-                      {day}
+                      {getDayHeading(dayEvents[0].startTime)}
                     </span>
                     <div className="flex-1 h-px bg-text-primary/10" />
                   </div>
