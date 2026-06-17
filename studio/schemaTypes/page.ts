@@ -73,6 +73,7 @@ export const page = defineType({
         {type: 'newsHighlights'},
         {type: 'eventsHighlights'},
         {type: 'featureSpotlight'},
+        {type: 'pdfEmbed'},
       ],
     }),
   ],

@@ -94,7 +94,8 @@ export async function getPageBySlug(slug: string) {
         members[]{
           ...,
           photo { asset->{ url }, alt }
-        }
+        },
+        file { asset->{ url } }
       }
     }`;
   return await sanityFetch(query, { slug });
