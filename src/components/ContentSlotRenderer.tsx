@@ -10,6 +10,7 @@ import { NewsHighlights } from "./blocks/NewsHighlights";
 import { EventsHighlights } from "./blocks/EventsHighlights";
 import { SanityImage, CTA } from "@/types/cms";
 import { FeatureSpotlight } from "@/components/blocks/featureSpotlight";
+import { PdfEmbed } from "@/components/blocks/pdfEmbed";
 
 type ContentSlotsRendererProps = {
   contentSlots: PageContentSlot[];
@@ -59,6 +60,15 @@ export function ContentSlotsRenderer({
                 description={slot.description as string | undefined}
                 images={slot.images as SanityImage[] | undefined}
                 ctas={slot.ctas as CTA[] | undefined}
+              />
+            );
+          case "pdfEmbed":
+            return (
+              <PdfEmbed
+                key={index}
+                title={slot.title as string | undefined}
+                file={slot.file as { asset?: { url?: string } } | undefined}
+                height={slot.height as number | undefined}
               />
             );
           default:

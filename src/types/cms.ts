@@ -242,6 +242,13 @@ export type PageContentSlot =
       ctas?: CTA[];
     }
   | {
+      _type: "pdfEmbed";
+      _key: string;
+      title?: string;
+      file?: { asset?: { url?: string } };
+      height?: number;
+    }
+  | {
       _type: string;
       _key: string;
       [key: string]: unknown;

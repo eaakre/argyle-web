@@ -14,6 +14,7 @@ import {newsHighlights} from './newsHighlights'
 import {eventsHighlights} from './eventsHighlights'
 import {navigation} from './navigation'
 import {featureSpotlight} from './featureSpotlight'
+import {pdfEmbed} from './pdfEmbed'
 
 export const schemaTypes = [
   page,
@@ -32,4 +33,5 @@ export const schemaTypes = [
   eventsHighlights,
   navigation,
   featureSpotlight,
+  pdfEmbed,
 ]
