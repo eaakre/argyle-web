@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getEventsHighlights } from "@/lib/sanity";
 import { SanityImage } from "@/types/cms";
 import { EventsCarousel } from "./EventsCarousel";
+import Link from "next/link";
 
 interface EventsHighlightsProps {
   image?: SanityImage;
@@ -25,10 +26,7 @@ export async function EventsHighlights({
         {/* Mobile image — full width above carousel, hidden on desktop */}
         {imageUrl ? (
           <div className="relative h-48 w-full md:hidden overflow-hidden">
-            <a
-              href="/events"
-              className="group absolute inset-0 block"
-            >
+            <Link href="/events" className="group absolute inset-0 block">
               <Image
                 src={imageUrl}
                 alt={image?.alt ?? ""}
@@ -40,7 +38,7 @@ export async function EventsHighlights({
                 aria-hidden="true"
                 className="absolute inset-0 z-10 pointer-events-none group-focus-visible:ring-[3px] group-focus-visible:ring-inset group-focus-visible:ring-secondary"
               />
-            </a>
+            </Link>
             <div className="absolute top-[20px] left-0 bg-primary/90 px-6 py-2">
               <h2 className="text-2xl md:text-3xl font-bold text-white uppercase">
                 {title}
@@ -58,10 +56,7 @@ export async function EventsHighlights({
           {/* Left column: full-bleed image, desktop only */}
           {imageUrl && (
             <div className="relative hidden md:block md:w-3/5 flex-shrink-0">
-              <a
-                href="/events"
-                className="group absolute inset-0 block"
-              >
+              <Link href="/events" className="group absolute inset-0 block">
                 <Image
                   src={imageUrl}
                   alt={image?.alt ?? ""}
@@ -73,7 +68,7 @@ export async function EventsHighlights({
                   aria-hidden="true"
                   className="absolute inset-0 z-10 pointer-events-none group-focus-visible:ring-[3px] group-focus-visible:ring-inset group-focus-visible:ring-secondary"
                 />
-              </a>
+              </Link>
               <div className="absolute top-[20px] left-[-10] bg-primary/90 px-12 py-2 pointer-events-none">
                 <h2 className="text-2xl py-4 font-bold text-white uppercase">
                   {title}
