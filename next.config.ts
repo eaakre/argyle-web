@@ -24,14 +24,6 @@ const nextConfig: NextConfig = {
       permanent: true,
     }));
   },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
-      },
-    ];
-  },
   images: {
     remotePatterns: [
       {

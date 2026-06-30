@@ -1,1 +1,1 @@
-export const domainUrl = "https://argyle-web-alpha.vercel.app";
+export const domainUrl = "https://ci.argyle.mn.us";
