@@ -3,17 +3,42 @@ import { notFound } from "next/navigation";
 import { generateSEOMetadata } from "@/lib/seo";
 import { ContentSlotsRenderer } from "@/components/ContentSlotRenderer";
 import { domainUrl } from "@/lib/constants";
+import fs from "fs";
+import path from "path";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
+// Sibling top-level routes (their own page.tsx under src/app) must be
+// excluded here, or generateStaticParams would emit a colliding /[slug]
+// page at the same output path, overwriting the real route's static build.
+// Derived from the filesystem so new routes don't need a manual update.
+function getReservedSlugs(): string[] {
+  const appDir = path.join(process.cwd(), "src", "app");
+  return fs
+    .readdirSync(appDir, { withFileTypes: true })
+    .filter(
+      (entry) =>
+        entry.isDirectory() &&
+        entry.name !== "api" &&
+        !entry.name.startsWith("[") &&
+        !entry.name.startsWith("(") &&
+        (fs.existsSync(path.join(appDir, entry.name, "page.tsx")) ||
+          fs.existsSync(path.join(appDir, entry.name, "page.ts")))
+    )
+    .map((entry) => entry.name);
+}
+
 export async function generateStaticParams() {
   const pages = await getAllPages();
+  const reservedSlugs = getReservedSlugs();
   return pages
     .filter(
       (p: { slug?: { current?: string }; pathPrefix?: string }) =>
-        p.slug?.current && !p.pathPrefix
+        p.slug?.current &&
+        !p.pathPrefix &&
+        !reservedSlugs.includes(p.slug.current)
     )
     .map((p: { slug: { current: string } }) => ({ slug: p.slug.current }));
 }

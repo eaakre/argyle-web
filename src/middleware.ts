@@ -7,6 +7,12 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get("host") ?? "";
   const isProduction = PRODUCTION_HOSTS.includes(host);
 
+  if (!isProduction && request.nextUrl.pathname === "/robots.txt") {
+    return new NextResponse("User-agent: *\nDisallow: /\n", {
+      headers: { "Content-Type": "text/plain" },
+    });
+  }
+
   const response = NextResponse.next();
 
   if (!isProduction) {
