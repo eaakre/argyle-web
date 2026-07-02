@@ -4,7 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getAnnouncements, getNavLinks } from "@/lib/sanity";
-import { draftMode, headers } from "next/headers";
+import { draftMode } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import { SanityLive } from "@/lib/live";
 import { VisualEditing } from "next-sanity/visual-editing";
@@ -24,15 +24,10 @@ const raleway = Raleway({
   display: "swap",
 });
 
-const PRODUCTION_HOSTS = ["ci.argyle.mn.us"];
-
 export async function generateMetadata(): Promise<Metadata> {
-  const host = (await headers()).get("host") ?? "";
-  const isProduction = PRODUCTION_HOSTS.includes(host);
   return {
     title: "City of Argyle",
     description: "The Home in Hometown",
-    ...(!isProduction && { robots: { index: false, follow: false } }),
   };
 }
 

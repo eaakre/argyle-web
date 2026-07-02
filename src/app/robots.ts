@@ -1,15 +1,9 @@
 import type { MetadataRoute } from "next";
-import { headers } from "next/headers";
 import { domainUrl } from "@/lib/constants";
 
-export default async function robots(): Promise<MetadataRoute.Robots> {
-  const host = (await headers()).get("host") ?? "";
-  const isProduction = host === "ci.argyle.mn.us";
-
-  if (!isProduction) {
-    return { rules: { userAgent: "*", disallow: "/" } };
-  }
-
+// Static — the staging host is kept out of search results via the
+// X-Robots-Tag header set in middleware.ts, not via this file.
+export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
     sitemap: `${domainUrl}/sitemap.xml`,

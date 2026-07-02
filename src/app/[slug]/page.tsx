@@ -1,4 +1,4 @@
-import { getPageBySlug } from "@/lib/sanity";
+import { getPageBySlug, getAllPages } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import { generateSEOMetadata } from "@/lib/seo";
 import { ContentSlotsRenderer } from "@/components/ContentSlotRenderer";
@@ -7,6 +7,16 @@ import { domainUrl } from "@/lib/constants";
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export async function generateStaticParams() {
+  const pages = await getAllPages();
+  return pages
+    .filter(
+      (p: { slug?: { current?: string }; pathPrefix?: string }) =>
+        p.slug?.current && !p.pathPrefix
+    )
+    .map((p: { slug: { current: string } }) => ({ slug: p.slug.current }));
+}
 
 export async function generateMetadata({
   params,
