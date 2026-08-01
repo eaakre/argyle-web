@@ -15,14 +15,60 @@ async function getBusinessSlugs(): Promise<string[]> {
   }
 }
 
+const staticRedirects = [
+  {
+    source: "/virtual-tour",
+    destination: "/city-services/city-office",
+    permanent: true,
+  },
+  {
+    source: "/argyle-chemical-johnson-airspray",
+    destination: "/business/johnson-airspray",
+    permanent: true,
+  },
+  {
+    source: "/business/benton-safranski-co-llp-2",
+    destination: "/business/benton-safranski-co-llp",
+    permanent: true,
+  },
+  {
+    source: "/notices/:path*",
+    destination: "/news",
+    permanent: true,
+  },
+  {
+    source: "/housing/apartments",
+    destination: "/apartments",
+    permanent: true,
+  },
+  {
+    source: "/calendar",
+    destination: "/events",
+    permanent: true,
+  },
+  {
+    source: "/city-services",
+    destination: "/city-services/city-office",
+    permanent: true,
+  },
+  {
+    source: "/town-history",
+    destination: "/city-services/history",
+    permanent: true,
+  },
+];
+
 const nextConfig: NextConfig = {
   async redirects() {
     const slugs = await getBusinessSlugs();
-    return slugs.map((slug) => ({
-      source: `/${slug}`,
-      destination: `/business/${slug}`,
-      permanent: true,
-    }));
+    return [
+      ...staticRedirects,
+      ...slugs.map((slug) => ({
+        source: `/${slug}`,
+        destination: `/business/${slug}`,
+        permanent: true,
+      })),
+    ];
   },
   images: {
     remotePatterns: [
