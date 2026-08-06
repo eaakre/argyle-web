@@ -7,6 +7,7 @@ import Drawer from "./ui/Drawer";
 import { SanityNavLink } from "@/lib/sanity";
 import Image from "next/image";
 import AnnouncementBar, { Announcement } from "./ui/AnnouncementBar";
+import { track } from "@vercel/analytics";
 
 type Props = {
   announcements?: Announcement[];
@@ -261,7 +262,10 @@ function NavLinks({
                           key={child.label}
                           href={child.href}
                           className="group flex items-center gap-4 rounded-sm px-3 py-2.5 font-medium transition-colors duration-150 hover:bg-primary/5 hover:text-text-primary"
-                          onClick={onCloseDropdown}
+                          onClick={() => {
+                            onCloseDropdown ? onCloseDropdown() : undefined;
+                            track("Nav Click", { label: `${child.label}` });
+                          }}
                         >
                           <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-secondary opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
                           {child.label}
@@ -280,7 +284,10 @@ function NavLinks({
                       key={child.label}
                       href={child.href}
                       className="flex items-center gap-2.5 border-b border-black/[0.04] px-6 py-2.5 text-sm font-medium text-text-secondary last:border-b-0"
-                      onClick={onClick}
+                      onClick={() => {
+                        onClick ? onClick() : undefined;
+                        track("Nav Click", { label: `${child.label}` });
+                      }}
                     >
                       <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-secondary" />
                       {child.label}

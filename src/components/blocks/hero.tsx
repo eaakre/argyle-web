@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { buttonVariants } from "../ui/Button";
 import { CTA, SanityImage } from "../../types/cms";
+import { track } from "@vercel/analytics";
 
 type HeroProps = {
   heading?: string;
@@ -122,6 +123,9 @@ export function Hero({
                     variant: cta.variant ?? "default",
                     size: cta.size ?? "default",
                   })}
+                  onClick={() => {
+                    track("Hero Click", { label: `${cta.text}` });
+                  }}
                 >
                   {cta.text}
                 </Link>
