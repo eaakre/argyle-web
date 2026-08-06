@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SanityNewsArticle } from "@/lib/sanity";
 import { Calendar } from "lucide-react";
+import { track } from "@vercel/analytics";
 
 function formatDate(dateString: string) {
   return new Date(dateString + "T12:00:00").toLocaleDateString("en-US", {
@@ -118,10 +119,17 @@ export function NewsCarousel({ articles }: NewsCarouselProps) {
                 <StyledLink
                   href={`/news/${article.slug.current}`}
                   aria-label={`Read more about ${article.title}`}
+                  onClick={() =>
+                    track("Article click", { article: `${article.title}` })
+                  }
                 >
                   Read More
                 </StyledLink>
-                <StyledLink href="/news" variant="underline">
+                <StyledLink
+                  href="/news"
+                  variant="underline"
+                  onClick={() => track("Article click", { article: `all` })}
+                >
                   See all news →
                 </StyledLink>
               </div>

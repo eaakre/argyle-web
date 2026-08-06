@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SanityEvent } from "@/lib/sanity";
 import { MapPin, Calendar } from "lucide-react";
+import { track } from "@vercel/analytics";
 
 function formatEventDate(dateString: string) {
   return new Date(dateString).toLocaleDateString("en-US", {
@@ -125,10 +126,17 @@ export function EventsCarousel({ events }: EventsCarouselProps) {
                 <StyledLink
                   href={event.customUrl ?? `/events/${event.slug.current}`}
                   aria-label={`View details for ${event.title}`}
+                  onClick={() =>
+                    track("Event click", { event: `${event.title}` })
+                  }
                 >
                   View Details
                 </StyledLink>
-                <StyledLink href="/events" variant="underline">
+                <StyledLink
+                  href="/events"
+                  variant="underline"
+                  onClick={() => track("Event click", { event: `all` })}
+                >
                   See all events →
                 </StyledLink>
               </div>

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { urlForImage } from "@/lib/sanity";
 import { CTA, SanityImage } from "@/types/cms";
 import { StyledLink } from "../ui/Link";
+import { track } from "@vercel/analytics";
 
 type FeatureSpotlightProps = {
   title: string;
@@ -134,7 +135,14 @@ export function FeatureSpotlight({
           {ctas.length > 0 && (
             <div className="flex flex-wrap gap-3">
               {ctas.map((cta, i) => (
-                <StyledLink href={cta.href} variant={cta.variant} key={i}>
+                <StyledLink
+                  href={cta.href}
+                  variant={cta.variant}
+                  key={i}
+                  onClick={() =>
+                    track("Feature Click", { label: `${cta.text}` })
+                  }
+                >
                   {cta.text}
                 </StyledLink>
               ))}

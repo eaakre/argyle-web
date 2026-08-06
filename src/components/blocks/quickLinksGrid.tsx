@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { urlForImage } from "@/lib/sanity";
 import { SanityImage } from "@/types/cms";
+import { track } from "@vercel/analytics";
 
 interface QuickLink {
   title: string;
@@ -63,6 +64,7 @@ const QuickLinksGrid = ({ title, links, columns = 3 }: QuickLinksGridProps) => {
                 target={link.isExternal ? "_blank" : "_self"}
                 rel={link.isExternal ? "noopener noreferrer" : undefined}
                 className="group relative block h-80 overflow-hidden"
+                onClick={() => track("Grid Click", { label: `${link.title}` })}
               >
                 {/* Background: photo or gradient */}
                 {imageUrl ? (

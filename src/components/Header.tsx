@@ -308,7 +308,10 @@ function NavLinks({
                 ? "hover:text-primary-hover"
                 : "flex w-full items-center px-5 py-4 font-semibold text-base border-b border-secondary/15"
             }
-            onClick={onClick}
+            onClick={() => {
+              onClick ? onClick() : undefined;
+              track("Nav Click", { label: `${link.label}` });
+            }}
           >
             {link.label}
           </Link>
