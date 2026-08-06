@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { urlForImage } from "@/lib/sanity";

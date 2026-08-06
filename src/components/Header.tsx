@@ -263,7 +263,7 @@ function NavLinks({
                           href={child.href}
                           className="group flex items-center gap-4 rounded-sm px-3 py-2.5 font-medium transition-colors duration-150 hover:bg-primary/5 hover:text-text-primary"
                           onClick={() => {
-                            onCloseDropdown ? onCloseDropdown() : undefined;
+                            onCloseDropdown?.();
                             track("Nav Click", { label: `${child.label}` });
                           }}
                         >
@@ -285,7 +285,7 @@ function NavLinks({
                       href={child.href}
                       className="flex items-center gap-2.5 border-b border-black/[0.04] px-6 py-2.5 text-sm font-medium text-text-secondary last:border-b-0"
                       onClick={() => {
-                        onClick ? onClick() : undefined;
+                        onClick?.();
                         track("Nav Click", { label: `${child.label}` });
                       }}
                     >
@@ -309,7 +309,7 @@ function NavLinks({
                 : "flex w-full items-center px-5 py-4 font-semibold text-base border-b border-secondary/15"
             }
             onClick={() => {
-              onClick ? onClick() : undefined;
+              onClick?.();
               track("Nav Click", { label: `${link.label}` });
             }}
           >
