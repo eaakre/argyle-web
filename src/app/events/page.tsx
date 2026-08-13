@@ -15,7 +15,7 @@ export async function generateMetadata() {
       page.description ||
       "Stay up to date with events and community happenings in Argyle, Minnesota.",
     canonicalUrl: `${domainUrl}/events/`,
-    ogImage: page.ogImage ? page.ogImageUrl : `${domainUrl}/argyle-drone.jpg`,
+    ogImage: page.socialImage?.asset?.url || `${domainUrl}/argyle-drone.jpg`,
   });
 }
 

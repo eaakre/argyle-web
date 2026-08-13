@@ -33,7 +33,7 @@ export async function generateMetadata({
       page.description ||
       "Welcome to Argyle, Minnesota - a charming small town in Marshall County. Discover local services, events, and businesses in 'The Home in Hometown.",
     canonicalUrl: `${domainUrl}/organizations/${slug}`,
-    ogImage: page.ogImage ? page.ogImageUrl : `${domainUrl}/argyle-drone.jpg`,
+    ogImage: page.socialImage?.asset?.url || `${domainUrl}/argyle-drone.jpg`,
   });
 }
 

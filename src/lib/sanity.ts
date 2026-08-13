@@ -76,6 +76,8 @@ export async function getPageBySlug(slug: string) {
       title,
       slug,
       heading,
+      description,
+      socialImage { asset->{ url }, alt },
       contentSlots[]{
         _type,
         ...,
