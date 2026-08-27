@@ -1,5 +1,5 @@
 import { getPageBySlug, getAllPages } from "@/lib/sanity";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { generateSEOMetadata } from "@/lib/seo";
 import { ContentSlotsRenderer } from "@/components/ContentSlotRenderer";
 import { domainUrl } from "@/lib/constants";
@@ -67,6 +67,10 @@ export default async function Page({ params }: PageProps) {
   const page = await getPageBySlug(slug);
 
   if (!page) return notFound();
+
+  if (page.pathPrefix) {
+    redirect(`/${page.pathPrefix}/${slug}`);
+  }
 
   return (
     <>
