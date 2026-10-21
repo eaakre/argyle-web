@@ -16,20 +16,23 @@ export function PdfEmbed({ title, file, height = 800 }: PdfEmbedProps) {
         {title && (
           <h2 className="mb-4 text-2xl font-semibold text-gray-800">{title}</h2>
         )}
-        <object
-          data={proxyUrl}
-          type="application/pdf"
-          width="100%"
-          height={height}
-          className="rounded border border-gray-200"
-        >
-          <p className="p-4 text-sm text-gray-600">
-            Your browser cannot display this PDF inline.{" "}
-            <a href={proxyUrl} target="_blank" rel="noopener noreferrer" className="underline text-blue-600">
-              Open PDF
-            </a>
-          </p>
-        </object>
+        {/* Desktop: inline viewer */}
+        <div className="hidden md:block">
+          <object
+            data={proxyUrl}
+            type="application/pdf"
+            width="100%"
+            height={height}
+            className="rounded border border-gray-200"
+          >
+            <p className="p-4 text-sm text-gray-600">
+              Your browser cannot display this PDF inline.{" "}
+              <a href={proxyUrl} target="_blank" rel="noopener noreferrer" className="underline text-blue-600">
+                Open PDF
+              </a>
+            </p>
+          </object>
+        </div>
         <a
           href={proxyUrl}
           target="_blank"
