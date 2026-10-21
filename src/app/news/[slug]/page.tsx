@@ -108,26 +108,36 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
               <p className="italic text-text-secondary">No content provided.</p>
             )}
 
-            {article.pdfAttachment?.asset?.url && (
-              <div className="mt-6 pt-6 border-t border-bg-secondary">
-                <iframe
-                  src={`https://docs.google.com/viewer?url=${encodeURIComponent(article.pdfAttachment.asset.url)}&embedded=true`}
-                  title="PDF attachment"
-                  width="100%"
-                  height={800}
-                  className="rounded border border-gray-200"
-                />
-                <a
-                  href={article.pdfAttachment.asset.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
-                >
-                  <Download size={14} />
-                  Download PDF
-                </a>
-              </div>
-            )}
+            {article.pdfAttachment?.asset?.url && (() => {
+              const proxyUrl = `/api/pdf?url=${encodeURIComponent(article.pdfAttachment!.asset.url)}`;
+              return (
+                <div className="mt-6 pt-6 border-t border-bg-secondary">
+                  <object
+                    data={proxyUrl}
+                    type="application/pdf"
+                    width="100%"
+                    height={800}
+                    className="rounded border border-gray-200"
+                  >
+                    <p className="p-4 text-sm text-gray-600">
+                      Your browser cannot display this PDF inline.{" "}
+                      <a href={proxyUrl} target="_blank" rel="noopener noreferrer" className="underline">
+                        Open PDF
+                      </a>
+                    </p>
+                  </object>
+                  <a
+                    href={proxyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
+                  >
+                    <Download size={14} />
+                    Open / Download PDF
+                  </a>
+                </div>
+              );
+            })()}
           </div>
         </div>
 
