@@ -1,77 +1,12 @@
-import { getMYNDEvent, SanityEvent, SubEvent } from "@/lib/sanity";
+import { getMYNDEvent } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import { generateSEOMetadata } from "@/lib/seo";
 import { domainUrl } from "@/lib/constants";
+import { buildEventJsonLd } from "@/lib/eventJsonLd";
 import { MYNDHero } from "@/components/mynd/MYNDHero";
 import { MYNDGallery } from "@/components/mynd/MYNDGallery";
 import { MYNDSchedule } from "@/components/mynd/MYNDSchedule";
 import { ImageLightbox } from "@/components/ui/ImageLightbox";
-
-function getEventDateRange(subEvents: SubEvent[]) {
-  const starts = subEvents.map((e) => new Date(e.startTime).getTime());
-  const ends = subEvents.map((e) =>
-    new Date(e.endTime ?? e.startTime).getTime(),
-  );
-  return {
-    startDate: new Date(Math.min(...starts)).toISOString(),
-    endDate: new Date(Math.max(...ends)).toISOString(),
-  };
-}
-
-function buildEventJsonLd(event: SanityEvent) {
-  const { startDate, endDate } = event.subEvents?.length
-    ? getEventDateRange(event.subEvents)
-    : { startDate: event.date, endDate: event.endDate };
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    name: event.title,
-    startDate,
-    endDate,
-    eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    description: event.description,
-    image: event.image?.asset?.url ? [event.image.asset.url] : undefined,
-    url: `${domainUrl}/meet-your-neighbor-day`,
-    location: {
-      "@type": "Place",
-      name: "Argyle, MN",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Argyle",
-        addressRegion: "MN",
-        addressCountry: "US",
-      },
-    },
-    subEvent: event.subEvents?.map((sub) => ({
-      "@type": "Event",
-      name: sub.title,
-      description: sub.description,
-      startDate: sub.startTime,
-      endDate: sub.endTime,
-      location: sub.locationName
-        ? {
-            "@type": "Place",
-            name: sub.locationName,
-            address: {
-              "@type": "PostalAddress",
-              addressLocality: "Argyle",
-              addressRegion: "MN",
-            },
-          }
-        : undefined,
-      offers: sub.isFree
-        ? {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD",
-            availability: "https://schema.org/InStock",
-          }
-        : undefined,
-    })),
-  };
-}
 
 export async function generateMetadata() {
   const event = await getMYNDEvent();
@@ -95,7 +30,9 @@ export default async function MeetYourNeighborDayPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildEventJsonLd(event)),
+          __html: JSON.stringify(
+            buildEventJsonLd(event, `${domainUrl}/meet-your-neighbor-day`),
+          ),
         }}
       />
       <MYNDHero event={event} />

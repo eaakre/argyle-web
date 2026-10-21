@@ -2,6 +2,7 @@ import { getEventBySlug, getAllEvents, SanityEvent } from "@/lib/sanity";
 import { notFound } from "next/navigation";
 import { generateSEOMetadata } from "@/lib/seo";
 import { domainUrl } from "@/lib/constants";
+import { buildEventJsonLd } from "@/lib/eventJsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { EventGallery } from "@/components/ui/EventGallery";
@@ -110,6 +111,14 @@ export default async function EventPage({ params }: EventPageProps) {
 
   return (
     <div className="min-h-screen bg-bg-secondary">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            buildEventJsonLd(event, `${domainUrl}/events/${slug}`),
+          ),
+        }}
+      />
       {/* Breadcrumb */}
       <div className="bg-bg-secondary border-b">
         <div className="container mx-auto px-4 py-4">
