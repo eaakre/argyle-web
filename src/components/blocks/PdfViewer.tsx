@@ -2,8 +2,6 @@
 
 import { useState, useCallback } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
 import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -34,8 +32,8 @@ export default function PdfViewer({ url, downloadLabel = "Open / Download PDF" }
           <Page
             pageNumber={pageNumber}
             width={containerWidth || undefined}
-            renderTextLayer
-            renderAnnotationLayer
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
           />
         </Document>
       </div>
