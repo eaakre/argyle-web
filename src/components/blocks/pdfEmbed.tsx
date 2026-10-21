@@ -1,13 +1,8 @@
-"use client";
-
-import dynamic from "next/dynamic";
-
-const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
+import PdfViewer from "./PdfViewer";
 
 type PdfEmbedProps = {
   title?: string;
   file?: { asset?: { url?: string } };
-  height?: number;
 };
 
 export function PdfEmbed({ title, file }: PdfEmbedProps) {
