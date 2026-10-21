@@ -8,7 +8,8 @@ import { generateSEOMetadata } from "@/lib/seo";
 import { domainUrl } from "@/lib/constants";
 import Link from "next/link";
 import { NewsBody } from "@/components/NewsBody";
-import { Calendar, Download } from "lucide-react";
+import { Calendar } from "lucide-react";
+import { NewsPdfViewer } from "@/components/blocks/NewsPdfViewer";
 
 type NewsPageProps = {
   params: Promise<{ slug: string }>;
@@ -111,32 +112,8 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
             {article.pdfAttachment?.asset?.url && (() => {
               const proxyUrl = `/api/pdf?url=${encodeURIComponent(article.pdfAttachment!.asset.url)}`;
               return (
-                <div className="mt-6 pt-6 border-t border-bg-secondary">
-                  {/* Desktop: inline viewer */}
-                  <div className="-mx-8 hidden md:block">
-                    <object
-                      data={proxyUrl}
-                      type="application/pdf"
-                      width="100%"
-                      height={800}
-                    >
-                      <p className="p-4 text-sm text-gray-600">
-                        Your browser cannot display this PDF inline.{" "}
-                        <a href={proxyUrl} target="_blank" rel="noopener noreferrer" className="underline">
-                          Open PDF
-                        </a>
-                      </p>
-                    </object>
-                  </div>
-                  <a
-                    href={proxyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-2 border-2 border-accent text-accent font-bold uppercase tracking-widest px-6 py-2 hover:bg-accent hover:text-bg-primary transition-colors"
-                  >
-                    <Download size={14} />
-                    Open / Download PDF
-                  </a>
+                <div className="mt-6 pt-6 border-t border-bg-secondary -mx-8 px-8">
+                  <NewsPdfViewer url={proxyUrl} />
                 </div>
               );
             })()}
