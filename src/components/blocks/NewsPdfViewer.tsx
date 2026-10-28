@@ -1,8 +1,4 @@
-"use client";
-
-import dynamic from "next/dynamic";
-
-const PdfViewer = dynamic(() => import("./PdfViewer"), { ssr: false });
+import PdfViewer from "./PdfViewer";
 
 export function NewsPdfViewer({ url }: { url: string }) {
   return <PdfViewer url={url} />;
