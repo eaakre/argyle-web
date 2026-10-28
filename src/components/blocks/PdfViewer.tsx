@@ -1,4 +1,5 @@
 import { Download } from "lucide-react";
+import { domainUrl } from "@/lib/constants";
 
 type PdfViewerProps = {
   url: string;
@@ -6,10 +7,13 @@ type PdfViewerProps = {
 };
 
 export default function PdfViewer({ url, downloadLabel = "Open / Download PDF" }: PdfViewerProps) {
+  const absoluteUrl = url.startsWith("/") ? `${domainUrl}${url}` : url;
+  const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
+
   return (
     <div>
       <iframe
-        src={url}
+        src={viewerUrl}
         className="w-full border-0"
         style={{ height: "800px" }}
         title="PDF Document"
