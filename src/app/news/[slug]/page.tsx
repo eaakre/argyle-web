@@ -112,7 +112,7 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
             {article.pdfAttachment?.asset?.url && (() => {
               const proxyUrl = `/api/pdf?url=${encodeURIComponent(article.pdfAttachment!.asset.url)}`;
               return (
-                <div className="mt-6 pt-6 border-t border-bg-secondary -mx-8 px-8">
+                <div className="mt-6 pt-6 border-t border-bg-secondary -mx-8">
                   <NewsPdfViewer url={proxyUrl} />
                 </div>
               );

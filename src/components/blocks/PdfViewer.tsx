@@ -14,8 +14,7 @@ export default function PdfViewer({ url, downloadLabel = "Open / Download PDF" }
     <div>
       <iframe
         src={viewerUrl}
-        className="w-full border-0"
-        style={{ height: "800px" }}
+        className="w-full border-0 h-[500px] md:h-[800px]"
         title="PDF Document"
       />
       <div className="mt-3">
